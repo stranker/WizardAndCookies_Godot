@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/Wizards/ZakSkin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Wizards/WizardMovement.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Wizards/WizardUI.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Wizards/SpellCast.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 26.0477
 height = 99.8504
 
 [node name="Zak" type="KinematicBody2D"]
+collision_mask = 7
 script = ExtResource( 2 )
 jump_strength = 800.0
 
@@ -20,6 +22,9 @@ shape = SubResource( 1 )
 
 [node name="StatePosition" type="Position2D" parent="."]
 position = Vector2( 0, -112 )
+
+[node name="CastPosition" type="Position2D" parent="."]
+position = Vector2( 75, -2 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
@@ -38,5 +43,8 @@ text = "ZARLANGA"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SpellCast" parent="." instance=ExtResource( 4 )]
+cast_position_node = NodePath("../CastPosition")
 
 [connection signal="on_change_state" from="." to="UI" method="_on_Zak_on_change_state"]

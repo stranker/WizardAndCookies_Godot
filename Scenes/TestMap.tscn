@@ -28,6 +28,8 @@ node = NodePath("Zak")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2( 523.568, 570.127 )
+collision_layer = 2
+collision_mask = 5
 
 [node name="Sprite" type="Sprite" parent="Floor"]
 scale = Vector2( 22.1562, 1 )

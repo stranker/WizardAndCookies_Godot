@@ -30,7 +30,8 @@ func _physics_process(delta):
 
 	if is_jumping and not is_flying:
 		velocity.y  = -jump_strength
-	velocity = move_and_slide(velocity.normalized() * speed, UP_DIRECTION)
+	
+	velocity = move_and_slide(velocity, UP_DIRECTION)
 	pass
 
 func _process_state_machine():
@@ -84,9 +85,9 @@ func _process_movement(delta):
 								Input.get_action_strength("move_left"))
 	var vertical_direction = (Input.get_action_strength("move_down") - 
 								Input.get_action_strength("move_up"))
-	velocity.x = horizontal_direction
+	velocity.x = horizontal_direction * speed
 	if is_flying:
-		velocity.y = vertical_direction
+		velocity.y = vertical_direction * speed
 	else:
 		velocity.y += gravity * delta
 	pass
