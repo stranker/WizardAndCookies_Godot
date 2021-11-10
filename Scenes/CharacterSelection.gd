@@ -13,6 +13,5 @@ func _ready():
 #	pass
 
 func _on_GotoGameplayBtn_pressed():
-	print(SceneManager.SCENES.GAMEPLAY)
 	SceneManager.change_scene(SceneManager.SCENES.GAMEPLAY)
 	pass # Replace with function body.
