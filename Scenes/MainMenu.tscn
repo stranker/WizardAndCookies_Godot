@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://Objects/VolumeSlider.gd" type="Script" id=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -10,28 +11,135 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayBtn" type="Button" parent="."]
-anchor_left = 0.347
-anchor_top = 0.388
-anchor_right = 0.591
-anchor_bottom = 0.555
-margin_left = -0.328003
-margin_top = 0.199997
-margin_right = -0.184021
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 120
+custom_constants/margin_top = 80
+custom_constants/margin_left = 120
+custom_constants/margin_bottom = 80
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuPanel" type="Control" parent="MarginContainer"]
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 904.0
+margin_bottom = 520.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainMenuPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -178.0
+margin_top = -203.5
+margin_right = 178.0
+margin_bottom = 203.5
+custom_constants/separation = 29
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayBtn" type="Button" parent="MarginContainer/MainMenuPanel/VBoxContainer"]
+margin_top = 74.0
+margin_right = 356.0
+margin_bottom = 174.0
+rect_min_size = Vector2( 0, 100 )
 text = "Play"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExitBtn" type="Button" parent="."]
-anchor_left = 0.349
-anchor_top = 0.675
-anchor_right = 0.593
-anchor_bottom = 0.758
-margin_left = -0.376007
-margin_right = -0.232056
-margin_bottom = 0.199982
-text = "Exit"
+[node name="SettingsBtn" type="Button" parent="MarginContainer/MainMenuPanel/VBoxContainer"]
+margin_top = 203.0
+margin_right = 356.0
+margin_bottom = 253.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_vertical = 0
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[connection signal="pressed" from="PlayBtn" to="." method="_on_PlayBtn_pressed"]
-[connection signal="pressed" from="ExitBtn" to="." method="_on_ExitBtn_pressed"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/MainMenuPanel/VBoxContainer"]
+margin_top = 282.0
+margin_right = 356.0
+margin_bottom = 332.0
+rect_min_size = Vector2( 356, 50 )
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsPanel" type="Control" parent="MarginContainer"]
+visible = false
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 904.0
+margin_bottom = 520.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SettingsPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -185.5
+margin_top = -56.5
+margin_right = 185.5
+margin_bottom = 56.5
+custom_constants/separation = 66
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/SettingsPanel/VBoxContainer"]
+margin_right = 371.0
+margin_bottom = 16.0
+max_value = 1.0
+step = 0.05
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -86.0
+margin_top = -40.5
+margin_right = 90.0
+margin_bottom = -21.5
+rect_pivot_offset = Vector2( 1057, -227 )
+text = "Volume"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsPanel/VBoxContainer"]
+margin_top = 82.0
+margin_right = 371.0
+margin_bottom = 132.0
+alignment = 1
+
+[node name="SettingsExitBtn" type="Button" parent="MarginContainer/SettingsPanel/VBoxContainer/HBoxContainer"]
+margin_left = 110.0
+margin_right = 260.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/SettingsBtn" to="." method="_on_SettingsBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
+[connection signal="mouse_exited" from="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" to="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" method="release_focus"]
+[connection signal="value_changed" from="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" to="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" method="_on_VolumeSlider_value_changed"]
+[connection signal="pressed" from="MarginContainer/SettingsPanel/VBoxContainer/HBoxContainer/SettingsExitBtn" to="." method="_on_SettingsExitBtn_pressed"]

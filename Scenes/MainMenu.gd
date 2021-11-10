@@ -1,16 +1,8 @@
 extends Control
 
 onready var SceneManager = get_node("/root/SceneManager")
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+onready var MainMenuPanel = $MarginContainer/MainMenuPanel
+onready var SettingsPanel = $MarginContainer/SettingsPanel
 
 func _on_PlayBtn_pressed():
 	SceneManager.change_scene(SceneManager.SCENES.CHARACTER_SELECTION)
@@ -18,4 +10,16 @@ func _on_PlayBtn_pressed():
 
 func _on_ExitBtn_pressed():
 	get_tree().quit()
+	pass # Replace with function body.
+
+
+func _on_SettingsBtn_pressed():
+	MainMenuPanel.visible = false
+	SettingsPanel.visible = true
+	pass # Replace with function body.
+
+
+func _on_SettingsExitBtn_pressed():
+	MainMenuPanel.visible = true
+	SettingsPanel.visible = false
 	pass # Replace with function body.
