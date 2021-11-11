@@ -43,3 +43,5 @@ position = Vector2( 415, 437 )
 
 [node name="Dummy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 849, 450 )
+can_move = true
+player_id = 2
