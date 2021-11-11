@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Zak_Cloak.png-ac5a4836614c748dfb7a83fb030c915e.stex"
+path="res://.import/Zak_CloakFront.png-776bebbbe97bde2f4f3318f1804d84d0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mages/Zak/Zak_Cloak.png"
-dest_files=[ "res://.import/Zak_Cloak.png-ac5a4836614c748dfb7a83fb030c915e.stex" ]
+source_file="res://Objects/Wizards/Zak/Zak_CloakFront.png"
+dest_files=[ "res://.import/Zak_CloakFront.png-776bebbbe97bde2f4f3318f1804d84d0.stex" ]
 
 [params]
 
