@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FadedCircle.png-3143df808b3e8c044534f2d8afcfc327.stex"
+path="res://.import/Zak_Cloak.png-76fc4c18d1e8ea32ea02ffcb5a05aabc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Particles/FadedCircle.png"
-dest_files=[ "res://.import/FadedCircle.png-3143df808b3e8c044534f2d8afcfc327.stex" ]
+source_file="res://Objects/Wizards/Zak/Zak_Cloak.png"
+dest_files=[ "res://.import/Zak_Cloak.png-76fc4c18d1e8ea32ea02ffcb5a05aabc.stex" ]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

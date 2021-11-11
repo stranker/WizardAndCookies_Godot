@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Assets/Mages/Zak/Zak_Cloak.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Mages/Zak/Zak_Foot.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Mages/Zak/Zak_Head.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Mages/Zak/Zak_Hand.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Mages/Zak/Zak_Body.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Mages/Zak/Zak_CloakFront.png" type="Texture" id=6]
+[ext_resource path="res://Objects/Wizards/Zak/Zak_Cloak.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Wizards/Zak/Zak_Foot.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Wizards/Zak/Zak_Head.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Wizards/Zak/Zak_Hand.png" type="Texture" id=4]
+[ext_resource path="res://Objects/Wizards/Zak/Zak_Body.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Wizards/Zak/Zak_CloakFront.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"

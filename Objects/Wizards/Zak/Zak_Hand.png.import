@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Zak_Head.png-e0f6f0bef6af39f178150bf2bfa362ea.stex"
+path="res://.import/Zak_Hand.png-b7fa9c07df81b5a4eb7924e53f942d10.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mages/Zak/Zak_Head.png"
-dest_files=[ "res://.import/Zak_Head.png-e0f6f0bef6af39f178150bf2bfa362ea.stex" ]
+source_file="res://Objects/Wizards/Zak/Zak_Hand.png"
+dest_files=[ "res://.import/Zak_Hand.png-b7fa9c07df81b5a4eb7924e53f942d10.stex" ]
 
 [params]
 
