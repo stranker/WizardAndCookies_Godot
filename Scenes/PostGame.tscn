@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/PostGame.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartBtn" type="Button" parent="."]
+anchor_left = 0.335
+anchor_top = 0.303
+anchor_right = 0.638
+anchor_bottom = 0.555
+margin_left = -0.0400085
+margin_top = 0.199997
+margin_right = -0.312012
+text = "RESTART"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuBtn" type="Button" parent="."]
+anchor_left = 0.334
+anchor_top = 0.647
+anchor_right = 0.638
+anchor_bottom = 0.898
+margin_left = -0.0160217
+margin_top = -0.200012
+margin_right = -1.31201
+margin_bottom = 0.199951
+text = "GOTO MAIN MENU"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="RestartBtn" to="." method="_on_RestartBtn_pressed"]
+[connection signal="pressed" from="MainMenuBtn" to="." method="_on_MainMenuBtn_pressed"]
