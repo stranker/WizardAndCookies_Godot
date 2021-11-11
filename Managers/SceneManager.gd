@@ -1,6 +1,6 @@
 extends Node
 
-enum SCENES { 
+enum Scenes { 
 	MAIN_MENU,
 	CHARACTER_SELECTION,
 	GAMEPLAY,
@@ -13,13 +13,13 @@ func _ready():
 func change_scene(scene):
 	var scene_name = ""
 	match scene:
-		SCENES.MAIN_MENU:
+		Scenes.MAIN_MENU:
 			scene_name = "res://Scenes/MainMenu.tscn"
-		SCENES.CHARACTER_SELECTION:
+		Scenes.CHARACTER_SELECTION:
 			scene_name = "res://Scenes/CharacterSelection.tscn"
-		SCENES.GAMEPLAY:
+		Scenes.GAMEPLAY:
 			scene_name = "res://Scenes/Gameplay.tscn"
-		SCENES.POST_GAME:
+		Scenes.POST_GAME:
 			scene_name = "res://Scenes/PostGame.tscn"
 	var _current_scene = get_tree().change_scene(scene_name)
 	pass

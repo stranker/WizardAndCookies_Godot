@@ -1,25 +1,25 @@
 extends Control
 
-onready var SceneManager = get_node("/root/SceneManager")
-onready var MainMenuPanel = $MarginContainer/MainMenuPanel
-onready var SettingsPanel = $MarginContainer/SettingsPanel
+onready var scene_manager   = get_node("/root/SceneManager")
+onready var main_menu_panel = $MarginContainer/MainMenuPanel
+onready var settings_panel 	= $MarginContainer/SettingsPanel
 
-func _on_PlayBtn_pressed():
-	SceneManager.change_scene(SceneManager.SCENES.CHARACTER_SELECTION)
+func _on_PlayBtn_pressed() -> void:
+	scene_manager.change_scene(scene_manager.Scenes.CHARACTER_SELECTION)
 	pass
 
-func _on_ExitBtn_pressed():
+func _on_ExitBtn_pressed() -> void:
 	get_tree().quit()
-	pass # Replace with function body.
+	pass
 
 
-func _on_SettingsBtn_pressed():
-	MainMenuPanel.visible = false
-	SettingsPanel.visible = true
-	pass # Replace with function body.
+func _on_SettingsBtn_pressed() -> void:
+	main_menu_panel.visible = false
+	settings_panel.visible 	= true
+	pass
 
 
-func _on_SettingsExitBtn_pressed():
-	MainMenuPanel.visible = true
-	SettingsPanel.visible = false
-	pass # Replace with function body.
+func _on_SettingsExitBtn_pressed() -> void:
+	main_menu_panel.visible = true
+	settings_panel.visible 	= false
+	pass

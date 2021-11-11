@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/CharacterSelection.gd" type="Script" id=1]
+[ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -10,17 +11,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GotoGameplayBtn" type="Button" parent="."]
-anchor_left = 0.335
-anchor_top = 0.303
-anchor_right = 0.638
-anchor_bottom = 0.555
-margin_left = -0.0400085
-margin_top = 0.199997
-margin_right = -0.312012
-text = "GOTO GAMEPLAY"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="GameplayBtn" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = -70.0
+margin_right = 180.0
+margin_bottom = 70.0
+text = "GAMEPLAY"
 
-[connection signal="pressed" from="GotoGameplayBtn" to="." method="_on_GotoGameplayBtn_pressed"]
+[connection signal="pressed" from="GameplayBtn" to="." method="_on_GameplayBtn_pressed"]
