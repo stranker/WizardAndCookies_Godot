@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 export (Resource) var spell_data
 onready var spell_info = $SpellInfo
@@ -7,6 +7,7 @@ var direction : Vector2
 
 func _ready():
 	spell_info.initialize(spell_data)
+	connect("body_entered", self, "_on_spell_hit")
 	pass # Replace with function body.
 
 func cast(_spell_owner : Node2D, spell_position : Vector2, spell_direction : Vector2):

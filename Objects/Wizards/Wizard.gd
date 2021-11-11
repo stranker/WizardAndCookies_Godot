@@ -29,7 +29,10 @@ onready var move_right : String = "move_right_" + str(player_id)
 onready var move_up : String = "move_up_" + str(player_id) 
 onready var move_down : String = "move_down_" + str(player_id) 
 onready var jump : String = "jump_" + str(player_id) 
-onready var fly : String = "fly_" + str(player_id) 
+onready var fly : String = "fly_" + str(player_id)
+
+onready var visual : Node2D = get_node("Visual")
+onready var spell_timer : Timer = $SpellTimer
 
 signal on_state_change(state_string)
 signal on_health_update(health)
@@ -96,14 +99,23 @@ func _set_new_state(old_state, new_state):
 	pass
 
 func _process_movement(delta):
-	if !can_move: return
 	var horizontal_direction = get_horizontal_input()
 	var vertical_direction = get_vertical_input()
+	update_visual_direction(horizontal_direction)
+	if !can_move: return
 	velocity.x = horizontal_direction * speed
 	if is_flying:
 		velocity.y = vertical_direction * speed
 	else:
 		velocity.y += gravity * delta
+	pass
+
+func update_visual_direction(horizontal):
+	if visual:
+		if horizontal > 0.1:
+			visual.scale.x = 1
+		elif horizontal < -0.1:
+			visual.scale.x = -1
 	pass
 
 func get_horizontal_input():
@@ -112,6 +124,9 @@ func get_horizontal_input():
 func get_vertical_input():
 	return Input.get_action_strength(move_down) - Input.get_action_strength(move_up)
 
+func get_visual_direction():
+	return Vector2(visual.scale.x,0)
+
 func take_damage(damage : float):
 	health -= damage
 	health = max(0, health)
@@ -119,3 +134,16 @@ func take_damage(damage : float):
 	if(health <= 0):
 		emit_signal("on_health_depleted")
 	pass
+
+
+func _on_SpellCast_on_casting_spell(is_casting):
+	can_move = false
+	velocity = Vector2.ZERO
+	if !is_casting:
+		spell_timer.start()
+	pass # Replace with function body.
+
+
+func _on_SpellTimer_timeout():
+	can_move = true
+	pass # Replace with function body.
