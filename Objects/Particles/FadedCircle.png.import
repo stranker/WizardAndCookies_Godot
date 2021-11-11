@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Zak_Foot.png-c988bc24f8c7e47ae31e4749f62cefd5.stex"
+path="res://.import/FadedCircle.png-afad874fc476bf4aa81821e5108b6771.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mages/Zak/Zak_Foot.png"
-dest_files=[ "res://.import/Zak_Foot.png-c988bc24f8c7e47ae31e4749f62cefd5.stex" ]
+source_file="res://Objects/Particles/FadedCircle.png"
+dest_files=[ "res://.import/FadedCircle.png-afad874fc476bf4aa81821e5108b6771.stex" ]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
