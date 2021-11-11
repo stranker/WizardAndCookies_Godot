@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+class_name Wizard
+
 const UP_DIRECTION : Vector2 = Vector2.UP
 
 export var speed : float = 600.0
