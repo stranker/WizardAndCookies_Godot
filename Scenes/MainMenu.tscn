@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Objects/VolumeSlider.gd" type="Script" id=2]
+[ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Fonts/main_font.tres" type="DynamicFont" id=4]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -46,36 +48,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayBtn" type="Button" parent="MarginContainer/MainMenuPanel/VBoxContainer"]
-margin_top = 74.0
-margin_right = 356.0
-margin_bottom = 174.0
-rect_min_size = Vector2( 0, 100 )
-text = "Play"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PlayBtn" parent="MarginContainer/MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+margin_right = 360.0
+margin_bottom = 140.0
 
-[node name="SettingsBtn" type="Button" parent="MarginContainer/MainMenuPanel/VBoxContainer"]
-margin_top = 203.0
-margin_right = 356.0
-margin_bottom = 253.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_vertical = 0
-text = "Settings"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="SettingsBtn" parent="MarginContainer/MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 169.0
+margin_right = 360.0
+margin_bottom = 309.0
+text = "OPTIONS"
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/MainMenuPanel/VBoxContainer"]
-margin_top = 282.0
-margin_right = 356.0
-margin_bottom = 332.0
-rect_min_size = Vector2( 356, 50 )
-text = "Exit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ExitBtn" parent="MarginContainer/MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 338.0
+margin_right = 360.0
+margin_bottom = 478.0
+text = "EXIT"
 
 [node name="SettingsPanel" type="Control" parent="MarginContainer"]
 visible = false
@@ -108,11 +95,12 @@ script = ExtResource( 2 )
 [node name="Label" type="Label" parent="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -86.0
-margin_top = -40.5
-margin_right = 90.0
-margin_bottom = -21.5
+margin_left = -111.0
+margin_top = -93.5
+margin_right = 114.0
+margin_bottom = -34.5
 rect_pivot_offset = Vector2( 1057, -227 )
+custom_fonts/font = ExtResource( 4 )
 text = "Volume"
 align = 1
 __meta__ = {
@@ -122,20 +110,14 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsPanel/VBoxContainer"]
 margin_top = 82.0
 margin_right = 371.0
-margin_bottom = 132.0
+margin_bottom = 222.0
 alignment = 1
 
-[node name="SettingsExitBtn" type="Button" parent="MarginContainer/SettingsPanel/VBoxContainer/HBoxContainer"]
-margin_left = 110.0
-margin_right = 260.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 150, 50 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Exit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="SettingsExitBtn" parent="MarginContainer/SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 5.0
+margin_right = 365.0
+margin_bottom = 140.0
+text = "BACK"
 
 [connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/SettingsBtn" to="." method="_on_SettingsBtn_pressed"]
