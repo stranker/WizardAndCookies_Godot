@@ -4,6 +4,7 @@ var effect_scene = preload("res://Objects/Spells/Effects/Effect.tscn")
 var active_effects : Array = []
 
 onready var wizard : Wizard = get_parent()
+onready var fire_effect : Node2D = $FireEffectWizard
 
 signal on_effects_update(effects)
 
@@ -31,12 +32,23 @@ func _add_effect(effect_data : SpellEffect):
 	effect.call_deferred("initialize", effect_data, wizard)
 	effect.connect("effect_end", self, "on_effect_end")
 	active_effects.append(effect)
+	set_visual_effect_active(effect_data.e_type)
+	pass
+
+func set_visual_effect_active(effect_type : int):
+	match effect_type:
+		SpellManager.EffectType.FIRE:
+			fire_effect.visible = true
+		SpellManager.EffectType.ICE:
+			pass
+		SpellManager.EffectType.STUN:
+			pass
 	pass
 
 func on_effect_end(effect : Effect):
 	match effect.get_type():
 		SpellManager.EffectType.FIRE:
-			pass
+			fire_effect.visible = false
 		SpellManager.EffectType.ICE:
 			wizard.set_can_move(true)
 		SpellManager.EffectType.STUN:

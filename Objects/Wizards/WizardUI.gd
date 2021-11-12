@@ -3,11 +3,11 @@ extends Position2D
 export var debug_text : bool = true
 
 onready var anchor : Control = $CanvasLayer/Anchor
-onready var health_label : Label = $CanvasLayer/Anchor/VBC/Health
-onready var movement_state : Label = $CanvasLayer/Anchor/VBC/MovementState
-onready var can_move_label : Label = $CanvasLayer/Anchor/VBC/CanMove
-onready var attacking_state : Label = $CanvasLayer/Anchor/VBC/AttackingState
-onready var effect_state : Label = $CanvasLayer/Anchor/VBC/EffectState
+onready var health_label : Label = $CanvasLayer/Anchor/Panel/VBC/Health
+onready var movement_state : Label = $CanvasLayer/Anchor/Panel/VBC/MovementState
+onready var can_move_label : Label = $CanvasLayer/Anchor/Panel/VBC/CanMove
+onready var attacking_state : Label = $CanvasLayer/Anchor/Panel/VBC/AttackingState
+onready var effect_state : Label = $CanvasLayer/Anchor/Panel/VBC/EffectState
 onready var window_size : Vector2 = get_tree().root.get_viewport().get_visible_rect().size
 onready var anchor_position : Vector2 = Vector2.ZERO
 

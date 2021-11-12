@@ -76,7 +76,7 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 6 )
 
 [node name="PlayerUIDebug" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, -134 )
+position = Vector2( 38, -136 )
 
 [node name="SpellCast" parent="." instance=ExtResource( 4 )]
 cast_position_path = NodePath("../CastPosition")
@@ -84,6 +84,7 @@ spell_particles_path = NodePath("../Visual/SpellParticles")
 cast_direction_path = NodePath("../CastDirection")
 
 [node name="EffectsController" parent="." instance=ExtResource( 7 )]
+position = Vector2( 4, -17 )
 
 [node name="SpellTimer" type="Timer" parent="."]
 wait_time = 0.5
