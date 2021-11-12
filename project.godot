@@ -65,6 +65,12 @@ config/icon="res://icon.png"
 SceneManager="*res://Managers/SceneManager.gd"
 SpellManager="*res://Managers/SpellManager.gd"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/resizable=false
+
 [input]
 
 move_left_1={
