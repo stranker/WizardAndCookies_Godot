@@ -1,8 +1,13 @@
 extends Control
 
 onready var scene_manager   = get_node("/root/SceneManager")
-onready var main_menu_panel = $MarginContainer/MainMenuPanel
-onready var settings_panel 	= $MarginContainer/SettingsPanel
+onready var main_menu_panel = $MainMenuPanel
+onready var settings_panel 	= $SettingsPanel
+onready var animation_player = $AnimationPlayer
+
+func _ready() -> void:
+	animation_player.play("MainMenu_Show")
+	pass
 
 func _on_PlayBtn_pressed() -> void:
 	scene_manager.change_scene(scene_manager.Scenes.CHARACTER_SELECTION)
