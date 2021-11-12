@@ -5,6 +5,7 @@ var active_effects : Array = []
 
 onready var wizard : Wizard = get_parent()
 onready var fire_effect : Node2D = $FireEffectWizard
+onready var stun_effect : Node2D = $StunEffectWizard
 
 signal on_effects_update(effects)
 
@@ -42,7 +43,7 @@ func set_visual_effect_active(effect_type : int):
 		SpellManager.EffectType.ICE:
 			pass
 		SpellManager.EffectType.STUN:
-			pass
+			stun_effect.visible = true
 	pass
 
 func on_effect_end(effect : Effect):
@@ -52,6 +53,7 @@ func on_effect_end(effect : Effect):
 		SpellManager.EffectType.ICE:
 			wizard.set_can_move(true)
 		SpellManager.EffectType.STUN:
+			stun_effect.visible = false
 			wizard.set_can_move(true)
 	active_effects.erase(effect)
 	effect.call_deferred("queue_free")
