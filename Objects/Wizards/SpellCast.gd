@@ -1,7 +1,7 @@
 extends Node
 
-var ice_spell  = preload("res://Objects/Spells/IceStake/IceStake.tscn")
-var rock_spell  = preload("res://Objects/Spells/Rock/TheRock.tscn")
+var ice_spell  = preload("res://Objects/Spells/Range/IceStake/IceStake.tscn")
+var hammer_spell  = preload("res://Objects/Spells/Melee/Hammerfall/HammerFall.tscn")
 export (NodePath) var cast_position_path
 export (NodePath) var spell_particles_path
 export (NodePath) var cast_direction_path
@@ -13,7 +13,7 @@ onready var spell_owner : Wizard = get_parent()
 onready var first_skill : String = "first_skill_" + str(spell_owner.player_id)
 onready var second_skill : String = "second_skill_" + str(spell_owner.player_id)
 
-var spell_list : Array = [ice_spell, rock_spell]
+var spell_list : Array = [ice_spell, hammer_spell]
 var current_spell : Node2D = null
 var cast_direction : Vector2 = Vector2.RIGHT
 

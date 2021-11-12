@@ -1,0 +1,157 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Objects/Spells/Melee/Hammerfall/HammerFall.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Spells/Melee/Hammerfall/Hammerfall.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Spells/SpellData.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Spells/SpellInfo.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Spells/Effects/StunEffect.tres" type="Resource" id=5]
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 3 )
+s_name = "Hammerfall"
+s_damage = 4.0
+s_cooldown = 0.0
+s_range = 0.0
+s_difficulty = 0.0
+s_type = 1
+s_effects = [ ExtResource( 5 ) ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 98.375, 131.859 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 2, 2, 2, 2, 2 ),
+"update": 0,
+"values": [ 0.0, -68.0906, 92.2287, 81.3322, 92.2287 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.7, 0.5 ), Vector2( 0.7, 0.5 ), Vector2( 0.6, 0.5 ), Vector2( 0.6, 0.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="HammerFall" type="Area2D"]
+script = ExtResource( 1 )
+spell_data = SubResource( 4 )
+destroy_on_hit = false
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+offset = Vector2( -12, -196 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 102.625, -40.8594 )
+shape = SubResource( 1 )
+
+[node name="SpellInfo" parent="." instance=ExtResource( 4 )]
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Hit"
+anims/Hit = SubResource( 2 )
+anims/RESET = SubResource( 3 )

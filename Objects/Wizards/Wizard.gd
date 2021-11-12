@@ -31,25 +31,25 @@ onready var move_down : String = "move_down_" + str(player_id)
 onready var jump : String = "jump_" + str(player_id) 
 onready var fly : String = "fly_" + str(player_id)
 
-onready var visual : Node2D = get_node("Visual")
+onready var visual : Node2D = $Visual
 onready var spell_timer : Timer = $SpellTimer
+onready var effects : Node2D = $EffectsController
 
 signal on_state_change(state_string)
 signal on_health_update(health)
 signal on_health_depleted()
+signal on_casting_spell(is_casting)
+signal on_can_move_update(can_move)
 
 func _ready():
 	_set_new_state(MovementState.IDLE, MovementState.IDLE)
 	emit_signal("on_health_update", health)
+	set_can_move(can_move)
 	pass
 
 func _physics_process(delta):
 	_process_movement(delta)
 	_process_state_machine()
-
-	if is_jumping and not is_flying:
-		velocity.y  = -jump_strength
-	
 	velocity = move_and_slide(velocity, UP_DIRECTION)
 	pass
 
@@ -108,6 +108,8 @@ func _process_movement(delta):
 		velocity.y = vertical_direction * speed
 	else:
 		velocity.y += gravity * delta
+	if is_jumping and not is_flying:
+		velocity.y  = -jump_strength
 	pass
 
 func update_visual_direction(horizontal):
@@ -127,23 +129,30 @@ func get_vertical_input():
 func get_visual_direction():
 	return Vector2(visual.scale.x,0)
 
-func take_damage(damage : float):
-	health -= damage
-	health = max(0, health)
-	emit_signal("on_health_update", health)
-	if(health <= 0):
-		emit_signal("on_health_depleted")
-	pass
-
-
 func _on_SpellCast_on_casting_spell(is_casting):
-	can_move = false
+	set_can_move(false)
 	velocity = Vector2.ZERO
+	emit_signal("on_casting_spell", is_casting)
 	if !is_casting:
 		spell_timer.start()
 	pass # Replace with function body.
 
 
 func _on_SpellTimer_timeout():
-	can_move = true
+	set_can_move(true)
 	pass # Replace with function body.
+
+func take_damage(damage : float, spell_effects : Array):
+	health -= damage
+	health = max(0, health)
+	if !spell_effects.empty() and effects:
+		effects.apply_effects(spell_effects)
+	emit_signal("on_health_update", health)
+	if(health <= 0):
+		emit_signal("on_health_depleted")
+	pass
+
+func set_can_move(value : bool):
+	can_move = value
+	emit_signal("on_can_move_update", can_move)
+	pass

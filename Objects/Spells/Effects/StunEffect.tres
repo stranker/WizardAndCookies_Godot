@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Objects/Spells/EffectData.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+e_name = "Stun Effect"
+e_damage = 0.0
+e_time = 2.0
+e_repeat_count = 0
+e_type = 2

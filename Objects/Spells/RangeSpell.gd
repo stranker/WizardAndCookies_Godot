@@ -1,4 +1,6 @@
-extends "res://Objects/Spells/Spell.gd"
+extends Spell
+
+class_name RangeSpell
 
 export var speed : float = 600.0
 var velocity : Vector2

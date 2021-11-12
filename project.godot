@@ -9,10 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://Objects/Spells/Effects/Effect.gd"
+}, {
+"base": "Spell",
+"class": "MeleeSpeel",
+"language": "GDScript",
+"path": "res://Objects/Spells/MeleeSpell.gd"
+}, {
+"base": "Spell",
+"class": "RangeSpell",
+"language": "GDScript",
+"path": "res://Objects/Spells/RangeSpell.gd"
+}, {
+"base": "Area2D",
+"class": "Spell",
+"language": "GDScript",
+"path": "res://Objects/Spells/Spell.gd"
+}, {
 "base": "Resource",
 "class": "SpellData",
 "language": "GDScript",
 "path": "res://Objects/Spells/SpellData.gd"
+}, {
+"base": "Resource",
+"class": "SpellEffect",
+"language": "GDScript",
+"path": "res://Objects/Spells/EffectData.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Wizard",
@@ -20,7 +45,12 @@ _global_script_classes=[ {
 "path": "res://Objects/Wizards/Wizard.gd"
 } ]
 _global_script_class_icons={
+"Effect": "",
+"MeleeSpeel": "",
+"RangeSpell": "",
+"Spell": "",
 "SpellData": "",
+"SpellEffect": "",
 "Wizard": ""
 }
 

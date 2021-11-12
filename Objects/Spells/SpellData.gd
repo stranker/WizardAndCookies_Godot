@@ -8,5 +8,4 @@ export (float, 0.0, 10.0, 0.5) var s_cooldown
 export (float, 0.0, 10.0, 0.5) var s_range
 export (float, 0.0, 5.0 , 0.5) var s_difficulty
 export (SpellManager.SpellType) var s_type = SpellManager.SpellType.LAST
-
-signal on_hit(target)
+export (Array, Resource) var s_effects = []

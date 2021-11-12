@@ -1,6 +1,9 @@
 extends Area2D
 
+class_name Spell
+
 export (Resource) var spell_data
+export var destroy_on_hit : bool = true
 onready var spell_info = $SpellInfo
 var spell_owner : Wizard = null
 var direction : Vector2
@@ -19,6 +22,7 @@ func cast(_spell_owner : Node2D, spell_position : Vector2, spell_direction : Vec
 func _on_spell_hit(body):
 	if body == spell_owner: return
 	if !body.has_method("take_damage"): return
-	body.take_damage(spell_info.get_damage())
-	call_deferred("queue_free")
+	body.take_damage(spell_info.get_damage(), spell_info.get_spell_effects())
+	if destroy_on_hit:
+		call_deferred("queue_free")
 	pass # Replace with function body.
