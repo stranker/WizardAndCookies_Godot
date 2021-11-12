@@ -67,9 +67,6 @@ shape = SubResource( 1 )
 [node name="CastPosition" type="Position2D" parent="."]
 position = Vector2( 1, -15 )
 
-[node name="PlayerUIDebug" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, -134 )
-
 [node name="CastDirection" type="Position2D" parent="."]
 position = Vector2( 1, -14 )
 
@@ -77,6 +74,9 @@ position = Vector2( 1, -14 )
 position = Vector2( 100, 0 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 6 )
+
+[node name="PlayerUIDebug" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -134 )
 
 [node name="SpellCast" parent="." instance=ExtResource( 4 )]
 cast_position_path = NodePath("../CastPosition")

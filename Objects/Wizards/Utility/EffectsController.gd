@@ -5,10 +5,17 @@ var active_effects : Array = []
 
 onready var wizard : Wizard = get_parent()
 
+signal on_effects_update(effects)
+
+func _ready():
+	connect("on_effects_update", wizard, "_on_effects_update")
+	pass
+
 func apply_effects(spell_effects : Array):
 	for effect_data in spell_effects:
 		if !_has_effect(effect_data):
 			_add_effect(effect_data)
+	call_deferred("emit_signal","on_effects_update", active_effects)
 	pass
 
 func _has_effect(new_effect : SpellEffect):
@@ -34,7 +41,7 @@ func on_effect_end(effect : Effect):
 			wizard.set_can_move(true)
 		SpellManager.EffectType.STUN:
 			wizard.set_can_move(true)
-	print("End effect " + effect.get_name())
 	active_effects.erase(effect)
 	effect.call_deferred("queue_free")
+	call_deferred("emit_signal","on_effects_update", active_effects)
 	pass

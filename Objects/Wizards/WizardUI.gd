@@ -19,6 +19,7 @@ func _ready():
 		get_parent().connect("on_health_update", self, "_on_health_update")
 		get_parent().connect("on_casting_spell", self, "_on_casting_spell")
 		get_parent().connect("on_can_move_update", self, "_on_can_move_update")
+		get_parent().connect("on_effects_update", self, "_on_effects_update")
 	pass
 
 func _process(delta):
@@ -41,4 +42,12 @@ func _on_casting_spell(is_casting : bool):
 
 func _on_can_move_update(can_move : bool):
 	can_move_label.text = "Can move: " + ("True" if can_move else "False")
+	pass
+
+func _on_effects_update(effects : Array):
+	print(effects)
+	effect_state.text = ""
+	for effect in effects:
+		print(effect.get_name())
+		effect_state.text += "[" + effect.get_name() + "]"
 	pass
