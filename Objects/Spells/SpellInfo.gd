@@ -1,12 +1,13 @@
-extends Node2D
+extends Node
 
-export (Resource) var spell_data
+var spell_data
 
 var spell_name : String
 var spell_damage : float
 var spell_cooldown : float
 var spell_range : float
 var spell_type : int
+var spell_effects : Array
 
 func initialize(data : SpellData):
 	spell_name = data.s_name
@@ -14,6 +15,7 @@ func initialize(data : SpellData):
 	spell_cooldown = data.s_cooldown
 	spell_range = data.s_range
 	spell_type = data.s_type
+	spell_effects = data.s_effects
 	pass
 
 func get_name():
@@ -30,3 +32,6 @@ func get_range():
 
 func get_type():
 	return spell_type
+
+func get_spell_effects():
+	return spell_effects

@@ -37,7 +37,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AttackingState" type="Label" parent="CanvasLayer/Anchor/VBC"]
+[node name="CanMove" type="Label" parent="CanvasLayer/Anchor/VBC"]
 margin_top = 36.0
 margin_right = 70.0
 margin_bottom = 50.0
@@ -45,10 +45,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EffectState" type="Label" parent="CanvasLayer/Anchor/VBC"]
+[node name="AttackingState" type="Label" parent="CanvasLayer/Anchor/VBC"]
 margin_top = 54.0
 margin_right = 70.0
 margin_bottom = 68.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EffectState" type="Label" parent="CanvasLayer/Anchor/VBC"]
+margin_top = 72.0
+margin_right = 70.0
+margin_bottom = 86.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
