@@ -1,9 +1,137 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Objects/VolumeSlider.gd" type="Script" id=2]
 [ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Fonts/main_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Assets/UI/Mockup_MainMenu.jpg" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "MainMenu_Show"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainMenuPanel/VBoxContainer/PlayBtn:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 0.7 ),
+"transitions": PoolRealArray( 0.435274, 1, 0.267943 ),
+"update": 0,
+"values": [ Vector2( 1200, 0 ), Vector2( -200, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainMenuPanel/VBoxContainer/SettingsBtn:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 0.267943, 1 ),
+"update": 0,
+"values": [ Vector2( 1200, 169 ), Vector2( 1200, 169 ), Vector2( -200, 169 ), Vector2( 0, 169 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MainMenuPanel/VBoxContainer/ExitBtn:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 2.54911, 0.267943, 1 ),
+"update": 0,
+"values": [ Vector2( 1200, 338 ), Vector2( 1200, 338 ), Vector2( -200, 338 ), Vector2( 0, 338 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MainMenuPanel/VBoxContainer/PlayBtn:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 2.46229, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("MainMenuPanel/VBoxContainer/SettingsBtn:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7 ),
+"transitions": PoolRealArray( 1, 2.46229, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("MainMenuPanel/VBoxContainer/ExitBtn:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 2.46229, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainMenuPanel/VBoxContainer/ExitBtn:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 338 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainMenuPanel/VBoxContainer/PlayBtn:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MainMenuPanel/VBoxContainer/SettingsBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MainMenuPanel/VBoxContainer/ExitBtn:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -13,86 +141,77 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 120
-custom_constants/margin_top = 80
-custom_constants/margin_left = 120
-custom_constants/margin_bottom = 80
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 5 )
+
+[node name="MainMenuPanel" type="Control" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainMenuPanel" type="Control" parent="MarginContainer"]
-margin_left = 120.0
-margin_top = 80.0
-margin_right = 904.0
-margin_bottom = 520.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainMenuPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -178.0
-margin_top = -203.5
-margin_right = 178.0
-margin_bottom = 203.5
+margin_left = -185.0
+margin_top = 26.0
+margin_right = 175.0
+margin_bottom = 504.0
 custom_constants/separation = 29
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayBtn" parent="MarginContainer/MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+[node name="PlayBtn" parent="MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
 margin_right = 360.0
 margin_bottom = 140.0
 
-[node name="SettingsBtn" parent="MarginContainer/MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+[node name="SettingsBtn" parent="MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+margin_left = -200.0
 margin_top = 169.0
-margin_right = 360.0
+margin_right = 160.0
 margin_bottom = 309.0
 text = "OPTIONS"
 
-[node name="ExitBtn" parent="MarginContainer/MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
+[node name="ExitBtn" parent="MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 338.0
-margin_right = 360.0
+margin_right = 360.001
 margin_bottom = 478.0
 text = "EXIT"
 
-[node name="SettingsPanel" type="Control" parent="MarginContainer"]
+[node name="SettingsPanel" type="Control" parent="."]
 visible = false
-margin_left = 120.0
-margin_top = 80.0
-margin_right = 904.0
-margin_bottom = 520.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SettingsPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -185.5
-margin_top = -56.5
-margin_right = 185.5
-margin_bottom = 56.5
+margin_left = -185.0
+margin_top = 166.0
+margin_right = 186.0
+margin_bottom = 388.0
 custom_constants/separation = 66
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/SettingsPanel/VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
 margin_right = 371.0
 margin_bottom = 16.0
 max_value = 1.0
 step = 0.05
 script = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider"]
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer/VolumeSlider"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -111.0
@@ -107,21 +226,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
 margin_top = 82.0
 margin_right = 371.0
 margin_bottom = 222.0
 alignment = 1
 
-[node name="SettingsExitBtn" parent="MarginContainer/SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="SettingsExitBtn" parent="SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
 margin_left = 5.0
 margin_right = 365.0
 margin_bottom = 140.0
 text = "BACK"
 
-[connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
-[connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/SettingsBtn" to="." method="_on_SettingsBtn_pressed"]
-[connection signal="pressed" from="MarginContainer/MainMenuPanel/VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
-[connection signal="mouse_exited" from="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" to="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" method="release_focus"]
-[connection signal="value_changed" from="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" to="MarginContainer/SettingsPanel/VBoxContainer/VolumeSlider" method="_on_VolumeSlider_value_changed"]
-[connection signal="pressed" from="MarginContainer/SettingsPanel/VBoxContainer/HBoxContainer/SettingsExitBtn" to="." method="_on_SettingsExitBtn_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/MainMenu_Show = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[connection signal="pressed" from="MainMenuPanel/VBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
+[connection signal="pressed" from="MainMenuPanel/VBoxContainer/SettingsBtn" to="." method="_on_SettingsBtn_pressed"]
+[connection signal="pressed" from="MainMenuPanel/VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
+[connection signal="mouse_exited" from="SettingsPanel/VBoxContainer/VolumeSlider" to="SettingsPanel/VBoxContainer/VolumeSlider" method="release_focus"]
+[connection signal="value_changed" from="SettingsPanel/VBoxContainer/VolumeSlider" to="SettingsPanel/VBoxContainer/VolumeSlider" method="_on_VolumeSlider_value_changed"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/HBoxContainer/SettingsExitBtn" to="." method="_on_SettingsExitBtn_pressed"]
