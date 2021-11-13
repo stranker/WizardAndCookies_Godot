@@ -65,6 +65,8 @@ anim_speed = 128.0
 
 [sub_resource type="Animation" id=9]
 resource_name = "Idle"
+length = 1.2
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -114,5 +116,6 @@ process_material = SubResource( 8 )
 texture = ExtResource( 3 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
 anims/Idle = SubResource( 9 )
 anims/RESET = SubResource( 10 )

@@ -62,7 +62,7 @@ func _apply_fire():
 	pass
 
 func _apply_ice():
-	target.take_damage(effect_damage, [])
+	target.set_new_speed(100)
 	pass
 
 func _apply_stun():
