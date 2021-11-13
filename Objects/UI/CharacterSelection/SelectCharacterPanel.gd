@@ -1,11 +1,11 @@
 extends Control
 
-onready var waiting_for_player_panel = $WaitingForPlayerPanel
-onready var selected_character_panel = $SelectCharacterPanel
-onready var highlight = $Highlight
-onready var player_id_label = $PlayerId
-onready var portrait = $SelectCharacterPanel/Portrait
-onready var input_type = $SelectCharacterPanel/InputType
+onready var waiting_for_player_panel : Control = $WaitingForPlayerPanel
+onready var selected_character_panel : Control = $SelectCharacterPanel
+onready var highlight : TextureRect  = $Highlight
+onready var player_id_label : Label  = $PlayerId
+onready var portrait : TextureRect   = $SelectCharacterPanel/Portrait
+onready var input_type : TextureRect = $SelectCharacterPanel/InputType
 
 export var waiting_for_player : bool
 export var player_color : Color

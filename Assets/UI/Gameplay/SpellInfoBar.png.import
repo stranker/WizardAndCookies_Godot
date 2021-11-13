@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/StaminaBar.png-9ad876088b29cc1c6033b7e1d70561e3.stex"
+path="res://.import/SpellInfoBar.png-9f269511a9abe15b14a44fb25244da53.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/InGame/StaminaBar.png"
-dest_files=[ "res://.import/StaminaBar.png-9ad876088b29cc1c6033b7e1d70561e3.stex" ]
+source_file="res://Assets/UI/Gameplay/SpellInfoBar.png"
+dest_files=[ "res://.import/SpellInfoBar.png-9f269511a9abe15b14a44fb25244da53.stex" ]
 
 [params]
 

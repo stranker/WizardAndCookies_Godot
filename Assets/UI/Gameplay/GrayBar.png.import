@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HealthFillBar.png-9b3de54fcaa82dfa0333f4ce33ca2398.stex"
+path="res://.import/GrayBar.png-bdd85451da161a2f81d964cdd6662ea7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/InGame/HealthFillBar.png"
-dest_files=[ "res://.import/HealthFillBar.png-9b3de54fcaa82dfa0333f4ce33ca2398.stex" ]
+source_file="res://Assets/UI/Gameplay/GrayBar.png"
+dest_files=[ "res://.import/GrayBar.png-bdd85451da161a2f81d964cdd6662ea7.stex" ]
 
 [params]
 

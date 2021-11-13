@@ -1,11 +1,11 @@
 extends Control
 
-onready var scene_manager   = get_node("/root/SceneManager")
-onready var main_menu_panel = $MainMenuPanel
-onready var settings_panel 	= $SettingsPanel
-onready var animation_player = $AnimationPlayer
-onready var play_button = $MainMenuPanel/VBoxContainer/PlayBtn
-onready var back_button = $SettingsPanel/VBoxContainer/HBoxContainer/SettingsBackBtn
+onready var scene_manager 	 : SceneManager    = get_node("/root/SceneManager")
+onready var main_menu_panel  : Control 	 	   = $MainMenuPanel
+onready var settings_panel 	 : Control  	   = $SettingsPanel
+onready var animation_player : AnimationPlayer = $AnimationPlayer
+onready var play_button 	 : TextureButton   = $MainMenuPanel/VBoxContainer/PlayBtn
+onready var back_button 	 : TextureButton   = $SettingsPanel/VBoxContainer/HBoxContainer/SettingsBackBtn
 
 func _ready() -> void:
 	animation_player.play("MainMenu_Show")
