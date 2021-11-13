@@ -9,6 +9,7 @@ export var portrait_URL : Texture
 export var player_color : Color
 
 func _ready() -> void:
+	highlight.visible = false
 	name_label.text = name_text
 	portrait.texture = portrait_URL
 	highlight.modulate = player_color

@@ -169,20 +169,25 @@ __meta__ = {
 }
 
 [node name="PlayBtn" parent="MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 360.0
+margin_left = 1200.0
+margin_right = 1560.0
 margin_bottom = 140.0
+focus_neighbour_top = NodePath("../SettingsBtn")
 
 [node name="SettingsBtn" parent="MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
-margin_left = -200.0
+margin_left = 1200.0
 margin_top = 169.0
-margin_right = 160.0
+margin_right = 1560.0
 margin_bottom = 309.0
+focus_neighbour_top = NodePath("../PlayBtn")
+focus_neighbour_bottom = NodePath("../ExitBtn")
 text = "OPTIONS"
 
 [node name="ExitBtn" parent="MainMenuPanel/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 338.0
-margin_right = 360.001
+margin_right = 360.0
 margin_bottom = 478.0
+focus_neighbour_top = NodePath("../SettingsBtn")
 text = "EXIT"
 
 [node name="SettingsPanel" type="Control" parent="."]
@@ -207,6 +212,7 @@ __meta__ = {
 [node name="VolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
 margin_right = 371.0
 margin_bottom = 16.0
+focus_neighbour_bottom = NodePath("../HBoxContainer/SettingsBackBtn")
 max_value = 1.0
 step = 0.05
 script = ExtResource( 2 )
@@ -232,10 +238,11 @@ margin_right = 371.0
 margin_bottom = 222.0
 alignment = 1
 
-[node name="SettingsExitBtn" parent="SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="SettingsBackBtn" parent="SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
 margin_left = 5.0
 margin_right = 365.0
 margin_bottom = 140.0
+focus_neighbour_top = NodePath("../../VolumeSlider")
 text = "BACK"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -247,4 +254,4 @@ anims/RESET = SubResource( 2 )
 [connection signal="pressed" from="MainMenuPanel/VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
 [connection signal="mouse_exited" from="SettingsPanel/VBoxContainer/VolumeSlider" to="SettingsPanel/VBoxContainer/VolumeSlider" method="release_focus"]
 [connection signal="value_changed" from="SettingsPanel/VBoxContainer/VolumeSlider" to="SettingsPanel/VBoxContainer/VolumeSlider" method="_on_VolumeSlider_value_changed"]
-[connection signal="pressed" from="SettingsPanel/VBoxContainer/HBoxContainer/SettingsExitBtn" to="." method="_on_SettingsExitBtn_pressed"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/HBoxContainer/SettingsBackBtn" to="." method="_on_SettingsExitBtn_pressed"]
