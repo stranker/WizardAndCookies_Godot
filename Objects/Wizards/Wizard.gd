@@ -5,6 +5,7 @@ class_name Wizard
 const UP_DIRECTION : Vector2 = Vector2.UP
 
 export var speed : float = 600.0
+onready var initial_speed = speed
 export var maximum_jumps : int = 2
 export var jump_strength : float = 600.0
 export var gravity : float = 4500.0
@@ -40,6 +41,7 @@ signal on_health_update(health)
 signal on_health_depleted()
 signal on_casting_spell(is_casting)
 signal on_can_move_update(can_move)
+signal on_effects_update(effects)
 
 func _ready():
 	_set_new_state(MovementState.IDLE, MovementState.IDLE)
@@ -155,4 +157,16 @@ func take_damage(damage : float, spell_effects : Array):
 func set_can_move(value : bool):
 	can_move = value
 	emit_signal("on_can_move_update", can_move)
+	pass
+
+func _on_effects_update(effects : Array):
+	emit_signal("on_effects_update", effects)
+	pass
+
+func set_new_speed(new_speed : float):
+	speed = new_speed
+	pass
+
+func init_speed():
+	speed = initial_speed
 	pass
