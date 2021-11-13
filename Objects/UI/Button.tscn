@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/UI/Buttons/CookieButton.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Objects/UI/Button.gd" type="Script" id=3]
 [ext_resource path="res://Assets/UI/Buttons/CookieButtonPressed.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Buttons/CookieCream3-black.png" type="Texture" id=5]
 
 [node name="TextureButton" type="TextureButton"]
 margin_right = 40.0
 margin_bottom = 40.0
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 4 )
+texture_focused = ExtResource( 5 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
