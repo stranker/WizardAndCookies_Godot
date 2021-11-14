@@ -39,7 +39,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MovementState" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
+[node name="FlyEnergy" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
 margin_top = 18.0
 margin_right = 128.0
 margin_bottom = 32.0
@@ -47,7 +47,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CanMove" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
+[node name="MovementState" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
 margin_top = 36.0
 margin_right = 128.0
 margin_bottom = 50.0
@@ -55,7 +55,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AttackingState" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
+[node name="CanMove" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
 margin_top = 54.0
 margin_right = 128.0
 margin_bottom = 68.0
@@ -63,10 +63,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EffectState" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
+[node name="AttackingState" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
 margin_top = 72.0
 margin_right = 128.0
 margin_bottom = 86.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EffectState" type="Label" parent="CanvasLayer/Anchor/Panel/VBC"]
+margin_top = 90.0
+margin_right = 128.0
+margin_bottom = 104.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

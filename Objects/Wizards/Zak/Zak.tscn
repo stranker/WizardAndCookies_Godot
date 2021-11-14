@@ -90,5 +90,11 @@ position = Vector2( 4, -17 )
 wait_time = 0.5
 one_shot = true
 
+[node name="DepletedFlyRecover" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="on_fly_energy_depleted" from="." to="." method="_on_Zak_on_fly_energy_depleted"]
 [connection signal="on_casting_spell" from="SpellCast" to="." method="_on_SpellCast_on_casting_spell"]
 [connection signal="timeout" from="SpellTimer" to="." method="_on_SpellTimer_timeout"]
+[connection signal="timeout" from="DepletedFlyRecover" to="." method="_on_DepletedFlyRecover_timeout"]
