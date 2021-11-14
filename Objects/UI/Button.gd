@@ -1,8 +1,8 @@
 extends TextureButton
 
-export var text:String
+onready var label : Label = $Label
 
-onready var label = $Label
+export var text : String
 
 func _ready() -> void:
 	label.text = text;

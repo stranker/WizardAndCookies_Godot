@@ -1,8 +1,8 @@
 extends Control
 
-onready var name_label 	= $Name
-onready var portrait 	= $Portrait
-onready var highlight 	= $Highlight
+onready var name_label : Label = $Name
+onready var portrait  : TextureRect = $Portrait
+onready var highlight : TextureRect = $Highlight
 
 export var name_text : String
 export var portrait_URL : Texture

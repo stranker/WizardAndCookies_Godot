@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HealthBar.png-9c07c179ad82d8f54fc3b81fd02900a4.stex"
+path="res://.import/FlyFillBar.png-15b108a51733c85fad8262b65958e93a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/InGame/HealthBar.png"
-dest_files=[ "res://.import/HealthBar.png-9c07c179ad82d8f54fc3b81fd02900a4.stex" ]
+source_file="res://Assets/UI/Gameplay/FlyFillBar.png"
+dest_files=[ "res://.import/FlyFillBar.png-15b108a51733c85fad8262b65958e93a.stex" ]
 
 [params]
 
