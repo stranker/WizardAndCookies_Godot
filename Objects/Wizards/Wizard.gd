@@ -11,8 +11,11 @@ export var jump_strength : float = 600.0
 export var gravity : float = 4500.0
 export var can_move : bool = true
 export var max_health : float = 10.0
-export var player_id : int = 1
 onready var health : float = max_health
+export var max_fly_energy : float = 100.0
+onready var fly_energy : float = max_fly_energy
+export var fly_energy_consume : float = 1.0
+export var player_id : int = 1
 
 var velocity : Vector2 = Vector2.ZERO
 var is_falling : bool = false
@@ -20,9 +23,10 @@ var is_jumping : bool = false
 var is_idle : bool = false
 var is_running : bool = false
 var is_flying : bool = false
+var can_recover_fly : bool = true
 
 enum MovementState { FALLING, JUMPING, IDLE, RUNNING, FLYING, LAST }
-export var current_state = MovementState.IDLE
+export (MovementState) var current_state = MovementState.IDLE
 var movement_state_string = ["Falling", "Jumping", "Idle", "Running", "Flying", "Last"]
 
 onready var move_left : String = "move_left_" + str(player_id) 
@@ -35,10 +39,13 @@ onready var fly : String = "fly_" + str(player_id)
 onready var visual : Node2D = $Visual
 onready var spell_timer : Timer = $SpellTimer
 onready var effects : Node2D = $EffectsController
+onready var depleted_fly_recover : Timer = $DepletedFlyRecover
 
 signal on_state_change(state_string)
 signal on_health_update(health)
 signal on_health_depleted()
+signal on_fly_energy_update(fly_energy)
+signal on_fly_energy_depleted()
 signal on_casting_spell(is_casting)
 signal on_can_move_update(can_move)
 signal on_effects_update(effects)
@@ -50,6 +57,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	_process_flying()
 	_process_movement(delta)
 	_process_state_machine()
 	velocity = move_and_slide(velocity, UP_DIRECTION)
@@ -60,7 +68,7 @@ func _process_state_machine():
 	is_jumping = Input.is_action_just_pressed(jump) and is_on_floor()
 	is_idle = is_on_floor() and is_zero_approx(velocity.x)
 	is_running = is_on_floor() and not is_zero_approx(velocity.x)
-	is_flying = Input.is_action_pressed(fly)
+	is_flying = Input.is_action_pressed(fly) and fly_energy > 0
 	match current_state:
 		MovementState.IDLE:
 			if is_running:
@@ -100,6 +108,21 @@ func _set_new_state(old_state, new_state):
 	emit_signal("on_state_change", movement_state_string[current_state])
 	pass
 
+func _process_flying():
+	if is_flying:
+		fly_energy -= fly_energy_consume
+		fly_energy = max(0, fly_energy)
+		if fly_energy <= 0:
+			emit_signal("on_fly_energy_depleted")
+			can_recover_fly = false
+	else:
+		if can_recover_fly:
+			fly_energy += fly_energy_consume * 2
+			fly_energy = min(fly_energy, max_fly_energy)
+	if fly_energy != 0 and fly_energy != max_fly_energy:
+		emit_signal("on_fly_energy_update", fly_energy)
+	pass
+
 func _process_movement(delta):
 	var horizontal_direction = get_horizontal_input()
 	var vertical_direction = get_vertical_input()
@@ -111,6 +134,8 @@ func _process_movement(delta):
 	else:
 		velocity.y += gravity * delta
 	if is_jumping and not is_flying:
+		$Visual/JumpParticlesL.emitting = true
+		$Visual/JumpParticlesR.emitting = true
 		velocity.y  = -jump_strength
 	pass
 
@@ -170,3 +195,13 @@ func set_new_speed(new_speed : float):
 func init_speed():
 	speed = initial_speed
 	pass
+
+
+func _on_DepletedFlyRecover_timeout():
+	can_recover_fly = true
+	pass # Replace with function body.
+
+
+func _on_Zak_on_fly_energy_depleted():
+	depleted_fly_recover.start()
+	pass # Replace with function body.

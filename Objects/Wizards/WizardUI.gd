@@ -4,6 +4,7 @@ export var debug_text : bool = true
 
 onready var anchor : Control = $CanvasLayer/Anchor
 onready var health_label : Label = $CanvasLayer/Anchor/Panel/VBC/Health
+onready var fly_label : Label = $CanvasLayer/Anchor/Panel/VBC/FlyEnergy
 onready var movement_state : Label = $CanvasLayer/Anchor/Panel/VBC/MovementState
 onready var can_move_label : Label = $CanvasLayer/Anchor/Panel/VBC/CanMove
 onready var attacking_state : Label = $CanvasLayer/Anchor/Panel/VBC/AttackingState
@@ -17,6 +18,7 @@ func _ready():
 	if debug_text:
 		get_parent().connect("on_state_change", self, "_on_change_state")
 		get_parent().connect("on_health_update", self, "_on_health_update")
+		get_parent().connect("on_fly_energy_update", self, "_on_fly_energy_update")
 		get_parent().connect("on_casting_spell", self, "_on_casting_spell")
 		get_parent().connect("on_can_move_update", self, "_on_can_move_update")
 		get_parent().connect("on_effects_update", self, "_on_effects_update")
@@ -30,6 +32,10 @@ func _process(delta):
 
 func _on_health_update(health : float):
 	health_label.text = str(health) + " HP"
+	pass
+
+func _on_fly_energy_update(fly_energy : float):
+	fly_label.text = str(fly_energy) + " Fly"
 	pass
 
 func _on_change_state(state):
