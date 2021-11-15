@@ -16,6 +16,7 @@ export var max_fly_energy : float = 100.0
 onready var fly_energy : float = max_fly_energy
 export var fly_energy_consume : float = 1.0
 export var player_id : int = 1
+export var decrease_fly : bool = false
 
 var velocity : Vector2 = Vector2.ZERO
 var is_falling : bool = false
@@ -40,6 +41,9 @@ onready var visual : Node2D = $Visual
 onready var spell_timer : Timer = $SpellTimer
 onready var effects : Node2D = $EffectsController
 onready var depleted_fly_recover : Timer = $DepletedFlyRecover
+onready var wizard_skin : Node2D = $Visual/WizardSkin
+onready var jump_particles_l : Particles2D = $Visual/JumpParticlesL
+onready var jump_particles_r : Particles2D = $Visual/JumpParticlesR
 
 signal on_state_change(state_string)
 signal on_health_update(health)
@@ -76,7 +80,7 @@ func _process_state_machine():
 			elif is_jumping:
 				_set_new_state(MovementState.IDLE, MovementState.JUMPING)
 			elif is_flying:
-				_set_new_state(MovementState.JUMPING, MovementState.FLYING)
+				_set_new_state(MovementState.IDLE, MovementState.FLYING)
 		MovementState.RUNNING:
 			if is_falling:
 				_set_new_state(MovementState.RUNNING, MovementState.FALLING)
@@ -85,7 +89,7 @@ func _process_state_machine():
 			elif is_jumping:
 				_set_new_state(MovementState.RUNNING, MovementState.JUMPING)
 			elif is_flying:
-				_set_new_state(MovementState.JUMPING, MovementState.FLYING)
+				_set_new_state(MovementState.RUNNING, MovementState.FLYING)
 		MovementState.JUMPING:
 			if is_falling:
 				_set_new_state(MovementState.JUMPING, MovementState.FALLING)
@@ -93,14 +97,22 @@ func _process_state_machine():
 				_set_new_state(MovementState.JUMPING, MovementState.FLYING)
 		MovementState.FALLING:
 			if is_idle:
+				_set_jump_particles_emitting(true)
 				_set_new_state(MovementState.FALLING, MovementState.IDLE)
+			elif is_running:
+				_set_jump_particles_emitting(true)
+				_set_new_state(MovementState.FALLING, MovementState.RUNNING)
 			elif is_flying:
-				_set_new_state(MovementState.JUMPING, MovementState.FLYING)
+				_set_new_state(MovementState.FALLING, MovementState.FLYING)
 		MovementState.FLYING:
 			if is_falling and not is_flying:
 				_set_new_state(MovementState.FLYING, MovementState.FALLING)
 			elif is_idle and not is_flying:
-				_set_new_state(MovementState.RUNNING, MovementState.IDLE)
+				_set_new_state(MovementState.FLYING, MovementState.IDLE)
+			elif is_running and not is_flying:
+				_set_new_state(MovementState.FLYING, MovementState.RUNNING)
+	if wizard_skin:
+		wizard_skin.set_state(current_state)
 	pass
 
 func _set_new_state(old_state, new_state):
@@ -110,11 +122,12 @@ func _set_new_state(old_state, new_state):
 
 func _process_flying():
 	if is_flying:
-		fly_energy -= fly_energy_consume
-		fly_energy = max(0, fly_energy)
-		if fly_energy <= 0:
-			emit_signal("on_fly_energy_depleted")
-			can_recover_fly = false
+		if decrease_fly:
+			fly_energy -= fly_energy_consume
+			fly_energy = max(0, fly_energy)
+			if fly_energy <= 0:
+				emit_signal("on_fly_energy_depleted")
+				can_recover_fly = false
 	else:
 		if can_recover_fly:
 			fly_energy += fly_energy_consume * 2
@@ -126,17 +139,17 @@ func _process_flying():
 func _process_movement(delta):
 	var horizontal_direction = get_horizontal_input()
 	var vertical_direction = get_vertical_input()
+	var dir = Vector2(horizontal_direction, vertical_direction).normalized()
 	update_visual_direction(horizontal_direction)
 	if !can_move: return
-	velocity.x = horizontal_direction * speed
 	if is_flying:
-		velocity.y = vertical_direction * speed
+		velocity.y = dir.y * speed
 	else:
 		velocity.y += gravity * delta
+	velocity.x = dir.x * speed
 	if is_jumping and not is_flying:
-		$Visual/JumpParticlesL.emitting = true
-		$Visual/JumpParticlesR.emitting = true
 		velocity.y  = -jump_strength
+		_set_jump_particles_emitting(true)
 	pass
 
 func update_visual_direction(horizontal):
@@ -196,6 +209,10 @@ func init_speed():
 	speed = initial_speed
 	pass
 
+func _set_jump_particles_emitting(value : bool):
+	jump_particles_l.emitting = value
+	jump_particles_r.emitting = value
+	pass
 
 func _on_DepletedFlyRecover_timeout():
 	can_recover_fly = true
