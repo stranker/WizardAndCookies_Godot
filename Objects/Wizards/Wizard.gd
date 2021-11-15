@@ -134,6 +134,8 @@ func _process_movement(delta):
 	else:
 		velocity.y += gravity * delta
 	if is_jumping and not is_flying:
+		$Visual/JumpParticlesL.emitting = true
+		$Visual/JumpParticlesR.emitting = true
 		velocity.y  = -jump_strength
 	pass
 

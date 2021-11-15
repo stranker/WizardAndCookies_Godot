@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Objects/Wizards/Zak/ZakSkin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Wizards/Wizard.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Spells/ArrowIcon.png" type="Texture" id=6]
 [ext_resource path="res://Objects/Wizards/Utility/EffectsController.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=8]
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.173913, 0.770186, 1 )
@@ -40,9 +41,57 @@ color_ramp = SubResource( 3 )
 hue_variation = 0.03
 hue_variation_random = 1.0
 
+[sub_resource type="CanvasItemMaterial" id=7]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.15528, 0.279503, 0.596273 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 75.0
+gravity = Vector3( -100, -200, 0 )
+initial_velocity = 75.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.4
+color_ramp = SubResource( 9 )
+anim_speed = 2.0
+
+[sub_resource type="ParticlesMaterial" id=11]
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+spread = 75.0
+gravity = Vector3( 100, -200, 0 )
+initial_velocity = 75.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.4
+color_ramp = SubResource( 9 )
+anim_speed = 2.0
+
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 26.0477
-height = 99.8504
+radius = 29.378
+height = 60.7831
 
 [node name="Zak" type="KinematicBody2D"]
 collision_mask = 7
@@ -52,6 +101,7 @@ jump_strength = 800.0
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="ZakSkin" parent="Visual" instance=ExtResource( 1 )]
+position = Vector2( 4, 0 )
 
 [node name="SpellParticles" type="Particles2D" parent="Visual"]
 position = Vector2( 52, -6 )
@@ -60,8 +110,30 @@ amount = 100
 process_material = SubResource( 6 )
 texture = ExtResource( 5 )
 
+[node name="JumpParticlesL" type="Particles2D" parent="Visual"]
+material = SubResource( 7 )
+position = Vector2( -16, 72 )
+emitting = false
+amount = 3
+one_shot = true
+explosiveness = 0.95
+local_coords = false
+process_material = SubResource( 10 )
+texture = ExtResource( 8 )
+
+[node name="JumpParticlesR" type="Particles2D" parent="Visual"]
+material = SubResource( 7 )
+position = Vector2( 17, 72 )
+emitting = false
+amount = 3
+one_shot = true
+explosiveness = 0.95
+local_coords = false
+process_material = SubResource( 11 )
+texture = ExtResource( 8 )
+
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 2.62204, -17.2305 )
+position = Vector2( 0, -17 )
 shape = SubResource( 1 )
 
 [node name="CastPosition" type="Position2D" parent="."]
