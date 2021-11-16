@@ -1,0 +1,162 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scenes/Levels/Kitchen/PanBack.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Levels/Kitchen/BG_Back.jpg" type="Texture" id=2]
+[ext_resource path="res://Scenes/Levels/Kitchen/PanFront.png" type="Texture" id=4]
+[ext_resource path="res://Objects/Particles/Fire.png" type="Texture" id=5]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.2125, 0.35, 0.46875, 0.85625, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 0.812241, 0.101563, 1, 1, 0.58828, 0.160156, 1, 1, 0.275391, 0, 1, 0.21582, 0.0244627, 0.00674438, 0, 0.898039, 0.87451, 0.870588, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.656818 ), 0.0, -1.79161, 0, 0, Vector2( 1, 0 ), -0.280497, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 1
+emission_sphere_radius = 50.0
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 80.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 300.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.5
+scale_random = 1.0
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.253162, 0, 0, Vector2( 1, 1 ), 0.454598, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 50.0
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.5
+scale_random = 1.0
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Animation" id=9]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PanBack:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 945.5, 727 ), Vector2( 945.5, 730 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PanFront:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 945.5, 727 ), Vector2( 945.5, 730 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PanBack:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 945.5, 727 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PanFront:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 945.5, 727 ) ]
+}
+
+[node name="Kitchen" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 956, 469 )
+scale = Vector2( 1.8, 1.8 )
+z_index = -10
+texture = ExtResource( 2 )
+
+[node name="PanBack" type="Sprite" parent="."]
+position = Vector2( 945.5, 727 )
+scale = Vector2( 1.3, 1.3 )
+z_index = -5
+texture = ExtResource( 1 )
+
+[node name="PanFront" type="Sprite" parent="."]
+position = Vector2( 945.5, 727 )
+scale = Vector2( 1.3, 1.3 )
+z_index = 5
+texture = ExtResource( 4 )
+
+[node name="PanBody" type="StaticBody2D" parent="."]
+position = Vector2( 0, 4 )
+z_index = 5
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="PanBody"]
+position = Vector2( 4, 75 )
+polygon = PoolVector2Array( 532, 696, 529, 707, 562, 775, 1330, 775, 1360, 716, 1353, 688, 1378, 698, 1427, 704, 1445, 746, 1420, 780, 1371, 780, 1318, 851, 1047, 867, 684, 858, 564, 846, 525, 779, 469, 774, 446, 736, 478, 692, 513, 696 )
+
+[node name="FireParticles1" type="Particles2D" parent="."]
+position = Vector2( 944, 922 )
+amount = 100
+process_material = SubResource( 8 )
+texture = ExtResource( 5 )
+
+[node name="FireParticles2" type="Particles2D" parent="."]
+position = Vector2( 948, 954 )
+amount = 100
+process_material = SubResource( 5 )
+texture = ExtResource( 5 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+anims/Idle = SubResource( 9 )
+anims/RESET = SubResource( 10 )
