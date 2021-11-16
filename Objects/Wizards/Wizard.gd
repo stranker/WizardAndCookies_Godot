@@ -65,7 +65,6 @@ func _ready():
 	_set_new_state(MovementState.IDLE, MovementState.IDLE)
 	emit_signal("on_health_update", health)
 	set_can_move(can_move)
-	add_to_group("Wizard")
 	pass
 
 func _physics_process(delta):
@@ -273,8 +272,6 @@ func _on_SpellCast_on_casting_spell():
 	set_can_move(false)
 	velocity = move_and_slide(Vector2.ZERO)
 	emit_signal("on_casting_spell")
-	if !spell_timer.is_stopped():
-		spell_timer.stop()
 	pass # Replace with function body.
 
 func _on_SpellCast_on_invoke_spell():
