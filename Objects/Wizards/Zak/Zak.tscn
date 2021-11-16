@@ -151,7 +151,7 @@ cast_direction_path = NodePath("../CastDirection")
 position = Vector2( 4, -17 )
 
 [node name="SpellTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.4
 one_shot = true
 
 [node name="DepletedFlyRecover" type="Timer" parent="."]
