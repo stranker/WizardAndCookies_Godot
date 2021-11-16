@@ -58,7 +58,7 @@ func _apply_effect():
 	pass
 
 func _apply_fire():
-	target.take_damage(effect_damage, [])
+	target.take_damage(effect_damage, [], Vector2())
 	pass
 
 func _apply_ice():
