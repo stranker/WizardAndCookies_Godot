@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Objects/Wizards/Zak/ZakSkin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Wizards/Wizard.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Test/Misc/PlayerUIDebug.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Wizards/Utility/SpellCast.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=5]
-[ext_resource path="res://Objects/Spells/ArrowIcon.png" type="Texture" id=6]
 [ext_resource path="res://Objects/Wizards/Utility/EffectsController.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=8]
 
@@ -131,21 +130,13 @@ shape = SubResource( 1 )
 [node name="CastPosition" type="Position2D" parent="."]
 position = Vector2( 1, -15 )
 
-[node name="CastDirection" type="Position2D" parent="."]
-position = Vector2( 1, -14 )
-
-[node name="CastIcon" type="Sprite" parent="CastDirection"]
-position = Vector2( 100, 0 )
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 6 )
-
 [node name="PlayerUIDebug" parent="." instance=ExtResource( 3 )]
 position = Vector2( 38, -136 )
 
 [node name="SpellCast" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -15 )
 cast_position_path = NodePath("../CastPosition")
 spell_particles_path = NodePath("../Visual/SpellParticles")
-cast_direction_path = NodePath("../CastDirection")
 
 [node name="EffectsController" parent="." instance=ExtResource( 7 )]
 position = Vector2( 4, -17 )
