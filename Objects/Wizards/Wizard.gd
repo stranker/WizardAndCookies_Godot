@@ -25,13 +25,14 @@ var is_idle : bool = false
 var is_running : bool = false
 var is_flying : bool = false
 var is_casting : bool = false
+var is_invoking : bool = false
 var can_recover_fly : bool = true
 var false_movement : bool = false
 
-enum MovementState { FALLING, JUMPING, IDLE, RUNNING, FLYING, CASTING, LAST }
+enum MovementState { FALLING, JUMPING, IDLE, RUNNING, FLYING, CASTING, INVOKING, LAST }
 export (MovementState) var current_state = MovementState.IDLE
 export (MovementState) var old_state = MovementState.IDLE
-var movement_state_string = ["Falling", "Jumping", "Idle", "Running", "Flying", "Casting", "Last"]
+var movement_state_string = ["Falling", "Jumping", "Idle", "Running", "Flying", "Casting", "Invoking", "Last"]
 
 onready var move_left : String = "move_left_" + str(player_id) 
 onready var move_right : String = "move_right_" + str(player_id) 
@@ -48,6 +49,7 @@ onready var jump_particles_l : Particles2D = $Visual/JumpParticlesL
 onready var jump_particles_r : Particles2D = $Visual/JumpParticlesR
 onready var knockback_recover : Timer = $KnockbackRecover
 onready var knockback_particles : Particles2D = $Visual/KnockbackParticles
+onready var knockback_particles_timer : Timer = $KnockbackParticlesTimer
 
 signal on_state_change(state, state_string)
 signal on_health_update(health)
@@ -130,14 +132,26 @@ func _process_state_machine():
 					_set_new_state(MovementState.FLYING, MovementState.CASTING)
 		MovementState.CASTING:
 			if not is_casting:
+				if is_invoking:
+					_set_new_state(MovementState.CASTING, MovementState.INVOKING)
+#				elif is_falling:
+#					_set_new_state(MovementState.CASTING, MovementState.FALLING)
+#				elif is_idle:
+#					_set_new_state(MovementState.CASTING, MovementState.IDLE)
+#				elif is_running:
+#					_set_new_state(MovementState.CASTING, MovementState.RUNNING)
+#				elif is_flying:
+#					_set_new_state(MovementState.CASTING, MovementState.FLYING)
+		MovementState.INVOKING:
+			if not is_invoking:
 				if is_falling:
-					_set_new_state(MovementState.CASTING, MovementState.FALLING)
+					_set_new_state(MovementState.INVOKING, MovementState.FALLING)
 				elif is_idle:
-					_set_new_state(MovementState.CASTING, MovementState.IDLE)
+					_set_new_state(MovementState.INVOKING, MovementState.IDLE)
 				elif is_running:
-					_set_new_state(MovementState.CASTING, MovementState.RUNNING)
+					_set_new_state(MovementState.INVOKING, MovementState.RUNNING)
 				elif is_flying:
-					_set_new_state(MovementState.CASTING, MovementState.FLYING)
+					_set_new_state(MovementState.INVOKING, MovementState.FLYING)
 	pass
 
 func _set_new_state(old, new_state):
@@ -203,10 +217,6 @@ func get_vertical_input():
 func get_visual_direction():
 	return Vector2(visual.scale.x,0)
 
-func _on_SpellTimer_timeout():
-	set_can_move(true)
-	pass # Replace with function body.
-
 func take_damage(damage : float, spell_effects : Array, knockback_force : Vector2):
 	health -= damage
 	health = max(0, health)
@@ -266,16 +276,22 @@ func _on_SpellCast_on_casting_spell():
 
 func _on_SpellCast_on_invoke_spell():
 	is_casting = false
+	is_invoking = true
 	emit_signal("on_invoke_spell")
 	spell_timer.start()
 	pass # Replace with function body.
 
 func _on_KnockbackRecover_timeout():
 	false_movement = false
-	$KnockbackParticlesTimer.start()
+	knockback_particles_timer.start()
 	pass # Replace with function body.
 
 
 func _on_HitParticlesTimer_timeout():
 	knockback_particles.emitting = false
+	pass # Replace with function body.
+
+func _on_SpellTimer_timeout():
+	is_invoking = false
+	set_can_move(true)
 	pass # Replace with function body.
