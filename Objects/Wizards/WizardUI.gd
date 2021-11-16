@@ -20,6 +20,7 @@ func _ready():
 		get_parent().connect("on_health_update", self, "_on_health_update")
 		get_parent().connect("on_fly_energy_update", self, "_on_fly_energy_update")
 		get_parent().connect("on_casting_spell", self, "_on_casting_spell")
+		get_parent().connect("on_invoke_spell", self, "_on_invoke_spell")
 		get_parent().connect("on_can_move_update", self, "_on_can_move_update")
 		get_parent().connect("on_effects_update", self, "_on_effects_update")
 	pass
@@ -38,12 +39,16 @@ func _on_fly_energy_update(fly_energy : float):
 	fly_label.text = str(fly_energy) + " Fly"
 	pass
 
-func _on_change_state(state):
-	movement_state.text = "Movement: " + state
+func _on_change_state(state, state_string):
+	movement_state.text = "Movement: " + state_string
 	pass
 
-func _on_casting_spell(is_casting : bool):
-	attacking_state.text = "Attack: " + ("Casting" if is_casting else "Idle")
+func _on_casting_spell():
+	attacking_state.text = "Attack: Casting"
+	pass
+
+func _on_invoke_spell():
+	attacking_state.text = "Attack: Invoke"
 	pass
 
 func _on_can_move_update(can_move : bool):

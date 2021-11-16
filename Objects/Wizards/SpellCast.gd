@@ -19,7 +19,8 @@ var cast_direction : Vector2 = Vector2.RIGHT
 
 export var is_casting : bool = false
 
-signal on_casting_spell(is_casting)
+signal on_casting_spell()
+signal on_invoke_spell()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,7 +49,7 @@ func check_skill_release():
 	if !is_casting: return
 	if Input.is_action_just_released(first_skill) or Input.is_action_just_released(second_skill):
 		is_casting = false
-		emit_signal("on_casting_spell", is_casting)
+		emit_signal("on_invoke_spell")
 		get_tree().root.add_child(current_spell)
 		current_spell.call_deferred("cast", spell_owner, cast_position.global_position, cast_direction)
 		current_spell = null
@@ -58,8 +59,8 @@ func check_skill_release():
 
 func _cast_skill(idx : int):
 	if is_casting: return
+	emit_signal("on_casting_spell")
 	is_casting = true
-	emit_signal("on_casting_spell", is_casting)
 	current_spell = spell_list[idx].instance()
 	spell_particles.emitting = is_casting
 	cast_direction_node.visible = is_casting
