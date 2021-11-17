@@ -26,8 +26,8 @@ func _ready():
 	pass
 
 func _process(delta):
-	anchor_position.x = int(global_position.x) % int(window_size.x)
-	anchor_position.y = int(global_position.y) % int(window_size.y)
+	anchor_position.x = global_position.x
+	anchor_position.y = global_position.y
 	anchor.rect_position = anchor_position
 	pass
 

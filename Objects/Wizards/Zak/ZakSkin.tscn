@@ -1335,7 +1335,7 @@ scale = Vector2( 0.3, 0.3 )
 script = ExtResource( 2 )
 
 [node name="Body" type="Sprite" parent="."]
-z_index = -1
+z_index = 10
 texture = ExtResource( 1 )
 offset = Vector2( -43.6141, -5.09292 )
 region_enabled = true
@@ -1344,7 +1344,7 @@ region_rect = Rect2( 50, 248, 300, 220 )
 [node name="Head" type="Sprite" parent="Body"]
 position = Vector2( -5, -100 )
 rotation = 0.00755682
-z_index = 1
+z_index = 11
 texture = ExtResource( 1 )
 offset = Vector2( -11.5252, -110.217 )
 region_enabled = true

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/KitchenPlayable.png-9004c66274dece91997cbcaed2d04072.stex"
+path="res://.import/Platform1.png-80b6d96ac5a1125816fb899cadcc66c4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Levels/Kitchen/KitchenPlayable.png"
-dest_files=[ "res://.import/KitchenPlayable.png-9004c66274dece91997cbcaed2d04072.stex" ]
+source_file="res://Scenes/Levels/Kitchen/Platform1.png"
+dest_files=[ "res://.import/Platform1.png-80b6d96ac5a1125816fb899cadcc66c4.stex" ]
 
 [params]
 

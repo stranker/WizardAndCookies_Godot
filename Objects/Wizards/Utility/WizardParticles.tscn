@@ -1,0 +1,190 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=17]
+script/source = "extends Node2D
+
+onready var jump_particles : Array = [$JumpParticlesL, $JumpParticlesR]
+onready var knockback_particles : Particles2D = $KnockbackParticles
+onready var spell_particles : Particles2D = $SpellParticles
+onready var wizard : Wizard = get_parent().get_parent()
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	wizard.connect(\"on_initialize\", self, \"_on_initialize\")
+	pass # Replace with function body.
+
+func _on_initialize():
+	wizard.connect(\"on_emit_jump_particles\", self, \"_on_emit_jump_particles\")
+	wizard.connect(\"on_knockback\", self, \"_on_knockback\")
+	wizard.connect(\"on_casting_spell\", self, \"_on_casting_spell\")
+	wizard.connect(\"on_invoke_spell\", self, \"_on_invoke_spell\")
+	pass
+
+func _on_emit_jump_particles(is_emitting):
+	for jump_particle in jump_particles:
+		jump_particle.emitting = is_emitting
+	pass
+
+func _on_knockback(is_knockback):
+	knockback_particles.emitting = is_knockback
+	pass
+
+func _on_knockback_particles():
+	knockback_particles.emitting = false
+	pass
+
+func _on_casting_spell():
+	spell_particles.emitting = true
+	pass
+
+func _on_invoke_spell():
+	spell_particles.emitting = false
+	pass
+"
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.15528, 0.279503, 0.596273 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 75.0
+gravity = Vector3( -100, -200, 0 )
+initial_velocity = 75.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.4
+color_ramp = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+spread = 75.0
+gravity = Vector3( 100, -200, 0 )
+initial_velocity = 75.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.4
+color_ramp = SubResource( 9 )
+
+[sub_resource type="Gradient" id=12]
+offsets = PoolRealArray( 0, 0.075, 0.11875, 0.49375, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.0352941, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=13]
+gradient = SubResource( 12 )
+
+[sub_resource type="Curve" id=14]
+_data = [ Vector2( 0, 1 ), 0.0, -1.53886, 0, 0, Vector2( 1, 0 ), -0.406868, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=15]
+curve = SubResource( 14 )
+
+[sub_resource type="ParticlesMaterial" id=16]
+trail_divisor = 2
+emission_shape = 1
+emission_sphere_radius = 22.54
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+flatness = 0.58
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 360.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 0.5
+scale_curve = SubResource( 15 )
+color_ramp = SubResource( 13 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.173913, 0.770186, 1 )
+colors = PoolColorArray( 0.364706, 0, 0.647059, 0, 0.364394, 0, 0.645663, 0.9, 0.364706, 0, 0.647059, 1, 0.364706, 0, 0.647059, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0.0217391, 0.990909 ), 0.0, -1.25455, 0, 0, Vector2( 1, 0 ), -0.426382, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.5
+trail_divisor = 5
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.3
+orbit_velocity = 2.0
+orbit_velocity_random = 0.5
+scale = 0.05
+scale_random = 0.05
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
+hue_variation = 0.03
+hue_variation_random = 1.0
+
+[node name="WizardParticles" type="Node2D"]
+script = SubResource( 17 )
+
+[node name="JumpParticlesL" type="Particles2D" parent="."]
+position = Vector2( -16, 48 )
+emitting = false
+amount = 3
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
+local_coords = false
+process_material = SubResource( 10 )
+texture = ExtResource( 2 )
+
+[node name="JumpParticlesR" type="Particles2D" parent="."]
+position = Vector2( 16, 48 )
+emitting = false
+amount = 3
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
+local_coords = false
+process_material = SubResource( 11 )
+texture = ExtResource( 2 )
+
+[node name="KnockbackParticles" type="Particles2D" parent="."]
+position = Vector2( 0, 14 )
+emitting = false
+amount = 150
+local_coords = false
+process_material = SubResource( 16 )
+texture = ExtResource( 2 )
+
+[node name="SpellParticles" type="Particles2D" parent="."]
+position = Vector2( 52, -6 )
+emitting = false
+amount = 100
+process_material = SubResource( 6 )
+texture = ExtResource( 1 )

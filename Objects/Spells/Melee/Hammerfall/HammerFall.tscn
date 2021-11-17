@@ -14,11 +14,10 @@ s_cooldown = 0.0
 s_range = 0.0
 s_knockback_force = 1200.0
 s_difficulty = 0.0
-s_type = 1
 s_effects = [ ExtResource( 5 ) ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 98.375, 131.859 )
+extents = Vector2( 90.875, 170.359 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "FallHit"
@@ -32,7 +31,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 2, 2, 2, 2, 2 ),
 "update": 0,
-"values": [ 0.0, -68.0906, 92.2287, 81.3322, 92.2287 ]
+"values": [ 0.0, -68.0906, 152.821, 147.699, 152.821 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -53,7 +52,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -193,7 +192,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -205,16 +204,33 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.7, 1 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
 }
 
 [node name="HammerFall" type="Area2D"]
 script = ExtResource( 1 )
 spell_data = SubResource( 4 )
 destroy_on_hit = false
+spell_type = 1
+translate_force = Vector2( 0, 800 )
+translate_duration = 0.4
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
@@ -222,7 +238,7 @@ texture = ExtResource( 2 )
 offset = Vector2( -12, -196 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 102.625, -40.8594 )
+position = Vector2( 95.125, -2.3592 )
 shape = SubResource( 1 )
 
 [node name="SpellInfo" parent="." instance=ExtResource( 4 )]

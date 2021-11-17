@@ -1,0 +1,95 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+onready var wizard : Wizard = get_parent()
+onready var end_invoking_timer : Timer = $EndInvokingTimer
+onready var depleted_fly_recover : Timer = $DepletedFlyRecover
+onready var knockback_recover : Timer = $KnockbackRecover
+onready var knockback_particles : Timer = $KnockbackParticlesTimer
+var wizard_particles : Node2D
+
+signal on_fly_energy_recover()
+signal on_knockback_recover()
+signal on_knockback_particles()
+signal on_end_invoking_timer()
+
+func _ready():
+	wizard.connect(\"on_initialize\", self, \"_on_initialize\")
+	pass
+
+func _on_initialize():
+	wizard_particles = wizard.get_wizard_particles()
+	wizard.connect(\"on_knockback\", self, \"_on_knockback\")
+	wizard.connect(\"on_casting_spell\", self, \"_on_casting_spell\")
+	wizard.connect(\"on_invoke_spell\", self, \"_on_invoke_spell\")
+	wizard.connect(\"on_fly_energy_depleted\", self, \"_on_fly_energy_depleted\")
+	connect(\"on_knockback_particles\", wizard_particles, \"_on_knockback_particles\")
+	connect(\"on_knockback_recover\", wizard, \"_on_knockback_recover\")
+	connect(\"on_end_invoking_timer\", wizard, \"_on_end_invoking_timer\")
+	connect(\"on_fly_energy_recover\", wizard, \"on_fly_energy_recover\")
+	pass
+
+func _on_knockback(is_knockback):
+	if knockback_recover.is_stopped():
+		knockback_recover.start()
+	pass
+
+func _on_casting_spell():
+	if !end_invoking_timer.is_stopped():
+		end_invoking_timer.stop()
+	pass
+
+func _on_invoke_spell():
+	end_invoking_timer.start()
+	pass
+
+func _on_fly_energy_depleted():
+	depleted_fly_recover.start()
+	pass
+
+func _on_EndInvokingTimer_timeout():
+	emit_signal(\"on_end_invoking_timer\")
+	pass # Replace with function body.
+
+func _on_DepletedFlyRecover_timeout():
+	emit_signal(\"on_fly_energy_recover\")
+	pass # Replace with function body.
+
+func _on_KnockbackRecover_timeout():
+	emit_signal(\"on_knockback_recover\")
+	knockback_particles.start()
+	pass # Replace with function body.
+
+func _on_KnockbackParticlesTimer_timeout():
+	emit_signal(\"on_knockback_particles\")
+	pass # Replace with function body.
+
+
+
+"
+
+[node name="WizardTimers" type="Node"]
+script = SubResource( 1 )
+
+[node name="EndInvokingTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="DepletedFlyRecover" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="KnockbackRecover" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="KnockbackParticlesTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="EndInvokingTimer" to="." method="_on_EndInvokingTimer_timeout"]
+[connection signal="timeout" from="DepletedFlyRecover" to="." method="_on_DepletedFlyRecover_timeout"]
+[connection signal="timeout" from="KnockbackRecover" to="." method="_on_KnockbackRecover_timeout"]
+[connection signal="timeout" from="KnockbackParticlesTimer" to="." method="_on_KnockbackParticlesTimer_timeout"]

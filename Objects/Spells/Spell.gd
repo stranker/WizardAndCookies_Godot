@@ -4,19 +4,25 @@ class_name Spell
 
 export (Resource) var spell_data
 export var destroy_on_hit : bool = true
-onready var spell_info = $SpellInfo
+export (SpellManager.SpellType) var spell_type = SpellManager.SpellType.LAST
+var spell_info : Node2D = null
 var spell_owner : Wizard = null
 var direction : Vector2
 
-func _ready():
+func _initialize():
+	spell_info = $SpellInfo
 	spell_info.initialize(spell_data)
 	connect("body_entered", self, "_on_spell_hit")
-	pass # Replace with function body.
+	pass
 
-func cast(_spell_owner : Wizard, spell_position : Vector2, spell_direction : Vector2):
-	global_position = spell_position
+func cast(_spell_owner : Wizard, spell_position : Position2D, spell_direction : Vector2):
+	_initialize()
+	global_position = spell_position.global_position
 	spell_owner = _spell_owner
 	direction = spell_direction
+	if spell_type == SpellManager.SpellType.MELEE:
+		pass
+		#direction.x = abs(direction.x)
 	pass
 
 func _on_spell_hit(body):
@@ -29,3 +35,6 @@ func _on_spell_hit(body):
 
 func _get_knockbak_force():
 	return direction.normalized() * spell_info.get_knockback_force()
+
+func get_type():
+	return spell_type
