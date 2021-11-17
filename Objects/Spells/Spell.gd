@@ -20,9 +20,6 @@ func cast(_spell_owner : Wizard, spell_position : Position2D, spell_direction : 
 	global_position = spell_position.global_position
 	spell_owner = _spell_owner
 	direction = spell_direction
-	if spell_type == SpellManager.SpellType.MELEE:
-		pass
-		#direction.x = abs(direction.x)
 	pass
 
 func _on_spell_hit(body):

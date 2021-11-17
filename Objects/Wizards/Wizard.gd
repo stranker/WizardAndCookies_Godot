@@ -277,14 +277,14 @@ func _on_invoke_spell():
 	emit_signal("on_invoke_spell")
 	pass
 
+func _on_can_cast_spell():
+	is_invoking = false
+	set_can_move(true)
+	pass
+
 func get_wizard_particles():
 	return wizard_particles
 
 func _on_knockback_recover():
 	false_movement = false
 	pass
-
-func _on_end_invoking_timer():
-	is_invoking = false
-	set_can_move(true)
-	pass # Replace with function body.

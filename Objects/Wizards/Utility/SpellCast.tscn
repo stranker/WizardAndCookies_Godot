@@ -70,3 +70,9 @@ texture = ExtResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Casting = SubResource( 1 )
 anims/RESET = SubResource( 2 )
+
+[node name="CanCastTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="CanCastTimer" to="." method="_on_CanCastTimer_timeout"]

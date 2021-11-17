@@ -5,25 +5,29 @@ var hammer_spell  = preload("res://Objects/Spells/Melee/Hammerfall/HammerFall.ts
 
 export (NodePath) var cast_position_path
 
+export var is_casting : bool = false
+
 onready var cast_position : Position2D = get_node(cast_position_path)
 onready var pivot : Node2D = $Pivot
 onready var wizard : Wizard = get_parent()
 onready var first_skill : String = "first_skill_" + str(wizard.player_id)
 onready var second_skill : String = "second_skill_" + str(wizard.player_id)
 onready var anim : AnimationPlayer = $AnimationPlayer
+onready var can_cast_timer : Timer = $CanCastTimer
 
 var spell_list : Array = [ice_spell, hammer_spell]
 var current_spell : Spell = null
 var cast_direction : Vector2 = Vector2.RIGHT
-
-export var is_casting : bool = false
+var can_cast_spell : bool = true
 
 signal on_casting_spell()
 signal on_invoke_spell()
+signal on_can_cast_spell()
 
 func _ready():
 	connect("on_casting_spell", wizard, "_on_casting_spell")
 	connect("on_invoke_spell", wizard, "_on_invoke_spell")
+	connect("on_can_cast_spell", wizard, "_on_can_cast_spell")
 	pass
 
 func _physics_process(delta):
@@ -56,11 +60,13 @@ func check_skill_release():
 			current_spell.cast(wizard, cast_position, cast_direction)
 			current_spell = null
 			anim.play_backwards("Casting")
+		can_cast_spell = false
+		can_cast_timer.start()
 		emit_signal("on_invoke_spell")
 	pass
 
 func _cast_skill(idx : int):
-	if is_casting: return
+	if is_casting or !can_cast_spell: return
 	emit_signal("on_casting_spell")
 	is_casting = true
 	current_spell = spell_list[idx].instance()
@@ -69,3 +75,9 @@ func _cast_skill(idx : int):
 
 func get_cast_direction():
 	return cast_direction
+
+
+func _on_CanCastTimer_timeout():
+	can_cast_spell = true
+	emit_signal("on_can_cast_spell")
+	pass # Replace with function body.
