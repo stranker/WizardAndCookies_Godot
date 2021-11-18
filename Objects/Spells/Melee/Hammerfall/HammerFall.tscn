@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/HammerFall.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/Hammerfall.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Spells/SpellData.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Spells/SpellInfo.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Spells/Effects/IceEffect/IceEffect.tres" type="Resource" id=5]
+[ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=6]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 3 )
@@ -83,6 +84,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("HitParticles:process_material:direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -145,6 +158,30 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HitParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 97, 166 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HitParticles:process_material:direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -223,6 +260,50 @@ tracks/5/keys = {
 "method": "queue_free"
 } ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("HitParticles:process_material:direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ) ]
+}
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.53125, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.36875, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, -5.59587, 0, 0, Vector2( 0.546448, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 2
+emission_box_extents = Vector3( 10, 1, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 75.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 500.0
+initial_velocity_random = 0.49
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.3
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 
 [node name="HammerFall" type="Area2D"]
 script = ExtResource( 1 )
@@ -247,3 +328,12 @@ shape = SubResource( 1 )
 anims/FallHit = SubResource( 2 )
 anims/RESET = SubResource( 3 )
 anims/UpHit = SubResource( 5 )
+
+[node name="HitParticles" type="Particles2D" parent="."]
+position = Vector2( 97, 166 )
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.91
+process_material = SubResource( 10 )
+texture = ExtResource( 6 )

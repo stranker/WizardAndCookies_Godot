@@ -24,7 +24,6 @@ func apply_effects(spell_effects : Array):
 func _has_effect(new_effect : SpellEffect):
 	for effect in active_effects:
 		if new_effect.e_name == effect.get_name():
-			print("Already have effect " + effect.get_name())
 			return true
 	return false
 

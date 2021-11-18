@@ -24,11 +24,13 @@ func cast(_spell_owner : Wizard, spell_position : Position2D, spell_direction : 
 
 func _on_spell_hit(body):
 	if body == spell_owner: return
-	if !body.has_method("take_damage"): return
-	body.take_damage(spell_info.get_damage(), spell_info.get_spell_effects(), _get_knockbak_force())
-	if destroy_on_hit:
-		call_deferred("queue_free")
+	if body.has_method("take_damage"):
+		body.take_damage(spell_info.get_damage(), spell_info.get_spell_effects(), _get_knockbak_force())
+	_destroy(body)
 	pass # Replace with function body.
+
+func _destroy(body : Node2D):
+	pass
 
 func _get_knockbak_force():
 	return direction.normalized() * spell_info.get_knockback_force()

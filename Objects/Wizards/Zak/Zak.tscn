@@ -22,7 +22,6 @@ jump_strength = 800.0
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="WizardSkin" parent="Visual" instance=ExtResource( 1 )]
-position = Vector2( 4, 0 )
 
 [node name="WizardParticles" parent="Visual" instance=ExtResource( 6 )]
 
@@ -40,4 +39,3 @@ shape = SubResource( 1 )
 position = Vector2( 38, -136 )
 
 [node name="EffectsController" parent="." instance=ExtResource( 7 )]
-position = Vector2( 64, -15 )

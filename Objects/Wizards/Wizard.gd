@@ -53,6 +53,7 @@ signal on_fly_energy_update(fly_energy)
 signal on_fly_energy_depleted()
 signal on_casting_spell()
 signal on_invoke_spell()
+signal on_end_cast_spell()
 signal on_can_move_update(can_move)
 signal on_effects_update(effects)
 signal on_emit_jump_particles(emitting)
@@ -280,6 +281,7 @@ func _on_invoke_spell():
 func _on_can_cast_spell():
 	is_invoking = false
 	set_can_move(true)
+	emit_signal("on_end_cast_spell")
 	pass
 
 func get_wizard_particles():

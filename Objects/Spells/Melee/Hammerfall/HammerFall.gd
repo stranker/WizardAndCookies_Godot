@@ -11,3 +11,6 @@ func cast(_spell_owner : Wizard, spell_position : Position2D, spell_direction : 
 		anim.play("UpHit")
 		_spell_owner.set_translate_force(Vector2(translate_force.x,-translate_force.y), 0.3)
 	pass
+
+func _destroy(body : Node2D):
+	pass
