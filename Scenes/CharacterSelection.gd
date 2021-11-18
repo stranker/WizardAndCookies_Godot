@@ -8,7 +8,7 @@ func _ready() -> void:
 	pass
 
 func _on_GameplayBtn_pressed() -> void:
-	scene_manager.change_scene(scene_manager.Scenes.GAMEPLAY)
+	scene_manager.change_scene(scene_manager.Scenes.LOADING_PLAYER_PRESENTATION)
 	pass
 
 func _on_BackBtn_pressed() -> void:
