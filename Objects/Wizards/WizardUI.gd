@@ -2,6 +2,7 @@ extends Position2D
 
 export var debug_text : bool = true
 
+onready var wizard : Wizard = get_parent()
 onready var anchor : Control = $CanvasLayer/Anchor
 onready var health_label : Label = $CanvasLayer/Anchor/Panel/VBC/Health
 onready var fly_label : Label = $CanvasLayer/Anchor/Panel/VBC/FlyEnergy
@@ -16,18 +17,19 @@ func _ready():
 	set_process(debug_text)
 	anchor.visible = debug_text
 	if debug_text:
-		get_parent().connect("on_state_change", self, "_on_change_state")
-		get_parent().connect("on_health_update", self, "_on_health_update")
-		get_parent().connect("on_fly_energy_update", self, "_on_fly_energy_update")
-		get_parent().connect("on_casting_spell", self, "_on_casting_spell")
-		get_parent().connect("on_invoke_spell", self, "_on_invoke_spell")
-		get_parent().connect("on_can_move_update", self, "_on_can_move_update")
-		get_parent().connect("on_effects_update", self, "_on_effects_update")
+		wizard.connect("on_state_change", self, "_on_change_state")
+		wizard.connect("on_health_update", self, "_on_health_update")
+		wizard.connect("on_fly_energy_update", self, "_on_fly_energy_update")
+		wizard.connect("on_casting_spell", self, "_on_casting_spell")
+		wizard.connect("on_invoke_spell", self, "_on_invoke_spell")
+		wizard.connect("on_end_cast_spell", self, "_on_end_cast_spell")
+		wizard.connect("on_can_move_update", self, "_on_can_move_update")
+		wizard.connect("on_effects_update", self, "_on_effects_update")
 	pass
 
 func _process(delta):
-	anchor_position.x = int(global_position.x) % int(window_size.x)
-	anchor_position.y = int(global_position.y) % int(window_size.y)
+	anchor_position.x = global_position.x
+	anchor_position.y = global_position.y
 	anchor.rect_position = anchor_position
 	pass
 
@@ -51,14 +53,16 @@ func _on_invoke_spell():
 	attacking_state.text = "Attack: Invoke"
 	pass
 
+func _on_end_cast_spell():
+	attacking_state.text = "Attack: Idle"
+	pass
+
 func _on_can_move_update(can_move : bool):
 	can_move_label.text = "Can move: " + ("True" if can_move else "False")
 	pass
 
 func _on_effects_update(effects : Array):
-	print(effects)
 	effect_state.text = ""
 	for effect in effects:
-		print(effect.get_name())
 		effect_state.text += "[" + effect.get_name() + "]"
 	pass

@@ -7,7 +7,6 @@ var spell_damage : float
 var spell_cooldown : float
 var spell_range : float
 var spell_knockback_force : float
-var spell_type : int
 var spell_effects : Array
 
 func initialize(data : SpellData):
@@ -16,7 +15,6 @@ func initialize(data : SpellData):
 	spell_cooldown = data.s_cooldown
 	spell_range = data.s_range
 	spell_knockback_force = data.s_knockback_force
-	spell_type = data.s_type
 	spell_effects = data.s_effects
 	pass
 
@@ -34,9 +32,6 @@ func get_range():
 
 func get_knockback_force():
 	return spell_knockback_force
-
-func get_type():
-	return spell_type
 
 func get_spell_effects():
 	return spell_effects

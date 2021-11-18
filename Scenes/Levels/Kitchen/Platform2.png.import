@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Oven.png-a17e0d23fc7e2292accaab148f98f64a.stex"
+path="res://.import/Platform2.png-40ad39f691714ba9c5dcbf8feb4f0438.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Levels/Kitchen/Oven.png"
-dest_files=[ "res://.import/Oven.png-a17e0d23fc7e2292accaab148f98f64a.stex" ]
+source_file="res://Scenes/Levels/Kitchen/Platform2.png"
+dest_files=[ "res://.import/Platform2.png-40ad39f691714ba9c5dcbf8feb4f0438.stex" ]
 
 [params]
 

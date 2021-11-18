@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/HammerFall.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/Hammerfall.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Spells/SpellData.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Spells/SpellInfo.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Spells/Effects/IceEffect/IceEffect.tres" type="Resource" id=5]
+[ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=6]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 3 )
@@ -14,11 +15,10 @@ s_cooldown = 0.0
 s_range = 0.0
 s_knockback_force = 1200.0
 s_difficulty = 0.0
-s_type = 1
 s_effects = [ ExtResource( 5 ) ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 98.375, 131.859 )
+extents = Vector2( 90.875, 170.359 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "FallHit"
@@ -32,7 +32,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 2, 2, 2, 2, 2 ),
 "update": 0,
-"values": [ 0.0, -68.0906, 92.2287, 81.3322, 92.2287 ]
+"values": [ 0.0, -68.0906, 152.821, 147.699, 152.821 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -53,7 +53,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -83,6 +83,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HitParticles:process_material:direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -147,6 +159,30 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("HitParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 97, 166 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HitParticles:process_material:direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "UpHit"
@@ -193,7 +229,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -205,16 +241,77 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.7, 1 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HitParticles:process_material:direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ) ]
+}
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.53125, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.36875, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, -5.59587, 0, 0, Vector2( 0.546448, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 2
+emission_box_extents = Vector3( 10, 1, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 75.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 500.0
+initial_velocity_random = 0.49
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.3
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 
 [node name="HammerFall" type="Area2D"]
 script = ExtResource( 1 )
 spell_data = SubResource( 4 )
 destroy_on_hit = false
+spell_type = 1
+translate_force = Vector2( 0, 800 )
+translate_duration = 0.4
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
@@ -222,7 +319,7 @@ texture = ExtResource( 2 )
 offset = Vector2( -12, -196 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 102.625, -40.8594 )
+position = Vector2( 95.125, -2.3592 )
 shape = SubResource( 1 )
 
 [node name="SpellInfo" parent="." instance=ExtResource( 4 )]
@@ -231,3 +328,12 @@ shape = SubResource( 1 )
 anims/FallHit = SubResource( 2 )
 anims/RESET = SubResource( 3 )
 anims/UpHit = SubResource( 5 )
+
+[node name="HitParticles" type="Particles2D" parent="."]
+position = Vector2( 97, 166 )
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.91
+process_material = SubResource( 10 )
+texture = ExtResource( 6 )

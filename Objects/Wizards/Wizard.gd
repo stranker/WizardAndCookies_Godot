@@ -42,15 +42,10 @@ onready var jump : String = "jump_" + str(player_id)
 onready var fly : String = "fly_" + str(player_id)
 
 onready var visual : Node2D = $Visual
-onready var spell_timer : Timer = $SpellTimer
 onready var effects : Node2D = $EffectsController
-onready var depleted_fly_recover : Timer = $DepletedFlyRecover
-onready var jump_particles_l : Particles2D = $Visual/JumpParticlesL
-onready var jump_particles_r : Particles2D = $Visual/JumpParticlesR
-onready var knockback_recover : Timer = $KnockbackRecover
-onready var knockback_particles : Particles2D = $Visual/KnockbackParticles
-onready var knockback_particles_timer : Timer = $KnockbackParticlesTimer
+onready var wizard_particles : Node2D = $Visual/WizardParticles
 
+signal on_initialize()
 signal on_state_change(state, state_string)
 signal on_health_update(health)
 signal on_health_depleted()
@@ -58,13 +53,18 @@ signal on_fly_energy_update(fly_energy)
 signal on_fly_energy_depleted()
 signal on_casting_spell()
 signal on_invoke_spell()
+signal on_end_cast_spell()
 signal on_can_move_update(can_move)
 signal on_effects_update(effects)
+signal on_emit_jump_particles(emitting)
+signal on_knockback(is_knockback)
 
 func _ready():
 	_set_new_state(MovementState.IDLE, MovementState.IDLE)
 	emit_signal("on_health_update", health)
 	set_can_move(can_move)
+	add_to_group("Wizard")
+	emit_signal("on_initialize")
 	pass
 
 func _physics_process(delta):
@@ -110,10 +110,10 @@ func _process_state_machine():
 				_set_new_state(MovementState.JUMPING, MovementState.CASTING)
 		MovementState.FALLING:
 			if is_idle:
-				_set_jump_particles_emitting(true)
+				emit_signal("on_emit_jump_particles", true)
 				_set_new_state(MovementState.FALLING, MovementState.IDLE)
 			elif is_running:
-				_set_jump_particles_emitting(true)
+				emit_signal("on_emit_jump_particles", true)
 				_set_new_state(MovementState.FALLING, MovementState.RUNNING)
 			elif is_flying:
 				_set_new_state(MovementState.FALLING, MovementState.FLYING)
@@ -191,11 +191,11 @@ func _process_movement(delta):
 		velocity.x = dir.x * speed
 	if is_jumping and not is_flying:
 		velocity.y  = -jump_strength
-		_set_jump_particles_emitting(true)
+		emit_signal("on_emit_jump_particles", true)
 	pass
 
 func update_visual_direction(horizontal):
-	if visual:
+	if visual and !is_invoking:
 		if horizontal > 0.1:
 			visual.scale.x = 1
 		elif horizontal < -0.1:
@@ -234,11 +234,19 @@ func set_can_move(value : bool):
 	pass
 
 func set_knockback(force : Vector2):
-	false_movement = true
-	knockback_particles.emitting = true
+	set_false_movement(true, force)
+	emit_signal("on_knockback", true)
+	pass
+
+func set_translate_force(force : Vector2, duration : float):
+	set_false_movement(true, force)
+	yield(get_tree().create_timer(duration),"timeout")
+	set_false_movement(false, Vector2.ZERO)
+	pass
+
+func set_false_movement(value : bool, force : Vector2):
+	false_movement = value
 	velocity = force
-	if knockback_recover and knockback_recover.is_stopped():
-		knockback_recover.start()
 	pass
 
 func _on_effects_update(effects : Array):
@@ -253,45 +261,32 @@ func init_speed():
 	speed = initial_speed
 	pass
 
-func _set_jump_particles_emitting(value : bool):
-	jump_particles_l.emitting = value
-	jump_particles_r.emitting = value
+func on_fly_energy_recover():
+	can_recover_fly = true
 	pass
 
-func _on_DepletedFlyRecover_timeout():
-	can_recover_fly = true
-	pass # Replace with function body.
-
-
-func _on_Zak_on_fly_energy_depleted():
-	depleted_fly_recover.start()
-	pass # Replace with function body.
-
-func _on_SpellCast_on_casting_spell():
+func _on_casting_spell():
 	is_casting = true
 	set_can_move(false)
 	velocity = move_and_slide(Vector2.ZERO)
 	emit_signal("on_casting_spell")
-	pass # Replace with function body.
+	pass
 
-func _on_SpellCast_on_invoke_spell():
-	is_casting = false
+func _on_invoke_spell():
 	is_invoking = true
+	is_casting = !is_invoking
 	emit_signal("on_invoke_spell")
-	spell_timer.start()
-	pass # Replace with function body.
+	pass
 
-func _on_KnockbackRecover_timeout():
-	false_movement = false
-	knockback_particles_timer.start()
-	pass # Replace with function body.
-
-
-func _on_HitParticlesTimer_timeout():
-	knockback_particles.emitting = false
-	pass # Replace with function body.
-
-func _on_SpellTimer_timeout():
+func _on_can_cast_spell():
 	is_invoking = false
 	set_can_move(true)
-	pass # Replace with function body.
+	emit_signal("on_end_cast_spell")
+	pass
+
+func get_wizard_particles():
+	return wizard_particles
+
+func _on_knockback_recover():
+	false_movement = false
+	pass
