@@ -1,0 +1,250 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Objects/UI/Leaderboard/Leaderboards.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/font_152.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Fonts/font_50.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Assets/UI/SpellSelection/Asset_Frame.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/SpellSelection/BackgroundPlate.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/Misc/CookieButton.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/CharacterSelection/Asset_ZakFace.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/CharacterSelection/Asset_MegFace.png" type="Texture" id=8]
+[ext_resource path="res://Objects/UI/Leaderboard/CookieLeaderboard.tscn" type="PackedScene" id=10]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+player_1_points = 1
+player_2_points = 2
+player_1_name_string = "ZAK"
+player_2_name_string = "MEG"
+player_1_portrait_texture = ExtResource( 7 )
+player_2_portrait_texture = ExtResource( 8 )
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 5 )
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -695.0
+margin_top = 158.0
+margin_right = 696.0
+margin_bottom = 299.0
+custom_fonts/font = ExtResource( 2 )
+text = "FIRST TO 3 COOKIES"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -632.5
+margin_top = -181.0
+margin_right = 632.5
+margin_bottom = 423.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -632.5
+margin_top = -302.0
+margin_right = 632.5
+margin_bottom = 302.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Row1" type="Control" parent="Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -544.5
+margin_top = -23.0
+margin_right = 542.5
+margin_bottom = 269.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="Panel/Row1"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -441.5
+margin_top = -164.0
+margin_right = 442.5
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerId" type="Label" parent="Panel/Row1"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 130.0
+margin_top = -67.0
+margin_right = 335.0
+margin_bottom = -20.0
+custom_fonts/font = ExtResource( 3 )
+text = "PLAYER 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Panel/Row1"]
+margin_left = 846.5
+margin_top = 79.0
+margin_right = 973.5
+margin_bottom = 126.0
+custom_fonts/font = ExtResource( 3 )
+text = "ZAK"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="TextureRect" parent="Panel/Row1"]
+margin_left = 176.5
+margin_top = 147.0
+margin_right = 295.5
+margin_bottom = 268.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="CookieLeaderboard1" parent="Panel/Row1" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -166.5
+margin_top = 22.0
+margin_right = -84.5
+margin_bottom = 104.0
+
+[node name="CookieLeaderboard2" parent="Panel/Row1" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.0
+margin_top = 22.0
+margin_right = 94.0
+margin_bottom = 104.0
+
+[node name="CookieLeaderboard3" parent="Panel/Row1" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 196.0
+margin_top = 22.0
+margin_right = 278.0
+margin_bottom = 104.0
+
+[node name="Row2" type="Control" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -544.0
+margin_top = -360.0
+margin_right = 543.0
+margin_bottom = -68.0
+rect_pivot_offset = Vector2( 130, 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="Panel/Row2"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -441.5
+margin_top = -164.0
+margin_right = 442.5
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerId" type="Label" parent="Panel/Row2"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 130.0
+margin_top = -67.0
+margin_right = 335.0
+margin_bottom = -20.0
+custom_fonts/font = ExtResource( 3 )
+text = "PLAYER 2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Panel/Row2"]
+margin_left = 846.5
+margin_top = 79.0
+margin_right = 973.5
+margin_bottom = 126.0
+custom_fonts/font = ExtResource( 3 )
+text = "MEG"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="TextureRect" parent="Panel/Row2"]
+margin_left = 176.5
+margin_top = 147.0
+margin_right = 295.5
+margin_bottom = 268.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="CookieLeaderboard1" parent="Panel/Row2" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -166.5
+margin_top = 22.0
+margin_right = -84.5
+margin_bottom = 104.0
+
+[node name="CookieLeaderboard2" parent="Panel/Row2" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.0
+margin_top = 22.0
+margin_right = 94.0
+margin_bottom = 104.0
+
+[node name="CookieLeaderboard3" parent="Panel/Row2" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 196.0
+margin_top = 22.0
+margin_right = 278.0
+margin_bottom = 104.0

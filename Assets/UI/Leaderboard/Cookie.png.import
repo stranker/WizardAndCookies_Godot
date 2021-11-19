@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Panel.png-b297cc76ec73f918f4d03c3dbb0f3481.stex"
+path="res://.import/Cookie.png-4c84fcd2fd153e3b8e3e9dd208e900f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Leaderboard/Panel.png"
-dest_files=[ "res://.import/Panel.png-b297cc76ec73f918f4d03c3dbb0f3481.stex" ]
+source_file="res://Assets/UI/Leaderboard/Cookie.png"
+dest_files=[ "res://.import/Cookie.png-4c84fcd2fd153e3b8e3e9dd208e900f9.stex" ]
 
 [params]
 
