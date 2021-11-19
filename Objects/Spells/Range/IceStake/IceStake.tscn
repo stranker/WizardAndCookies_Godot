@@ -248,7 +248,6 @@ texture = ExtResource( 4 )
 
 [node name="Destroy" type="Particles2D" parent="."]
 position = Vector2( 25, 0 )
-emitting = false
 amount = 20
 one_shot = true
 explosiveness = 0.9

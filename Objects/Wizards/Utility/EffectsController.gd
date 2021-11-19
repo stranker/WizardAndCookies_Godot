@@ -21,6 +21,12 @@ func apply_effects(spell_effects : Array):
 	call_deferred("emit_signal","on_effects_update", active_effects)
 	pass
 
+func apply_effect(spell_effect : Resource):
+	if !spell_effect: return
+	_add_effect(spell_effect)
+	call_deferred("emit_signal","on_effects_update", active_effects)
+	pass
+
 func _has_effect(new_effect : SpellEffect):
 	for effect in active_effects:
 		if new_effect.e_name == effect.get_name():
@@ -28,6 +34,8 @@ func _has_effect(new_effect : SpellEffect):
 	return false
 
 func _add_effect(effect_data : SpellEffect):
+	print(effect_data.e_name)
+	print(effect_data.e_type)
 	var effect = effect_scene.instance()
 	call_deferred("add_child", effect)
 	effect.call_deferred("initialize", effect_data, wizard)

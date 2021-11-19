@@ -19,6 +19,7 @@ var spell_list : Array = [ice_spell, hammer_spell]
 var current_spell : Spell = null
 var cast_direction : Vector2 = Vector2.RIGHT
 var can_cast_spell : bool = true
+var current_effect : Resource = null
 
 signal on_casting_spell()
 signal on_invoke_spell()
@@ -28,6 +29,7 @@ func _ready():
 	connect("on_casting_spell", wizard, "_on_casting_spell")
 	connect("on_invoke_spell", wizard, "_on_invoke_spell")
 	connect("on_can_cast_spell", wizard, "_on_can_cast_spell")
+	wizard.connect("on_pickup_effect", self, "_on_pickup_effect")
 	pass
 
 func _physics_process(delta):
@@ -57,8 +59,9 @@ func check_skill_release():
 				cast_position.add_child(current_spell)
 			else:
 				get_tree().root.add_child(current_spell)
-			current_spell.cast(wizard, cast_position, cast_direction)
+			current_spell.cast(wizard, cast_position, cast_direction, current_effect)
 			current_spell = null
+			current_effect = null
 			anim.play_backwards("Casting")
 		can_cast_spell = false
 		can_cast_timer.start()
@@ -81,3 +84,7 @@ func _on_CanCastTimer_timeout():
 	can_cast_spell = true
 	emit_signal("on_can_cast_spell")
 	pass # Replace with function body.
+
+func _on_pickup_effect(effect : Resource):
+	current_effect = effect
+	pass

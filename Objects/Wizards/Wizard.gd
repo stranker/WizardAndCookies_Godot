@@ -42,7 +42,7 @@ onready var jump : String = "jump_" + str(player_id)
 onready var fly : String = "fly_" + str(player_id)
 
 onready var visual : Node2D = $Visual
-onready var effects : Node2D = $EffectsController
+onready var effects_controller : Node2D = $EffectsController
 onready var wizard_particles : Node2D = $Visual/WizardParticles
 
 signal on_initialize()
@@ -58,6 +58,7 @@ signal on_can_move_update(can_move)
 signal on_effects_update(effects)
 signal on_emit_jump_particles(emitting)
 signal on_knockback(is_knockback)
+signal on_pickup_effect(effect)
 
 func _ready():
 	_set_new_state(MovementState.IDLE, MovementState.IDLE)
@@ -217,12 +218,12 @@ func get_vertical_input():
 func get_visual_direction():
 	return Vector2(visual.scale.x,0)
 
-func take_damage(damage : float, spell_effects : Array, knockback_force : Vector2):
+func take_damage(damage : float, spell_effect : Resource, knockback_force : Vector2):
 	health -= damage
 	health = max(0, health)
 	set_knockback(knockback_force)
-	if !spell_effects.empty() and effects:
-		effects.apply_effects(spell_effects)
+	if spell_effect and effects_controller:
+		effects_controller.apply_effect(spell_effect)
 	emit_signal("on_health_update", health)
 	if(health <= 0):
 		emit_signal("on_health_depleted")
@@ -289,4 +290,8 @@ func get_wizard_particles():
 
 func _on_knockback_recover():
 	false_movement = false
+	pass
+
+func pick_effect(effect : Resource):
+	emit_signal("on_pickup_effect", effect)
 	pass

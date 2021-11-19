@@ -1344,7 +1344,7 @@ region_rect = Rect2( 50, 248, 300, 220 )
 [node name="Head" type="Sprite" parent="Body"]
 position = Vector2( -5, -100 )
 rotation = 0.00755682
-z_index = 11
+z_index = 1
 texture = ExtResource( 1 )
 offset = Vector2( -11.5252, -110.217 )
 region_enabled = true
