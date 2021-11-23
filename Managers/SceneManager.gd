@@ -4,7 +4,9 @@ enum Scenes {
 	MAIN_MENU,
 	CHARACTER_SELECTION,
 	GAMEPLAY,
-	POST_GAME
+	POST_GAME,
+	LOADING,
+	LOADING_PLAYER_PRESENTATION
 }
 
 func _ready():
@@ -21,5 +23,9 @@ func change_scene(scene):
 			scene_name = "res://Scenes/Gameplay.tscn"
 		Scenes.POST_GAME:
 			scene_name = "res://Scenes/PostGame.tscn"
+		Scenes.LOADING:
+			scene_name = "res://Scenes/Loading.tscn"
+		Scenes.LOADING_PLAYER_PRESENTATION:
+			scene_name = "res://Scenes/LoadingPlayerPresentation.tscn"
 	var _current_scene = get_tree().change_scene(scene_name)
 	pass
