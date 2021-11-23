@@ -1,5 +1,4 @@
 extends Node
 
-func _ready():
-	randomize()
-	pass # Replace with function body.
+var main_camera : MainCamera = null
+

@@ -462,7 +462,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( -3, -97.4421 ), Vector2( -3, -95 ) ]
+"values": [ Vector2( -3, -98 ), Vector2( -3, -94 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body/LHand:rotation_degrees")
@@ -474,7 +474,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ 1.53697, 2.13305 ]
+"values": [ 1.53697, 10.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Body/RHand:rotation_degrees")
@@ -486,7 +486,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ 4.66732, 6.61664 ]
+"values": [ 1.5, 10.0 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Body/Head:rotation_degrees")
@@ -1398,7 +1398,6 @@ anims/Run = SubResource( 2 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 3 )
 anim_player = NodePath("../Anim")
-active = true
 parameters/StateMachine/playback = SubResource( 17 )
 parameters/StateMachine/conditions/cast = false
 parameters/StateMachine/conditions/fal = false

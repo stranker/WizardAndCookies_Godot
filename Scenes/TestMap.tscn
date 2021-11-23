@@ -3,7 +3,7 @@
 [ext_resource path="res://Objects/Wizards/Zak/Zak.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Levels/Kitchen/Kitchen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Wizards/Dummy2.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/Utility/Camera/MainCamera.gd" type="Script" id=4]
+[ext_resource path="res://Objects/Utility/Camera/MainCamera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/PickUps/Effect/EffectPickup.tscn" type="PackedScene" id=5]
 
 [node name="TestMap" type="Node2D"]
@@ -19,12 +19,7 @@ position = Vector2( 942, 175 )
 player_id = 2
 restart_position_on_exit = false
 
-[node name="MainCamera" type="Camera2D" parent="."]
-current = true
-zoom = Vector2( 0.8, 0.8 )
-script = ExtResource( 4 )
-min_position = Vector2( 600, 300 )
-max_position = Vector2( 1200, 800 )
+[node name="MainCamera" parent="." instance=ExtResource( 4 )]
 
 [node name="EffectPickup" parent="." instance=ExtResource( 5 )]
 position = Vector2( 732, 400 )

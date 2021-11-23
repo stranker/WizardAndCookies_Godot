@@ -33,6 +33,7 @@ func _on_spell_hit(body):
 	if body == spell_owner: return
 	if body.has_method("take_damage"):
 		body.take_damage(spell_info.get_damage(), spell_effect, _get_knockbak_force())
+		GameManager.main_camera.set_camera_shake(0.5, 0.5)
 	_destroy(body)
 	pass # Replace with function body.
 

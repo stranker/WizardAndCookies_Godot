@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Spells/Effects/Effect.gd"
 }, {
+"base": "Camera2D",
+"class": "MainCamera",
+"language": "GDScript",
+"path": "res://Objects/Utility/Camera/MainCamera.gd"
+}, {
 "base": "Spell",
 "class": "MeleeSpeel",
 "language": "GDScript",
@@ -52,6 +57,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "CookieLeaderboard": "",
 "Effect": "",
+"MainCamera": "",
 "MeleeSpeel": "",
 "RangeSpell": "",
 "Spell": "",
@@ -68,6 +74,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+GameManager="*res://Managers/GameManager.gd"
 SceneManager="*res://Managers/SceneManager.gd"
 SpellManager="*res://Managers/SpellManager.gd"
 
