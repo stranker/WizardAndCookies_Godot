@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 e_name = "Stun Effect"
 e_damage = 0.0
-e_time = 2.0
+e_time = 0.6
 e_repeat_count = 0
 e_type = 2

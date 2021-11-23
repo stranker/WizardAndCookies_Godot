@@ -218,7 +218,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 
 [node name="IceStake" type="Area2D"]
@@ -248,6 +248,7 @@ texture = ExtResource( 4 )
 
 [node name="Destroy" type="Particles2D" parent="."]
 position = Vector2( 25, 0 )
+emitting = false
 amount = 20
 one_shot = true
 explosiveness = 0.9

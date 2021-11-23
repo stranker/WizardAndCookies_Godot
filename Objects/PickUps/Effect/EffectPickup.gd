@@ -5,6 +5,7 @@ export (SpellManager.EffectType) var debug_effect_type = SpellManager.EffectType
 export var generate_debug_effect : bool = true
 var effects : Array = [$Fire, $Ice, $Stun]
 var effect : Resource = null
+var picked : bool = false
 
 func _ready():
 	if generate_debug_effect:
@@ -23,7 +24,8 @@ func _generate_debug_effect():
 	pass
 
 func _on_EffectPickup_body_entered(body):
-	if !body.has_method("pick_effect"): return
+	if !body.has_method("pick_effect") and picked: return
+	picked = true
 	body.pick_effect(effect)
 	call_deferred("queue_free")
 	pass # Replace with function body.

@@ -17,6 +17,7 @@ export var fly_energy_consume : float = 1.0
 export var player_id : int = 1
 export var decrease_fly : bool = false
 export var get_input_available : bool = true
+export var restart_position_on_exit : bool = true
 
 var velocity : Vector2 = Vector2.ZERO
 var is_falling : bool = false
@@ -44,6 +45,8 @@ onready var fly : String = "fly_" + str(player_id)
 onready var visual : Node2D = $Visual
 onready var effects_controller : Node2D = $EffectsController
 onready var wizard_particles : Node2D = $Visual/WizardParticles
+
+onready var initial_pos : Vector2 = global_position
 
 signal on_initialize()
 signal on_state_change(state, state_string)
@@ -135,14 +138,6 @@ func _process_state_machine():
 			if not is_casting:
 				if is_invoking:
 					_set_new_state(MovementState.CASTING, MovementState.INVOKING)
-#				elif is_falling:
-#					_set_new_state(MovementState.CASTING, MovementState.FALLING)
-#				elif is_idle:
-#					_set_new_state(MovementState.CASTING, MovementState.IDLE)
-#				elif is_running:
-#					_set_new_state(MovementState.CASTING, MovementState.RUNNING)
-#				elif is_flying:
-#					_set_new_state(MovementState.CASTING, MovementState.FLYING)
 		MovementState.INVOKING:
 			if not is_invoking:
 				if is_falling:
@@ -163,6 +158,7 @@ func _set_new_state(old, new_state):
 	pass
 
 func _process_flying():
+	if false_movement: return
 	if is_flying:
 		if decrease_fly:
 			fly_energy -= fly_energy_consume
@@ -235,6 +231,7 @@ func set_can_move(value : bool):
 	pass
 
 func set_knockback(force : Vector2):
+	set_can_move(false)
 	set_false_movement(true, force)
 	emit_signal("on_knockback", true)
 	pass
@@ -289,9 +286,17 @@ func get_wizard_particles():
 	return wizard_particles
 
 func _on_knockback_recover():
+	set_can_move(true)
 	false_movement = false
+	#set_false_movement(false, Vector2.ZERO)
 	pass
 
 func pick_effect(effect : Resource):
 	emit_signal("on_pickup_effect", effect)
 	pass
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	if !restart_position_on_exit: return
+	global_position = initial_pos
+	pass # Replace with function body.

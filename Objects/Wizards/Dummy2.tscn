@@ -46,9 +46,11 @@ shape = SubResource( 1 )
 
 [node name="PlayerUIDebug" parent="." instance=ExtResource( 3 )]
 position = Vector2( 40, -152 )
+debug_text = false
 
 [node name="EffectsController" parent="." instance=ExtResource( 7 )]
 position = Vector2( 4, -17 )
 
-[connection signal="on_casting_spell" from="SpellCast" to="." method="_on_SpellCast_on_casting_spell"]
-[connection signal="on_invoke_spell" from="SpellCast" to="." method="_on_SpellCast_on_invoke_spell"]
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

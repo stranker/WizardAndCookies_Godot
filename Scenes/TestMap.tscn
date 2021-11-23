@@ -12,10 +12,12 @@
 
 [node name="Zak" parent="." instance=ExtResource( 1 )]
 position = Vector2( 628, 601 )
+restart_position_on_exit = false
 
 [node name="Dummy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1066, 643 )
+position = Vector2( 942, 175 )
 player_id = 2
+restart_position_on_exit = false
 
 [node name="MainCamera" type="Camera2D" parent="."]
 current = true
@@ -26,4 +28,4 @@ max_position = Vector2( 1200, 800 )
 
 [node name="EffectPickup" parent="." instance=ExtResource( 5 )]
 position = Vector2( 732, 400 )
-debug_effect_type = 0
+debug_effect_type = 2
