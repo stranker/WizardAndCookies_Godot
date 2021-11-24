@@ -231,6 +231,7 @@ func set_can_move(value : bool):
 	pass
 
 func set_knockback(force : Vector2):
+	if force == Vector2.ZERO : return
 	set_can_move(false)
 	set_false_movement(true, force)
 	emit_signal("on_knockback", true)

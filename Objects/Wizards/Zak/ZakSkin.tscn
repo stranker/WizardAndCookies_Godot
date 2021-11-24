@@ -1090,7 +1090,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ -72.234, -34.168, 18.5379, 84.2657, 23.6853, -38.4733 ]
+"values": [ -72.234, -34.168, 18.5379, 84.2657, 18.5379, -38.4733 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Body/RHand:rotation_degrees")
@@ -1102,7 +1102,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 82.4903, 39.2996, -8.20456, -59.8717, -16.8385, 45.4776 ]
+"values": [ 82.4903, 39.2996, -8.20456, -59.8717, -8.20456, 45.4776 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Body/LFoot:rotation_degrees")
@@ -1330,7 +1330,7 @@ node_connections = [ "output", 0, "StateMachine" ]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
-[node name="ZakSkin" type="Node2D"]
+[node name="WizardSkin" type="Node2D"]
 scale = Vector2( 0.3, 0.3 )
 script = ExtResource( 2 )
 
@@ -1398,6 +1398,7 @@ anims/Run = SubResource( 2 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 3 )
 anim_player = NodePath("../Anim")
+active = true
 parameters/StateMachine/playback = SubResource( 17 )
 parameters/StateMachine/conditions/cast = false
 parameters/StateMachine/conditions/fal = false

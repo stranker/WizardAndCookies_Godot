@@ -4,9 +4,7 @@ var effect_scene = preload("res://Objects/Spells/Effects/Effect.tscn")
 var active_effects : Array = []
 
 onready var wizard : Wizard = get_parent()
-onready var fire_effect : Node2D = $FireEffectWizard
-onready var stun_effect : Node2D = $StunEffectWizard
-onready var ice_effect : Node2D = $IceEffectWizard
+onready var visual_effects : Array = [$FireEffectWizard, $IceEffectWizard, $StunEffectWizard]
 
 signal on_effects_update(effects)
 
@@ -34,37 +32,27 @@ func _has_effect(new_effect : SpellEffect):
 	return false
 
 func _add_effect(effect_data : SpellEffect):
-	print(effect_data.e_name)
-	print(effect_data.e_type)
 	var effect = effect_scene.instance()
 	call_deferred("add_child", effect)
 	effect.call_deferred("initialize", effect_data, wizard)
 	effect.connect("effect_end", self, "on_effect_end")
 	active_effects.append(effect)
-	set_visual_effect_active(effect_data.e_type)
+	set_effect_active(effect_data.e_type, true)
 	pass
 
-func set_visual_effect_active(effect_type : int):
+func set_effect_active(effect_type : int, is_visible : bool):
+	visual_effects[effect_type].visible = is_visible
 	match effect_type:
 		SpellManager.EffectType.FIRE:
-			fire_effect.visible = true
-		SpellManager.EffectType.ICE:
-			ice_effect.visible = true
 			pass
+		SpellManager.EffectType.ICE:
+			wizard.init_speed()
 		SpellManager.EffectType.STUN:
-			stun_effect.visible = true
+			wizard.set_can_move(true)
 	pass
 
 func on_effect_end(effect : Effect):
-	match effect.get_type():
-		SpellManager.EffectType.FIRE:
-			fire_effect.visible = false
-		SpellManager.EffectType.ICE:
-			ice_effect.visible = false
-			wizard.init_speed()
-		SpellManager.EffectType.STUN:
-			stun_effect.visible = false
-			wizard.set_can_move(true)
+	set_effect_active(effect.get_type(), false)
 	active_effects.erase(effect)
 	effect.call_deferred("queue_free")
 	call_deferred("emit_signal","on_effects_update", active_effects)

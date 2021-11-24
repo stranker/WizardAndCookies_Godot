@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Levels/Kitchen/Kitchen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Wizards/Dummy2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Utility/Camera/MainCamera.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/PickUps/Effect/EffectPickup.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Utility/Gameplay/EffectsSpawner.tscn" type="PackedScene" id=6]
 
 [node name="TestMap" type="Node2D"]
 
@@ -21,6 +21,17 @@ restart_position_on_exit = false
 
 [node name="MainCamera" parent="." instance=ExtResource( 4 )]
 
-[node name="EffectPickup" parent="." instance=ExtResource( 5 )]
-position = Vector2( 732, 400 )
-debug_effect_type = 2
+[node name="EffectsSpawner" parent="." instance=ExtResource( 6 )]
+max_effect_respawn_time = 5.0
+min_effect_respawn_time = 4.0
+
+[node name="Position2D" type="Position2D" parent="EffectsSpawner/Positions" index="0"]
+position = Vector2( 727, 348 )
+
+[node name="Position2D2" type="Position2D" parent="EffectsSpawner/Positions" index="1"]
+position = Vector2( 1176, 362 )
+
+[node name="Position2D3" type="Position2D" parent="EffectsSpawner/Positions" index="2"]
+position = Vector2( 959, 726 )
+
+[editable path="EffectsSpawner"]
