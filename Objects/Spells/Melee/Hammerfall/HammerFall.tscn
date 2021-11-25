@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/HammerFall.gd" type="Script" id=1]
-[ext_resource path="res://Objects/Spells/Melee/Hammerfall/Hammerfall.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Spells/Melee/Hammerfall/RollingPin.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Spells/SpellData.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Spells/SpellInfo.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=6]
@@ -28,10 +28,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 2, 2, 2, 2, 2 ),
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 2, 2, 2 ),
 "update": 0,
-"values": [ 0.0, -68.0906, 152.821, 147.699, 152.821 ]
+"values": [ 0.0, -68.0906, 152.821 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -43,7 +43,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.7, 0.5 ), Vector2( 0.7, 0.5 ), Vector2( 0.6, 0.5 ), Vector2( 0.6, 0.5 ) ]
+"values": [ Vector2( 0.4, 0.4 ), Vector2( 0.6, 0.3 ), Vector2( 0.7, 0.5 ), Vector2( 0.5, 0.4 ), Vector2( 0.4, 0.4 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Collision:disabled")
@@ -219,7 +219,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.55, 0.45 ), Vector2( 0.55, 0.45 ), Vector2( 0.5, 0.5 ) ]
+"values": [ Vector2( 0.4, 0.4 ), Vector2( 0.55, 0.35 ), Vector2( 0.35, 0.45 ), Vector2( 0.4, 0.4 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Collision:disabled")
@@ -305,6 +305,7 @@ scale_curve = SubResource( 9 )
 color_ramp = SubResource( 7 )
 
 [node name="HammerFall" type="Area2D"]
+z_index = 18
 script = ExtResource( 1 )
 spell_data = SubResource( 4 )
 destroy_on_hit = false
