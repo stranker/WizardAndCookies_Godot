@@ -1,15 +1,19 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Particles/JumpParticles.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Particles/ParticlesTest.jpg" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=17]
 script/source = "extends Node2D
+
+export (NodePath) var cast_position_path
 
 onready var jump_particles : Array = [$JumpParticlesL, $JumpParticlesR]
 onready var knockback_particles : Particles2D = $KnockbackParticles
 onready var spell_particles : Particles2D = $SpellParticles
 onready var wizard : Wizard = get_parent().get_parent()
+onready var cast_position : Position2D = get_node(cast_position_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,11 +41,14 @@ func _on_knockback_particles():
 	pass
 
 func _on_casting_spell():
+	spell_particles.global_position = cast_position.global_position
 	spell_particles.emitting = true
+	spell_particles.visible = true
 	pass
 
 func _on_invoke_spell():
 	spell_particles.emitting = false
+	spell_particles.visible = false
 	pass
 "
 
@@ -118,36 +125,70 @@ scale_curve = SubResource( 15 )
 color_ramp = SubResource( 13 )
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.173913, 0.770186, 1 )
-colors = PoolColorArray( 0.364706, 0, 0.647059, 0, 0.364394, 0, 0.645663, 0.9, 0.364706, 0, 0.647059, 1, 0.364706, 0, 0.647059, 0 )
+offsets = PoolRealArray( 0, 0.19375, 0.7375, 1 )
+colors = PoolColorArray( 0.364706, 0, 0.647059, 0, 0.364706, 0, 0.647059, 1, 0.364706, 0, 0.647059, 1, 0.563636, 0, 1, 0 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
 
+[sub_resource type="Curve" id=22]
+_data = [ Vector2( 0, 1 ), 0.0, -2.93583, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=23]
+curve = SubResource( 22 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.5
+emission_ring_axis = Vector3( 0, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.5
+scale = 0.05
+scale_random = 0.1
+scale_curve = SubResource( 23 )
+color_ramp = SubResource( 3 )
+
+[sub_resource type="CanvasItemMaterial" id=18]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=19]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=20]
+gradient = SubResource( 19 )
+
 [sub_resource type="Curve" id=4]
-_data = [ Vector2( 0.0217391, 0.990909 ), 0.0, -1.25455, 0, 0, Vector2( 1, 0 ), -0.426382, 0.0, 0, 0 ]
+max_value = 2.0
+_data = [ Vector2( 0, 2 ), 0.0, -4.89109, 0, 0, Vector2( 0.453552, 0 ), -1.26753, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=6]
-lifetime_randomness = 0.5
-trail_divisor = 5
-emission_shape = 1
-emission_sphere_radius = 5.0
+[sub_resource type="ParticlesMaterial" id=21]
+emission_ring_axis = Vector3( 1, 1, 1 )
 flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 100.0
-initial_velocity_random = 0.3
-orbit_velocity = 2.0
+orbit_velocity = 0.0
 orbit_velocity_random = 0.5
-scale = 0.05
-scale_random = 0.05
+angle = 720.0
+angle_random = 1.0
+scale = 0.2
 scale_curve = SubResource( 5 )
-color_ramp = SubResource( 3 )
-hue_variation = 0.03
-hue_variation_random = 1.0
+color_ramp = SubResource( 20 )
+anim_offset = 1.0
+anim_offset_random = 1.0
 
 [node name="WizardParticles" type="Node2D"]
 script = SubResource( 17 )
@@ -183,8 +224,13 @@ process_material = SubResource( 16 )
 texture = ExtResource( 2 )
 
 [node name="SpellParticles" type="Particles2D" parent="."]
-position = Vector2( 52, -6 )
-emitting = false
-amount = 100
+visible = false
+amount = 50
 process_material = SubResource( 6 )
 texture = ExtResource( 1 )
+
+[node name="SpellParticles2" type="Particles2D" parent="SpellParticles"]
+show_behind_parent = true
+material = SubResource( 18 )
+process_material = SubResource( 21 )
+texture = ExtResource( 3 )

@@ -6,6 +6,7 @@ const UP_DIRECTION : Vector2 = Vector2.UP
 
 export var speed : float = 600.0
 onready var initial_speed = speed
+export var fly_speed : float = 800.0
 export var jump_strength : float = 600.0
 export var gravity : float = 4500.0
 export var can_move : bool = true
@@ -182,10 +183,10 @@ func _process_movement(delta):
 	if !can_move: return
 	if !false_movement:
 		if is_flying:
-			velocity.y = dir.y * speed
+			velocity = dir * fly_speed
 		else:
 			velocity.y += gravity * delta
-		velocity.x = dir.x * speed
+			velocity.x = dir.x * speed
 	if is_jumping and not is_flying:
 		velocity.y  = -jump_strength
 		emit_signal("on_emit_jump_particles", true)

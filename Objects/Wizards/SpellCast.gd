@@ -16,6 +16,7 @@ onready var cast_anim : AnimationPlayer = $Pivot/CastAnimation
 onready var can_cast_timer : Timer = $CanCastTimer
 onready var effect_orb : Sprite = $EffectOrbPosition/EffectOrb
 onready var effect_anim : AnimationPlayer = $EffectOrbPosition/EffectOrb/EffectOrbAnim
+onready var orb_particles : Particles2D = $EffectOrbPosition/EffectOrb/OrbParticles
 onready var orb_colors : Array = [Color.red, Color.cyan, Color.yellow]
 
 var spell_list : Array = [ice_spell, hammer_spell]
@@ -95,4 +96,5 @@ func _on_pickup_effect(effect : Resource):
 	current_effect = effect
 	effect_anim.play("Idle")
 	effect_orb.modulate = orb_colors[current_effect.e_type]
+	orb_particles.process_material.color = effect_orb.modulate
 	pass

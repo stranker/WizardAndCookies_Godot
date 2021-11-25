@@ -19,17 +19,21 @@ jump_strength = 800.0
 
 [node name="WizardTimers" parent="." instance=ExtResource( 5 )]
 
+[node name="SpellCast" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -15 )
+z_index = 12
+cast_position_path = NodePath("../Visual/CastPosition")
+
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="WizardSkin" parent="Visual" instance=ExtResource( 1 )]
 
 [node name="WizardParticles" parent="Visual" instance=ExtResource( 6 )]
+z_index = 10
+cast_position_path = NodePath("../CastPosition")
 
 [node name="CastPosition" type="Position2D" parent="Visual"]
-
-[node name="SpellCast" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, -15 )
-cast_position_path = NodePath("../Visual/CastPosition")
+position = Vector2( 16, 0 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -17 )

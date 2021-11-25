@@ -33,6 +33,7 @@ texture = ExtResource( 9 )
 flip_h = true
 
 [node name="WizardParticles" parent="Visual" instance=ExtResource( 5 )]
+cast_position_path = NodePath("../CastPosition")
 
 [node name="CastPosition" type="Position2D" parent="Visual"]
 position = Vector2( 56, 0 )
