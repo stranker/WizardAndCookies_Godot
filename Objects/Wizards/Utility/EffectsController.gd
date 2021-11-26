@@ -41,14 +41,17 @@ func _add_effect(effect_data : SpellEffect):
 	pass
 
 func set_effect_active(effect_type : int, is_visible : bool):
-	visual_effects[effect_type].visible = is_visible
-	match effect_type:
-		SpellManager.EffectType.FIRE:
-			pass
-		SpellManager.EffectType.ICE:
-			wizard.init_speed()
-		SpellManager.EffectType.STUN:
-			wizard.set_can_move(true)
+	if is_visible:
+		visual_effects[effect_type].start()
+	else:
+		visual_effects[effect_type].stop()
+		match effect_type:
+			SpellManager.EffectType.FIRE:
+				pass
+			SpellManager.EffectType.ICE:
+				wizard.init_speed()
+			SpellManager.EffectType.STUN:
+				wizard.set_can_move(true)
 	pass
 
 func on_effect_end(effect : Effect):
