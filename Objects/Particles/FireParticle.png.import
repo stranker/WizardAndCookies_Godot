@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Snowflake.png-635c61bdac2d6aa6bb0335e36d2e1071.stex"
+path="res://.import/FireParticle.png-44df94c82f4974af6f8aea279e777925.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Particles/Snowflake.png"
-dest_files=[ "res://.import/Snowflake.png-635c61bdac2d6aa6bb0335e36d2e1071.stex" ]
+source_file="res://Objects/Particles/FireParticle.png"
+dest_files=[ "res://.import/FireParticle.png-44df94c82f4974af6f8aea279e777925.stex" ]
 
 [params]
 

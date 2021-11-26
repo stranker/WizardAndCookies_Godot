@@ -12,13 +12,18 @@ onready var pivot : Node2D = $Pivot
 onready var wizard : Wizard = get_parent()
 onready var first_skill : String = "first_skill_" + str(wizard.player_id)
 onready var second_skill : String = "second_skill_" + str(wizard.player_id)
-onready var anim : AnimationPlayer = $AnimationPlayer
+onready var cast_anim : AnimationPlayer = $Pivot/CastAnimation
 onready var can_cast_timer : Timer = $CanCastTimer
+onready var effect_orb : Sprite = $EffectOrbPosition/EffectOrb
+onready var effect_anim : AnimationPlayer = $EffectOrbPosition/EffectOrb/EffectOrbAnim
+onready var orb_particles : Particles2D = $EffectOrbPosition/EffectOrb/OrbParticles
+onready var orb_colors : Array = [Color.red, Color.cyan, Color.yellow]
 
 var spell_list : Array = [ice_spell, hammer_spell]
 var current_spell : Spell = null
 var cast_direction : Vector2 = Vector2.RIGHT
 var can_cast_spell : bool = true
+var current_effect : Resource = null
 
 signal on_casting_spell()
 signal on_invoke_spell()
@@ -28,6 +33,8 @@ func _ready():
 	connect("on_casting_spell", wizard, "_on_casting_spell")
 	connect("on_invoke_spell", wizard, "_on_invoke_spell")
 	connect("on_can_cast_spell", wizard, "_on_can_cast_spell")
+	wizard.connect("on_pickup_effect", self, "_on_pickup_effect")
+	effect_orb.visible = false
 	pass
 
 func _physics_process(delta):
@@ -57,9 +64,12 @@ func check_skill_release():
 				cast_position.add_child(current_spell)
 			else:
 				get_tree().root.add_child(current_spell)
-			current_spell.cast(wizard, cast_position, cast_direction)
+			current_spell.cast(wizard, cast_position, cast_direction, current_effect)
+			if current_effect:
+				effect_anim.play("Cast")
 			current_spell = null
-			anim.play_backwards("Casting")
+			current_effect = null
+			cast_anim.play_backwards("Casting")
 		can_cast_spell = false
 		can_cast_timer.start()
 		emit_signal("on_invoke_spell")
@@ -70,7 +80,7 @@ func _cast_skill(idx : int):
 	emit_signal("on_casting_spell")
 	is_casting = true
 	current_spell = spell_list[idx].instance()
-	anim.play("Casting")
+	cast_anim.play("Casting")
 	pass
 
 func get_cast_direction():
@@ -81,3 +91,10 @@ func _on_CanCastTimer_timeout():
 	can_cast_spell = true
 	emit_signal("on_can_cast_spell")
 	pass # Replace with function body.
+
+func _on_pickup_effect(effect : Resource):
+	current_effect = effect
+	effect_anim.play("Idle")
+	effect_orb.modulate = orb_colors[current_effect.e_type]
+	orb_particles.process_material.color = effect_orb.modulate
+	pass

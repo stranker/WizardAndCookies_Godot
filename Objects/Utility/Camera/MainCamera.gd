@@ -1,23 +1,33 @@
 extends Camera2D
 
+class_name MainCamera
+
 export var min_position : Vector2
 export var max_position : Vector2
-export var min_zoom : float = 0.8
+export var min_zoom : float = 1.0
 export var max_zoom : float = 1.2
-export var zoom_factor : float = 1.2
+export var zoom_factor : float = 1.22
+export var zoom_speed : float = 0.5
 
 onready var viewport_size = get_viewport_rect().size
+onready var timer : Timer = $Timer
 
 var players : Array = []
+var is_shaking : bool = false
+
+var shake_amount : float = 0
+var shake_duration : float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	players = get_tree().get_nodes_in_group("Wizard")
+	GameManager.main_camera = self
 	pass # Replace with function body.
 
 func _physics_process(delta):
 	_process_movement(delta)
 	_process_zoom(delta)
+	_process_shake(delta)
 	pass
 
 func _get_center_players():
@@ -42,7 +52,25 @@ func _get_zoom_players():
 	return dist / viewport_size.x * zoom_factor
 
 func _process_zoom(delta):
-	zoom = lerp(zoom, Vector2.ONE * _get_zoom_players(), delta)
+	zoom = lerp(zoom, Vector2.ONE * _get_zoom_players(), zoom_speed)
 	zoom.x = clamp(zoom.x, min_zoom, max_zoom)
 	zoom.y = clamp(zoom.y, min_zoom, max_zoom)
 	pass
+
+func set_camera_shake(amount : float, duration : float):
+	is_shaking = true
+	shake_amount = amount
+	shake_duration = duration
+	timer.wait_time = shake_duration
+	timer.start()
+	pass
+
+func _process_shake(delta):
+	if !is_shaking: return
+	offset += Vector2(rand_range(-shake_amount, shake_amount),rand_range(-shake_amount, shake_amount))
+	pass
+
+func _on_Timer_timeout():
+	is_shaking = false
+	offset = Vector2.ZERO
+	pass # Replace with function body.

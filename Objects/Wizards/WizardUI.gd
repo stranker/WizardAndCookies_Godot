@@ -30,7 +30,7 @@ func _ready():
 func _process(delta):
 	anchor_position.x = global_position.x
 	anchor_position.y = global_position.y
-	anchor.rect_position = anchor_position
+	anchor.rect_position = anchor_position *  1.0 / GameManager.main_camera.zoom
 	pass
 
 func _on_health_update(health : float):
