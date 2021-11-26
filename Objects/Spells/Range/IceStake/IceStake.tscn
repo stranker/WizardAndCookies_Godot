@@ -3,7 +3,7 @@
 [ext_resource path="res://Objects/Spells/SpellInfo.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Spells/SpellData.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Spells/Range/IceStake/Ice Stake.png" type="Texture" id=3]
-[ext_resource path="res://Objects/Particles/Snowflake.png" type="Texture" id=4]
+[ext_resource path="res://Objects/Particles/SnowflakeParticle.png" type="Texture" id=5]
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends RangeSpell
@@ -244,7 +244,7 @@ amount = 50
 speed_scale = 1.5
 local_coords = false
 process_material = SubResource( 8 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Destroy" type="Particles2D" parent="."]
 position = Vector2( 25, 0 )
@@ -253,7 +253,7 @@ amount = 20
 one_shot = true
 explosiveness = 0.9
 process_material = SubResource( 13 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 37, 0 )

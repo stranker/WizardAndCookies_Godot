@@ -1,10 +1,10 @@
 [gd_scene load_steps=44 format=2]
 
-[ext_resource path="res://Objects/Particles/Snowflake.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Particles/SnowflakeParticle.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=2]
-[ext_resource path="res://Objects/Particles/Fire.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Particles/FireParticle.png" type="Texture" id=3]
 [ext_resource path="res://Objects/PickUps/Effect/EffectPickup.gd" type="Script" id=4]
-[ext_resource path="res://Objects/Particles/Star.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Particles/StarParticle.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Spells/Effects/IceEffect/IceEffect.tres" type="Resource" id=6]
 [ext_resource path="res://Objects/Spells/Effects/FireEffect/FireEffect.tres" type="Resource" id=7]
 [ext_resource path="res://Objects/Spells/Effects/StunEffect/StunEffect.tres" type="Resource" id=8]
