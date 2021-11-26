@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Levels/Kitchen/BG_Back.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/Levels/Kitchen/Platform1.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Levels/Kitchen/PanFront.png" type="Texture" id=4]
-[ext_resource path="res://Objects/Particles/Fire.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Particles/FireParticle.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Levels/Kitchen/Platform2.png" type="Texture" id=6]
 
 [sub_resource type="Gradient" id=1]
@@ -161,7 +161,7 @@ texture = ExtResource( 5 )
 [node name="Platforms" type="Node2D" parent="."]
 
 [node name="Platform1" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 402, 629 )
+position = Vector2( 392, 624 )
 
 [node name="Sprite" type="Sprite" parent="Platforms/Platform1"]
 texture = ExtResource( 3 )
@@ -170,7 +170,7 @@ texture = ExtResource( 3 )
 polygon = PoolVector2Array( -95, 12, 79, 13, 71, -14, -100, -14 )
 
 [node name="Platform3" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 1190, 460 )
+position = Vector2( 1224, 464 )
 
 [node name="Sprite" type="Sprite" parent="Platforms/Platform3"]
 texture = ExtResource( 3 )
@@ -179,7 +179,7 @@ texture = ExtResource( 3 )
 polygon = PoolVector2Array( -95, 12, 79, 13, 71, -14, -100, -14 )
 
 [node name="Platform2" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 1540, 624 )
+position = Vector2( 1520, 624 )
 
 [node name="Sprite" type="Sprite" parent="Platforms/Platform2"]
 texture = ExtResource( 6 )
@@ -188,7 +188,7 @@ texture = ExtResource( 6 )
 polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -13 )
 
 [node name="Platform4" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 731, 463 )
+position = Vector2( 688, 464 )
 
 [node name="Sprite" type="Sprite" parent="Platforms/Platform4"]
 texture = ExtResource( 6 )
@@ -197,7 +197,7 @@ texture = ExtResource( 6 )
 polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -13 )
 
 [node name="Platform5" type="StaticBody2D" parent="Platforms"]
-position = Vector2( 964, 261 )
+position = Vector2( 960, 280 )
 
 [node name="Sprite" type="Sprite" parent="Platforms/Platform5"]
 texture = ExtResource( 6 )

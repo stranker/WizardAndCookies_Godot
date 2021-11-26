@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fire.png-5af16234d51fc1a231bd9def4cdf88c5.stex"
+path="res://.import/MegAtlas.png-a7fcc6d8d3e2aef370c85af7ff08d42f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Particles/Fire.png"
-dest_files=[ "res://.import/Fire.png-5af16234d51fc1a231bd9def4cdf88c5.stex" ]
+source_file="res://Objects/Wizards/Meg/MegAtlas.png"
+dest_files=[ "res://.import/MegAtlas.png-a7fcc6d8d3e2aef370c85af7ff08d42f.stex" ]
 
 [params]
 
