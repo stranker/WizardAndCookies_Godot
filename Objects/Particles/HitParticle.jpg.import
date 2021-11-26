@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ParticlesTest.jpg-d014ac034ab62d05503c252796522e68.stex"
+path="res://.import/HitParticle.jpg-5ef0d85ce7f4f725f3c48b50e25d2c46.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Particles/ParticlesTest.jpg"
-dest_files=[ "res://.import/ParticlesTest.jpg-d014ac034ab62d05503c252796522e68.stex" ]
+source_file="res://Objects/Particles/HitParticle.jpg"
+dest_files=[ "res://.import/HitParticle.jpg-5ef0d85ce7f4f725f3c48b50e25d2c46.stex" ]
 
 [params]
 

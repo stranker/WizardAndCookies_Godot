@@ -5,8 +5,8 @@ class_name MainCamera
 export var min_position : Vector2
 export var max_position : Vector2
 export var min_zoom : float = 1.0
-export var max_zoom : float = 1.25
-export var zoom_factor : float = 1.2
+export var max_zoom : float = 1.2
+export var zoom_factor : float = 1.22
 export var zoom_speed : float = 0.5
 
 onready var viewport_size = get_viewport_rect().size
@@ -72,4 +72,5 @@ func _process_shake(delta):
 
 func _on_Timer_timeout():
 	is_shaking = false
+	offset = Vector2.ZERO
 	pass # Replace with function body.

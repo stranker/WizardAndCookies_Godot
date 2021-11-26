@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Dust.png-caac7ae3ef3f38eec0a6247c73f62419.stex"
+path="res://.import/CastParticles.jpg-6d29516a0a154b7ccce7428e462225b1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Particles/Dust.png"
-dest_files=[ "res://.import/Dust.png-caac7ae3ef3f38eec0a6247c73f62419.stex" ]
+source_file="res://Objects/Particles/CastParticles.jpg"
+dest_files=[ "res://.import/CastParticles.jpg-6d29516a0a154b7ccce7428e462225b1.stex" ]
 
 [params]
 

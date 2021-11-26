@@ -28,13 +28,14 @@ var is_running : bool = false
 var is_flying : bool = false
 var is_casting : bool = false
 var is_invoking : bool = false
+var is_damaged : bool = false
 var can_recover_fly : bool = true
 var false_movement : bool = false
 
-enum MovementState { FALLING, JUMPING, IDLE, RUNNING, FLYING, CASTING, INVOKING, LAST }
+enum MovementState { FALLING, JUMPING, IDLE, RUNNING, FLYING, CASTING, INVOKING, HIT}
 export (MovementState) var current_state = MovementState.IDLE
 export (MovementState) var old_state = MovementState.IDLE
-var movement_state_string = ["Falling", "Jumping", "Idle", "Running", "Flying", "Casting", "Invoking", "Last"]
+var movement_state_string = ["Falling", "Jumping", "Idle", "Running", "Flying", "Casting", "Invoking", "Hit"]
 
 onready var move_left : String = "move_left_" + str(player_id) 
 onready var move_right : String = "move_right_" + str(player_id) 
@@ -55,6 +56,7 @@ signal on_health_update(health)
 signal on_health_depleted()
 signal on_fly_energy_update(fly_energy)
 signal on_fly_energy_depleted()
+signal on_flying(is_flying)
 signal on_casting_spell()
 signal on_invoke_spell()
 signal on_end_cast_spell()
@@ -62,6 +64,7 @@ signal on_can_move_update(can_move)
 signal on_effects_update(effects)
 signal on_emit_jump_particles(emitting)
 signal on_knockback(is_knockback)
+signal on_knockback_recover()
 signal on_pickup_effect(effect)
 
 func _ready():
@@ -95,6 +98,8 @@ func _process_state_machine():
 				_set_new_state(MovementState.IDLE, MovementState.FLYING)
 			elif is_casting:
 				_set_new_state(MovementState.IDLE, MovementState.CASTING)
+			elif is_damaged:
+				_set_new_state(MovementState.IDLE, MovementState.HIT)
 		MovementState.RUNNING:
 			if is_falling:
 				_set_new_state(MovementState.RUNNING, MovementState.FALLING)
@@ -106,13 +111,18 @@ func _process_state_machine():
 				_set_new_state(MovementState.RUNNING, MovementState.FLYING)
 			elif is_casting:
 				_set_new_state(MovementState.RUNNING, MovementState.CASTING)
+			elif is_damaged:
+				_set_new_state(MovementState.RUNNING, MovementState.HIT)
 		MovementState.JUMPING:
+			emit_signal("on_emit_jump_particles", true)
 			if is_falling:
 				_set_new_state(MovementState.JUMPING, MovementState.FALLING)
 			elif is_flying:
 				_set_new_state(MovementState.JUMPING, MovementState.FLYING)
 			elif is_casting:
 				_set_new_state(MovementState.JUMPING, MovementState.CASTING)
+			elif is_damaged:
+				_set_new_state(MovementState.JUMPING, MovementState.HIT)
 		MovementState.FALLING:
 			if is_idle:
 				emit_signal("on_emit_jump_particles", true)
@@ -124,6 +134,8 @@ func _process_state_machine():
 				_set_new_state(MovementState.FALLING, MovementState.FLYING)
 			elif is_casting:
 				_set_new_state(MovementState.FALLING, MovementState.CASTING)
+			elif is_damaged:
+				_set_new_state(MovementState.FALLING, MovementState.HIT)
 		MovementState.FLYING:
 			if not is_flying:
 				if is_falling:
@@ -132,13 +144,19 @@ func _process_state_machine():
 					_set_new_state(MovementState.FLYING, MovementState.IDLE)
 				elif is_running:
 					_set_new_state(MovementState.FLYING, MovementState.RUNNING)
+				elif is_damaged:
+					_set_new_state(MovementState.FLYING, MovementState.HIT)
 			else:
 				if is_casting:
 					_set_new_state(MovementState.FLYING, MovementState.CASTING)
+				elif is_damaged:
+					_set_new_state(MovementState.FLYING, MovementState.HIT)
 		MovementState.CASTING:
 			if not is_casting:
 				if is_invoking:
 					_set_new_state(MovementState.CASTING, MovementState.INVOKING)
+			elif is_damaged:
+				_set_new_state(MovementState.CASTING, MovementState.HIT)
 		MovementState.INVOKING:
 			if not is_invoking:
 				if is_falling:
@@ -149,6 +167,18 @@ func _process_state_machine():
 					_set_new_state(MovementState.INVOKING, MovementState.RUNNING)
 				elif is_flying:
 					_set_new_state(MovementState.INVOKING, MovementState.FLYING)
+				elif is_damaged:
+					_set_new_state(MovementState.INVOKING, MovementState.HIT)
+		MovementState.HIT:
+			if not is_damaged:
+				if is_falling:
+					_set_new_state(MovementState.HIT, MovementState.FALLING)
+				elif is_idle:
+					_set_new_state(MovementState.HIT, MovementState.IDLE)
+				elif is_running:
+					_set_new_state(MovementState.HIT, MovementState.RUNNING)
+				elif is_flying:
+					_set_new_state(MovementState.HIT, MovementState.FLYING)
 	pass
 
 func _set_new_state(old, new_state):
@@ -156,6 +186,10 @@ func _set_new_state(old, new_state):
 	current_state = new_state
 	if old_state != current_state:
 		emit_signal("on_state_change", current_state, movement_state_string[current_state])
+		if current_state == MovementState.FLYING:
+			emit_signal("on_flying", true)
+		elif old_state == MovementState.FLYING:
+			emit_signal("on_flying", false)
 	pass
 
 func _process_flying():
@@ -189,11 +223,10 @@ func _process_movement(delta):
 			velocity.x = dir.x * speed
 	if is_jumping and not is_flying:
 		velocity.y  = -jump_strength
-		emit_signal("on_emit_jump_particles", true)
 	pass
 
 func update_visual_direction(horizontal):
-	if visual and !is_invoking:
+	if visual and !false_movement:
 		if horizontal > 0.1:
 			visual.scale.x = 1
 		elif horizontal < -0.1:
@@ -216,9 +249,12 @@ func get_visual_direction():
 	return Vector2(visual.scale.x,0)
 
 func take_damage(damage : float, spell_effect : Resource, knockback_force : Vector2):
+	is_damaged = true
 	health -= damage
 	health = max(0, health)
 	set_knockback(knockback_force)
+	var shake_force = 1 - (health / float(max_health)) * damage
+	GameManager.main_camera.set_camera_shake(shake_force, 0.5)
 	if spell_effect and effects_controller:
 		effects_controller.apply_effect(spell_effect)
 	emit_signal("on_health_update", health)
@@ -232,7 +268,9 @@ func set_can_move(value : bool):
 	pass
 
 func set_knockback(force : Vector2):
-	if force == Vector2.ZERO : return
+	if force == Vector2.ZERO:
+		is_damaged = false
+		return
 	set_can_move(false)
 	set_false_movement(true, force)
 	emit_signal("on_knockback", true)
@@ -290,6 +328,8 @@ func get_wizard_particles():
 func _on_knockback_recover():
 	set_can_move(true)
 	false_movement = false
+	is_damaged = false
+	emit_signal("on_knockback_recover")
 	#set_false_movement(false, Vector2.ZERO)
 	pass
 
