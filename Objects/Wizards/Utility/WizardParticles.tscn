@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Particles/JumpParticle.png" type="Texture" id=2]
@@ -16,6 +16,7 @@ onready var knockback_particles : Particles2D = $KnockbackParticles
 onready var hit_particles : Particles2D = $KnockbackParticles/HitParticles
 onready var spell_particles_parent : Node2D = $SpellParticles
 onready var fly_particles_parent : Node2D = $FlyParticles
+onready var dash_particles : Particles2D = $DashParticles
 onready var wizard : Wizard = get_parent().get_parent()
 onready var cast_position : Position2D = get_node(cast_position_path)
 onready var wizard_particles : Particles2D
@@ -42,6 +43,7 @@ func _on_initialize():
 	wizard.connect(\"on_casting_spell\", self, \"_on_casting_spell\")
 	wizard.connect(\"on_invoke_spell\", self, \"_on_invoke_spell\")
 	wizard.connect(\"on_flying\", self, \"_on_wizard_flying\")
+	wizard.connect(\"on_dashing\", self, \"_on_wizard_dashing\")
 	pass
 
 func _on_emit_jump_particles(is_emitting):
@@ -71,6 +73,10 @@ func _on_invoke_spell():
 
 func _on_wizard_flying(is_flying):
 	fly_particles.emitting = is_flying
+	pass
+
+func _on_wizard_dashing():
+	dash_particles.emitting = true
 	pass
 "
 
@@ -113,6 +119,39 @@ angle = 720.0
 angle_random = 1.0
 scale = 0.4
 color_ramp = SubResource( 9 )
+
+[sub_resource type="Gradient" id=41]
+offsets = PoolRealArray( 0, 0.15528, 0.59375, 0.875 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=42]
+gradient = SubResource( 41 )
+
+[sub_resource type="Curve" id=43]
+_data = [ Vector2( 0, 1 ), 0.0, -1.53367, 0, 0, Vector2( 1, 0 ), -0.970455, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=44]
+curve = SubResource( 43 )
+
+[sub_resource type="ParticlesMaterial" id=45]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.4
+scale_curve = SubResource( 44 )
+color_ramp = SubResource( 42 )
 
 [sub_resource type="Gradient" id=12]
 offsets = PoolRealArray( 0, 0.075, 0.11875, 0.49375, 1 )
@@ -271,7 +310,7 @@ scale_curve = SubResource( 23 )
 color_ramp = SubResource( 31 )
 
 [sub_resource type="Gradient" id=33]
-offsets = PoolRealArray( 0, 0.25625, 0.75625, 1 )
+offsets = PoolRealArray( 0, 0.26875, 0.675, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=34]
@@ -283,59 +322,66 @@ _data = [ Vector2( 0, 1 ), 0.0, -2.55091, 0, 0, Vector2( 0.710382, 0 ), 0.0, 0.0
 [sub_resource type="CurveTexture" id=36]
 curve = SubResource( 35 )
 
-[sub_resource type="Curve" id=37]
-min_value = -50.0
-max_value = 50.0
-_data = [ Vector2( 0, -50 ), 0.0, 0.0, 0, 0, Vector2( 1, 50 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id=46]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, -200 ), 0.0, 0.0, 0, 0, Vector2( 1, 200 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=38]
-curve = SubResource( 37 )
+[sub_resource type="CurveTexture" id=47]
+curve = SubResource( 46 )
 
 [sub_resource type="ParticlesMaterial" id=39]
 emission_shape = 1
 emission_sphere_radius = 10.0
 flag_disable_z = true
-direction = Vector3( 0, 0, 0 )
-spread = 10.0
+direction = Vector3( -1, 0.5, 0 )
+spread = 20.0
 gravity = Vector3( 0, 0, 0 )
+initial_velocity = 150.0
 angular_velocity = 720.0
 angular_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 100.0
 linear_accel_random = 1.0
-radial_accel = 100.0
 radial_accel_random = 1.0
-tangential_accel = 100.0
 tangential_accel_random = 1.0
-tangential_accel_curve = SubResource( 38 )
+tangential_accel_curve = SubResource( 47 )
 angle = 720.0
 angle_random = 1.0
 scale = 0.3
 scale_curve = SubResource( 36 )
 color = Color( 0.0235294, 0, 1, 1 )
 color_ramp = SubResource( 34 )
-hue_variation = 0.11
+hue_variation = -0.13
 hue_variation_random = 1.0
+
+[sub_resource type="Curve" id=48]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, -200 ), 0.0, 0.0, 0, 0, Vector2( 1, 200 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=49]
+curve = SubResource( 48 )
 
 [sub_resource type="ParticlesMaterial" id=40]
 emission_shape = 1
 emission_sphere_radius = 10.0
 flag_disable_z = true
-direction = Vector3( 0, 0, 0 )
-spread = 10.0
+direction = Vector3( -1, 0.5, 0 )
+spread = 20.0
 gravity = Vector3( 0, 0, 0 )
+initial_velocity = 150.0
 angular_velocity = 720.0
 angular_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-radial_accel = 20.0
-tangential_accel_random = 1.0
-tangential_accel_curve = SubResource( 38 )
+tangential_accel_curve = SubResource( 49 )
 angle = 720.0
 angle_random = 1.0
 scale = 0.3
 scale_curve = SubResource( 36 )
+color = Color( 0.65098, 0.65098, 0.65098, 1 )
 color_ramp = SubResource( 34 )
 hue_variation = 1.0
 hue_variation_random = 1.0
@@ -363,6 +409,17 @@ one_shot = true
 explosiveness = 0.95
 local_coords = false
 process_material = SubResource( 11 )
+texture = ExtResource( 2 )
+
+[node name="DashParticles" type="Particles2D" parent="."]
+emitting = false
+amount = 200
+one_shot = true
+preprocess = 0.1
+speed_scale = 1.5
+explosiveness = 0.7
+local_coords = false
+process_material = SubResource( 45 )
 texture = ExtResource( 2 )
 
 [node name="KnockbackParticles" type="Particles2D" parent="."]
@@ -412,9 +469,11 @@ process_material = SubResource( 21 )
 texture = ExtResource( 3 )
 
 [node name="FlyParticles" type="Node2D" parent="."]
-z_index = -2
+position = Vector2( -40, 8 )
+z_index = -5
 
 [node name="Zak" type="Particles2D" parent="FlyParticles"]
+position = Vector2( 16, 0 )
 emitting = false
 amount = 200
 preprocess = 1.0
@@ -423,6 +482,7 @@ process_material = SubResource( 39 )
 texture = ExtResource( 1 )
 
 [node name="Meg" type="Particles2D" parent="FlyParticles"]
+position = Vector2( 16, 0 )
 emitting = false
 amount = 200
 local_coords = false

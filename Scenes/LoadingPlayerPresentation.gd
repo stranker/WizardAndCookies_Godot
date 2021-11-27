@@ -12,6 +12,7 @@ export var wizard_texture_p2 : Texture
 
 var timer: float = 0
 var max_time: float = 100
+
 func _ready() -> void:
 	$PresentationPanel1/Holder/Name.text = name_p1
 	$PresentationPanel1/Holder/WizardTexture.texture = wizard_texture_p1

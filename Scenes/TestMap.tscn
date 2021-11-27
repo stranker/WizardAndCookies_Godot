@@ -12,13 +12,15 @@
 
 [node name="Zak" parent="." instance=ExtResource( 1 )]
 position = Vector2( 628, 601 )
-max_fly_energy = 999999.0
+max_fly_energy = 1e+09
+fly_energy_consume = 20.0
 decrease_fly = true
 restart_position_on_exit = false
 
 [node name="Meg" parent="." instance=ExtResource( 3 )]
 position = Vector2( 961, 204 )
-max_fly_energy = 999999.0
+max_fly_energy = 99999.0
+fly_energy_consume = 20.0
 player_id = 2
 
 [node name="MainCamera" parent="." instance=ExtResource( 4 )]
