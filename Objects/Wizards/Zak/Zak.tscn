@@ -38,7 +38,8 @@ cast_position_path = NodePath("../CastPosition")
 position = Vector2( 16, 0 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -17 )
+position = Vector2( -5, -18 )
+z_index = 15
 shape = SubResource( 1 )
 
 [node name="PlayerUIDebug" parent="." instance=ExtResource( 3 )]
