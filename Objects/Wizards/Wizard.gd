@@ -29,6 +29,7 @@ var is_flying : bool = false
 var is_casting : bool = false
 var is_invoking : bool = false
 var is_damaged : bool = false
+var is_dashing : bool = false
 var can_recover_fly : bool = true
 var false_movement : bool = false
 
@@ -57,6 +58,7 @@ signal on_health_depleted()
 signal on_fly_energy_update(fly_energy)
 signal on_fly_energy_depleted()
 signal on_flying(is_flying)
+signal on_dashing()
 signal on_casting_spell()
 signal on_invoke_spell()
 signal on_end_cast_spell()
@@ -76,7 +78,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	_process_flying()
+	_process_flying(delta)
 	_process_movement(delta)
 	_process_state_machine()
 	velocity = move_and_slide(velocity, UP_DIRECTION)
@@ -88,6 +90,7 @@ func _process_state_machine():
 	is_idle = is_on_floor() and is_zero_approx(velocity.x)
 	is_running = is_on_floor() and not is_zero_approx(velocity.x)
 	is_flying = Input.is_action_pressed(fly) and fly_energy > 0 and get_input_available
+	is_dashing = is_flying and Input.is_action_just_pressed(jump)
 	match current_state:
 		MovementState.IDLE:
 			if is_running:
@@ -192,20 +195,20 @@ func _set_new_state(old, new_state):
 			emit_signal("on_flying", false)
 	pass
 
-func _process_flying():
+func _process_flying(delta):
 	if false_movement: return
 	if is_flying:
 		if decrease_fly:
-			fly_energy -= fly_energy_consume
+			fly_energy -= fly_energy_consume * delta
 			fly_energy = max(0, fly_energy)
 			if fly_energy <= 0:
 				emit_signal("on_fly_energy_depleted")
 				can_recover_fly = false
 	else:
-		if can_recover_fly:
-			fly_energy += fly_energy_consume * 2
+		if can_recover_fly and is_on_floor():
+			fly_energy += fly_energy_consume * delta
 			fly_energy = min(fly_energy, max_fly_energy)
-	if fly_energy != 0 and fly_energy != max_fly_energy:
+	if fly_energy != max_fly_energy:
 		emit_signal("on_fly_energy_update", fly_energy)
 	pass
 
@@ -223,6 +226,18 @@ func _process_movement(delta):
 			velocity.x = dir.x * speed
 	if is_jumping and not is_flying:
 		velocity.y  = -jump_strength
+	if is_dashing:
+		_dash(dir)
+	pass
+
+func _dash(dir : Vector2):
+	if dir != Vector2.ZERO:
+		set_translate_force(dir * fly_speed * 2.5, 0.1)
+	else:
+		set_translate_force(get_visual_direction() * fly_speed * 2.5, 0.1)
+	emit_signal("on_dashing")
+	fly_energy -= 25
+	fly_energy = max(0, fly_energy)
 	pass
 
 func update_visual_direction(horizontal):
@@ -330,7 +345,6 @@ func _on_knockback_recover():
 	false_movement = false
 	is_damaged = false
 	emit_signal("on_knockback_recover")
-	#set_false_movement(false, Vector2.ZERO)
 	pass
 
 func pick_effect(effect : Resource):
