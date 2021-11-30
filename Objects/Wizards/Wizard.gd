@@ -303,14 +303,14 @@ func set_can_move(value : bool):
 	emit_signal("on_can_move_update", can_move)
 	pass
 
-func set_knockback(force : Vector2, spell_position : Vector2):
+func set_knockback(force : Vector2, enemy_wizard_position : Vector2):
 	emit_signal("on_knockback", true)
 	if force == Vector2.ZERO:
 		is_damaged = false
 		return
 	if is_on_floor() and is_zero_approx(force.x):
-		var dir_x = (global_position - spell_position).normalized().x
-		force.x = dir_x * force.y / 2.0
+		var dir_x = (global_position - enemy_wizard_position).normalized().x
+		force.x = dir_x * abs(force.y) * 0.5
 	set_can_move(false)
 	yield(get_tree().create_timer(0.15),"timeout")
 	set_false_movement(true, force)
