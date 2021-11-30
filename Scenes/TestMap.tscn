@@ -28,6 +28,7 @@ player_id = 2
 [node name="EffectsSpawner" parent="." instance=ExtResource( 6 )]
 max_effect_respawn_time = 5.0
 min_effect_respawn_time = 4.0
+max_effects_count = 2
 
 [node name="Position2D" type="Position2D" parent="EffectsSpawner/Positions" index="0"]
 position = Vector2( 727, 348 )

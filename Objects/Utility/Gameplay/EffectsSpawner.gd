@@ -2,11 +2,12 @@ extends Node2D
 
 export var max_effect_respawn_time : float
 export var min_effect_respawn_time : float
+export var max_effects_count : int = 1
 
 onready var positions : Array = $Positions.get_children()
 onready var effects_parent : Node2D = $Effects
 onready var timer : Timer = $Timer
-onready var effects_count = positions.size()
+onready var effects_count : int = max_effects_count
 
 var effect_scene = preload("res://Objects/PickUps/Effect/EffectPickup.tscn")
 var effect_last_positions : Array = []
@@ -19,38 +20,37 @@ func _ready():
 	pass # Replace with function body.
 
 func _spawn_effect(pos : Position2D):
+	if effects_count <= 0: return
 	var effect = effect_scene.instance()
-	effects_parent.call_deferred("add_child", effect)
+	pos.call_deferred("add_child", effect)
 	effect.connect("on_pickup", self, "_on_effect_pickup")
 	effect.call_deferred("init", pos.global_position)
-	pass
-
-func _spawn_effect_in_pos(pos : Vector2):
-	var effect = effect_scene.instance()
-	effects_parent.call_deferred("add_child", effect)
-	effect.connect("on_pickup", self, "_on_effect_pickup")
-	effect.call_deferred("init", pos)
+	effects_count -= 1
 	pass
 
 func _get_random_position():
 	var rand_num = randi() % positions.size()
-	return positions[rand_num]
+	var rand_pos : Position2D = positions[rand_num]
+	if rand_pos.get_children().empty():
+		return rand_pos
+	else:
+		rand_num = (rand_num + 1) % positions.size()
+		return positions[rand_num]
+	return 
 
 func _get_random_respawn_time():
 	return rand_range(min_effect_respawn_time, max_effect_respawn_time)
 
 func _on_Timer_timeout():
-	var new_pos = effect_last_positions[0]
-	effect_last_positions.remove(0)
-	_spawn_effect_in_pos(new_pos)
-	if effect_last_positions.empty(): return
+	var new_pos = _get_random_position()
+	_spawn_effect(new_pos)
 	timer.wait_time = _get_random_respawn_time()
 	timer.start()
-	pass # Replace with function body.
+	pass
 
 func _on_effect_pickup(effect):
-	effect_last_positions.push_back(effect.global_position)
-	effect.queue_free()
+	effects_count += 1
+	effect.call_deferred("queue_free")
 	if !timer.is_stopped(): return
 	timer.start()
 	pass
