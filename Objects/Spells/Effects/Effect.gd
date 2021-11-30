@@ -62,7 +62,7 @@ func _apply_fire():
 	pass
 
 func _apply_ice():
-	target.set_new_speed(target.speed / 3.0)
+	target.reduce_speed(0.3)
 	pass
 
 func _apply_stun():

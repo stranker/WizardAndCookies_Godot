@@ -12,7 +12,7 @@ s_name = "Hammerfall"
 s_damage = 4.0
 s_cooldown = 0.0
 s_range = 0.0
-s_knockback_force = 1200.0
+s_knockback_force = 1999.5
 s_difficulty = 0.0
 s_effects = [  ]
 
