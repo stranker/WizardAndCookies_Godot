@@ -58,11 +58,11 @@ func _apply_effect():
 	pass
 
 func _apply_fire():
-	target.take_damage(effect_damage, null, Vector2())
+	target.take_damage(effect_damage, null, Vector2(), Vector2())
 	pass
 
 func _apply_ice():
-	target.set_new_speed(100)
+	target.set_new_speed(target.speed / 3.0)
 	pass
 
 func _apply_stun():

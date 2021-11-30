@@ -32,14 +32,14 @@ func add_effect(effect : Resource):
 func _on_spell_hit(body):
 	if body == spell_owner: return
 	if body.has_method("take_damage"):
-		body.take_damage(spell_info.get_damage(), spell_effect, _get_knockbak_force())
+		body.take_damage(spell_info.get_damage(), spell_effect, _get_knockback_force(), global_position)
 	_destroy(body)
 	pass # Replace with function body.
 
 func _destroy(body : Node2D):
 	pass
 
-func _get_knockbak_force():
+func _get_knockback_force():
 	return direction.normalized() * spell_info.get_knockback_force()
 
 func get_type():
