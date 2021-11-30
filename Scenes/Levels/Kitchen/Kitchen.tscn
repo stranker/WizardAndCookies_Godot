@@ -168,6 +168,7 @@ texture = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform1"]
 polygon = PoolVector2Array( -95, 12, 79, 13, 71, -14, -100, -14 )
+one_way_collision = true
 
 [node name="Platform3" type="StaticBody2D" parent="Platforms"]
 position = Vector2( 1224, 464 )
@@ -177,6 +178,7 @@ texture = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform3"]
 polygon = PoolVector2Array( -95, 12, 79, 13, 71, -14, -100, -14 )
+one_way_collision = true
 
 [node name="Platform2" type="StaticBody2D" parent="Platforms"]
 position = Vector2( 1520, 624 )
@@ -185,7 +187,8 @@ position = Vector2( 1520, 624 )
 texture = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform2"]
-polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -13 )
+polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -14 )
+one_way_collision = true
 
 [node name="Platform4" type="StaticBody2D" parent="Platforms"]
 position = Vector2( 688, 464 )
@@ -194,7 +197,8 @@ position = Vector2( 688, 464 )
 texture = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform4"]
-polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -13 )
+polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -14 )
+one_way_collision = true
 
 [node name="Platform5" type="StaticBody2D" parent="Platforms"]
 position = Vector2( 960, 280 )
@@ -203,7 +207,8 @@ position = Vector2( 960, 280 )
 texture = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform5"]
-polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -13 )
+polygon = PoolVector2Array( -91, 14, 87, 14, 91, -14, -86, -14 )
+one_way_collision = true
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Idle"

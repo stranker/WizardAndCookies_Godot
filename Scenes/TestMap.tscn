@@ -18,9 +18,7 @@ decrease_fly = true
 restart_position_on_exit = false
 
 [node name="Meg" parent="." instance=ExtResource( 3 )]
-position = Vector2( 961, 204 )
-max_fly_energy = 99999.0
-fly_energy_consume = 20.0
+position = Vector2( 1111, 723 )
 player_id = 2
 
 [node name="MainCamera" parent="." instance=ExtResource( 4 )]

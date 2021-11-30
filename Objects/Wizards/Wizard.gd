@@ -3,22 +3,27 @@ extends KinematicBody2D
 class_name Wizard
 
 const UP_DIRECTION : Vector2 = Vector2.UP
+const min_running_velocity : int = 10
 
 export var speed : float = 600.0
 onready var initial_speed = speed
 export var fly_speed : float = 800.0
+onready var initial_fly_speed : float = fly_speed
 export var jump_strength : float = 600.0
 export var gravity : float = 4500.0
+export var hit_gravity : float = 3000.0
 export var can_move : bool = true
 export var max_health : float = 10.0
 onready var health : float = max_health
 export var max_fly_energy : float = 100.0
 onready var fly_energy : float = max_fly_energy
 export var fly_energy_consume : float = 1.0
+export var fly_energy_dash_consume : float = 25.0
 export var player_id : int = 1
 export var decrease_fly : bool = false
 export var get_input_available : bool = true
 export var restart_position_on_exit : bool = true
+export var shake_curve : Curve = null
 
 var velocity : Vector2 = Vector2.ZERO
 var is_falling : bool = false
@@ -81,14 +86,14 @@ func _physics_process(delta):
 	_process_flying(delta)
 	_process_movement(delta)
 	_process_state_machine()
-	velocity = move_and_slide(velocity, UP_DIRECTION)
+	move_and_slide(velocity, UP_DIRECTION)
 	pass
 
 func _process_state_machine():
 	is_falling = velocity.y > 0 and not is_on_floor()
 	is_jumping = Input.is_action_just_pressed(jump) and is_on_floor() and get_input_available
-	is_idle = is_on_floor() and is_zero_approx(velocity.x)
-	is_running = is_on_floor() and not is_zero_approx(velocity.x)
+	is_idle = is_on_floor() and abs(velocity.x) <= min_running_velocity
+	is_running = is_on_floor() and abs(velocity.x) > min_running_velocity
 	is_flying = Input.is_action_pressed(fly) and fly_energy > 0 and get_input_available
 	is_dashing = is_flying and Input.is_action_just_pressed(jump)
 	match current_state:
@@ -149,6 +154,8 @@ func _process_state_machine():
 					_set_new_state(MovementState.FLYING, MovementState.RUNNING)
 				elif is_damaged:
 					_set_new_state(MovementState.FLYING, MovementState.HIT)
+				elif is_casting:
+					_set_new_state(MovementState.FLYING, MovementState.CASTING)
 			else:
 				if is_casting:
 					_set_new_state(MovementState.FLYING, MovementState.CASTING)
@@ -213,21 +220,35 @@ func _process_flying(delta):
 	pass
 
 func _process_movement(delta):
+	var movement_direction : Vector2 = Vector2.ZERO
 	var horizontal_direction = get_horizontal_input()
 	var vertical_direction = get_vertical_input()
-	var dir = Vector2(horizontal_direction, vertical_direction).normalized()
 	update_visual_direction(horizontal_direction)
-	if !can_move: return
-	if !false_movement:
-		if is_flying:
-			velocity = dir * fly_speed
-		else:
-			velocity.y += gravity * delta
-			velocity.x = dir.x * speed
-	if is_jumping and not is_flying:
-		velocity.y  = -jump_strength
-	if is_dashing:
-		_dash(dir)
+	if can_move:
+		movement_direction = Vector2(horizontal_direction, vertical_direction).normalized()
+		if !false_movement:
+			if is_flying:
+				velocity = movement_direction * fly_speed
+			else:
+				if movement_direction.length() > 0:
+					velocity.x = movement_direction.x * speed
+				else:
+					velocity.x = lerp(velocity.x, 0, delta * min_running_velocity)
+				if !is_on_floor():
+					_apply_gravity(gravity, delta)
+				else:
+					velocity.y = 0
+		if is_jumping and not is_flying:
+			velocity.y = -jump_strength
+		if is_dashing:
+			_dash(movement_direction)
+	else:
+		if is_damaged:
+			_apply_gravity(hit_gravity, delta)
+	pass
+
+func _apply_gravity(_gravity : float, delta : float):
+	velocity.y += _gravity * delta
 	pass
 
 func _dash(dir : Vector2):
@@ -236,7 +257,7 @@ func _dash(dir : Vector2):
 	else:
 		set_translate_force(get_visual_direction() * fly_speed * 2.5, 0.1)
 	emit_signal("on_dashing")
-	fly_energy -= 25
+	fly_energy -= fly_energy_dash_consume
 	fly_energy = max(0, fly_energy)
 	pass
 
@@ -263,18 +284,18 @@ func get_vertical_input():
 func get_visual_direction():
 	return Vector2(visual.scale.x,0)
 
-func take_damage(damage : float, spell_effect : Resource, knockback_force : Vector2):
+func take_damage(damage : float, spell_effect : Resource, knockback_force : Vector2, spell_position : Vector2):
 	is_damaged = true
 	health -= damage
 	health = max(0, health)
-	set_knockback(knockback_force)
-	var shake_force = 1 - (health / float(max_health)) * damage
-	GameManager.main_camera.set_camera_shake(shake_force, 0.5)
-	if spell_effect and effects_controller:
-		effects_controller.apply_effect(spell_effect)
 	emit_signal("on_health_update", health)
 	if(health <= 0):
 		emit_signal("on_health_depleted")
+	var shake_force = shake_curve.interpolate(1 - (health / float(max_health))) * damage
+	GameManager.main_camera.set_camera_shake(shake_force, 0.5)
+	if spell_effect and effects_controller:
+		effects_controller.apply_effect(spell_effect)
+	set_knockback(knockback_force, spell_position)
 	pass
 
 func set_can_move(value : bool):
@@ -282,13 +303,17 @@ func set_can_move(value : bool):
 	emit_signal("on_can_move_update", can_move)
 	pass
 
-func set_knockback(force : Vector2):
+func set_knockback(force : Vector2, spell_position : Vector2):
+	emit_signal("on_knockback", true)
 	if force == Vector2.ZERO:
 		is_damaged = false
 		return
+	if is_on_floor() and is_zero_approx(force.x):
+		var dir_x = (global_position - spell_position).normalized().x
+		force.x = dir_x * force.y / 2.0
 	set_can_move(false)
+	yield(get_tree().create_timer(0.15),"timeout")
 	set_false_movement(true, force)
-	emit_signal("on_knockback", true)
 	pass
 
 func set_translate_force(force : Vector2, duration : float):
@@ -310,8 +335,14 @@ func set_new_speed(new_speed : float):
 	speed = new_speed
 	pass
 
+func reduce_speed(factor : float):
+	speed *= factor
+	fly_speed *= factor
+	pass
+
 func init_speed():
 	speed = initial_speed
+	fly_speed = initial_fly_speed
 	pass
 
 func on_fly_energy_recover():
@@ -321,7 +352,7 @@ func on_fly_energy_recover():
 func _on_casting_spell():
 	is_casting = true
 	set_can_move(false)
-	velocity = move_and_slide(Vector2.ZERO)
+	velocity = Vector2.ZERO
 	emit_signal("on_casting_spell")
 	pass
 
