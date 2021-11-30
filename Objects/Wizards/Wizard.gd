@@ -24,6 +24,7 @@ export var decrease_fly : bool = false
 export var get_input_available : bool = true
 export var restart_position_on_exit : bool = true
 export var shake_curve : Curve = null
+export var knockback_time : float = 0.15
 
 var velocity : Vector2 = Vector2.ZERO
 var is_falling : bool = false
@@ -312,7 +313,7 @@ func set_knockback(force : Vector2, enemy_wizard_position : Vector2):
 		var dir_x = (global_position - enemy_wizard_position).normalized().x
 		force.x = dir_x * abs(force.y) * 0.5
 	set_can_move(false)
-	yield(get_tree().create_timer(0.15),"timeout")
+	yield(get_tree().create_timer(knockback_time),"timeout")
 	set_false_movement(true, force)
 	pass
 
@@ -387,3 +388,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 	if !restart_position_on_exit: return
 	global_position = initial_pos
 	pass # Replace with function body.
+
+func restart_position():
+	global_position = initial_pos
+	pass
