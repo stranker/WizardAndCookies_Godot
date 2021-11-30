@@ -19,6 +19,7 @@ export var player_id : int = 1
 export var decrease_fly : bool = false
 export var get_input_available : bool = true
 export var restart_position_on_exit : bool = true
+export var shake_curve : Curve = null
 
 var velocity : Vector2 = Vector2.ZERO
 var is_falling : bool = false
@@ -149,6 +150,8 @@ func _process_state_machine():
 					_set_new_state(MovementState.FLYING, MovementState.RUNNING)
 				elif is_damaged:
 					_set_new_state(MovementState.FLYING, MovementState.HIT)
+				elif is_casting:
+					_set_new_state(MovementState.FLYING, MovementState.CASTING)
 			else:
 				if is_casting:
 					_set_new_state(MovementState.FLYING, MovementState.CASTING)
@@ -224,6 +227,8 @@ func _process_movement(delta):
 		else:
 			velocity.y += gravity * delta
 			velocity.x = dir.x * speed
+	else:
+		velocity.y += gravity * delta
 	if is_jumping and not is_flying:
 		velocity.y  = -jump_strength
 	if is_dashing:
@@ -263,12 +268,12 @@ func get_vertical_input():
 func get_visual_direction():
 	return Vector2(visual.scale.x,0)
 
-func take_damage(damage : float, spell_effect : Resource, knockback_force : Vector2):
+func take_damage(damage : float, spell_effect : Resource, knockback_force : Vector2, spell_position : Vector2):
 	is_damaged = true
 	health -= damage
 	health = max(0, health)
-	set_knockback(knockback_force)
-	var shake_force = 1 - (health / float(max_health)) * damage
+	set_knockback(knockback_force, spell_position)
+	var shake_force = shake_curve.interpolate(1 - (health / float(max_health))) * damage
 	GameManager.main_camera.set_camera_shake(shake_force, 0.5)
 	if spell_effect and effects_controller:
 		effects_controller.apply_effect(spell_effect)
@@ -282,10 +287,13 @@ func set_can_move(value : bool):
 	emit_signal("on_can_move_update", can_move)
 	pass
 
-func set_knockback(force : Vector2):
+func set_knockback(force : Vector2, spell_position : Vector2):
 	if force == Vector2.ZERO:
 		is_damaged = false
 		return
+	if is_on_floor() and is_zero_approx(force.x):
+		var dir_x = (global_position - spell_position).normalized().x
+		force.x = dir_x * force.y / 2.0
 	set_can_move(false)
 	set_false_movement(true, force)
 	emit_signal("on_knockback", true)
