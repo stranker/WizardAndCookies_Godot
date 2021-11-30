@@ -35,6 +35,8 @@ func _ready():
 	connect("on_can_cast_spell", wizard, "_on_can_cast_spell")
 	wizard.connect("on_pickup_effect", self, "_on_pickup_effect")
 	effect_orb.visible = false
+	var mat = orb_particles.process_material.duplicate()
+	orb_particles.process_material = mat
 	pass
 
 func _physics_process(delta):
