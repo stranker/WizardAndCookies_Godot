@@ -35,7 +35,7 @@ func _get_random_position():
 	else:
 		rand_num = (rand_num + 1) % positions.size()
 		return positions[rand_num]
-	return 
+	pass
 
 func _get_random_respawn_time():
 	return rand_range(min_effect_respawn_time, max_effect_respawn_time)
