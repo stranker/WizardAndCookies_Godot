@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/UI/CharacterSelection/Asset_ZakFace.png" type="Texture" id=1]
-[ext_resource path="res://Assets/UI/Gameplay/HealthFillBar.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/Gameplay/WizardBackgroundPanel.png" type="Texture" id=3]
+[ext_resource path="res://Objects/UI/Gameplay/PlayerFrame.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Gameplay/FlyBar.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Wizards/Meg/MegHead.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/Gameplay/HealthBar.png" type="Texture" id=4]
-[ext_resource path="res://Assets/UI/Gameplay/FlyFillBar.png" type="Texture" id=5]
-[ext_resource path="res://Assets/UI/Gameplay/GrayBar.png" type="Texture" id=6]
+[ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=5]
 [ext_resource path="res://Assets/UI/Misc/CookieCircle.png" type="Texture" id=7]
 [ext_resource path="res://Objects/UI/Gameplay/PlayerInfo.gd" type="Script" id=8]
 
@@ -18,6 +17,9 @@ script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+hp = 75
+mana = 75
+character_portrait_texture = ExtResource( 3 )
 
 [node name="ProgressBars" type="Control" parent="."]
 margin_top = 6.0
@@ -27,26 +29,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HpBar" type="TextureProgress" parent="ProgressBars"]
-margin_left = 77.0
-margin_top = 44.0
-margin_right = 477.0
-margin_bottom = 124.0
+[node name="FlyBar" type="TextureProgress" parent="ProgressBars"]
+margin_left = 67.0
+margin_top = 75.0
+margin_right = 367.0
+margin_bottom = 105.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture_under = ExtResource( 4 )
+value = 50.0
+texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
+tint_progress = Color( 0, 0.882353, 1, 1 )
+nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ManaBar" type="TextureProgress" parent="ProgressBars"]
-margin_left = 72.0
-margin_top = 86.0
-margin_right = 372.0
-margin_bottom = 146.0
-rect_scale = Vector2( 0.5, 0.5 )
-texture_under = ExtResource( 6 )
-texture_progress = ExtResource( 5 )
+[node name="HpBar" type="TextureProgress" parent="ProgressBars"]
+margin_left = 77.0
+margin_top = 44.0
+margin_right = 233.0
+margin_bottom = 76.0
+value = 50.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 4 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -60,145 +67,162 @@ __meta__ = {
 }
 
 [node name="Background" type="TextureRect" parent="PotraitHolder"]
-margin_left = 53.033
-margin_right = 128.033
-margin_bottom = 75.0
-rect_rotation = 44.9999
-texture = ExtResource( 3 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Portrait" type="TextureRect" parent="PotraitHolder"]
-margin_left = 13.033
-margin_top = 16.0
-margin_right = 88.033
-margin_bottom = 91.0
+self_modulate = Color( 0.211765, 0.352941, 1, 1 )
+margin_left = 16.0
+margin_top = 18.0
+margin_right = 91.0
+margin_bottom = 93.0
+rect_rotation = 15.3278
+rect_pivot_offset = Vector2( 37.5, 37.5 )
+rect_clip_content = true
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Mask" type="Control" parent="PotraitHolder/Background"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -47.0433
+margin_top = -25.9889
+margin_right = 28.9567
+margin_bottom = 31.011
+rect_rotation = -15.3
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="TextureRect" parent="PotraitHolder/Background/Mask"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.501
+margin_top = -31.0034
+margin_right = 42.499
+margin_bottom = 38.9966
+rect_rotation = -1.20716
+rect_pivot_offset = Vector2( 37.5, 37.5 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="SpellsHolder" type="Control" parent="."]
-margin_left = 100.0
+margin_left = 89.0
+margin_top = 7.0
+margin_right = 241.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SpellsHolder"]
+margin_left = 5.0
 margin_top = 5.0
-margin_right = 275.0
-margin_bottom = 45.0
+margin_right = 137.0
+margin_bottom = 47.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spell1" type="Control" parent="SpellsHolder"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -20.0
-margin_right = 40.0
-margin_bottom = 20.0
+[node name="Spell1" type="Control" parent="SpellsHolder/HBoxContainer"]
+margin_right = 41.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="TextureRect" parent="SpellsHolder/Spell1"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -25.0
-margin_top = -25.0
-margin_right = 25.0
-margin_bottom = 25.0
-texture = ExtResource( 7 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SpellPortrait" type="TextureRect" parent="SpellsHolder/Spell1"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Spell2" type="Control" parent="SpellsHolder"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="TextureRect" parent="SpellsHolder/Spell2"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -25.0
-margin_top = -25.0
-margin_right = 25.0
-margin_bottom = 25.0
-texture = ExtResource( 7 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SpellPortrait" type="TextureRect" parent="SpellsHolder/Spell2"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Spell3" type="Control" parent="SpellsHolder"]
-anchor_left = 1.0
-anchor_top = 0.5
+[node name="Background" type="TextureRect" parent="SpellsHolder/HBoxContainer/Spell1"]
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -40.0
-margin_top = -20.0
-margin_bottom = 20.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="TextureRect" parent="SpellsHolder/Spell3"]
+[node name="SpellPortrait" type="TextureRect" parent="SpellsHolder/HBoxContainer/Spell1"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -25.0
-margin_top = -25.0
-margin_right = 25.0
-margin_bottom = 25.0
-texture = ExtResource( 7 )
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpellPortrait" type="TextureRect" parent="SpellsHolder/Spell3"]
+[node name="Spell2" type="Control" parent="SpellsHolder/HBoxContainer"]
+margin_left = 45.0
+margin_right = 86.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="SpellsHolder/HBoxContainer/Spell2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpellPortrait" type="TextureRect" parent="SpellsHolder/HBoxContainer/Spell2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spell3" type="Control" parent="SpellsHolder/HBoxContainer"]
+margin_left = 90.0
+margin_right = 132.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="SpellsHolder/HBoxContainer/Spell3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpellPortrait" type="TextureRect" parent="SpellsHolder/HBoxContainer/Spell3"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -1,16 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Gameplay.gd" type="Script" id=1]
 [ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/UI/Gameplay/PlayerInfo.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/UI/CharacterSelection/Asset_ZakFace.png" type="Texture" id=4]
+[ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/Spells/Hammerfall.png" type="Texture" id=5]
 [ext_resource path="res://Assets/UI/Spells/BaseballBat.png" type="Texture" id=6]
 [ext_resource path="res://Assets/UI/Spells/FlamingFist.png" type="Texture" id=7]
 [ext_resource path="res://Assets/UI/Spells/HastyHurricane.png" type="Texture" id=8]
 [ext_resource path="res://Assets/UI/Spells/IceStake.png" type="Texture" id=9]
 [ext_resource path="res://Assets/UI/Spells/Shuriken.png" type="Texture" id=10]
-[ext_resource path="res://Assets/UI/CharacterSelection/Asset_MegFace.png" type="Texture" id=11]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -57,7 +56,6 @@ margin_right = 399.0
 margin_bottom = -52.0
 hp = 30
 mana = 90
-character_portrait_texture = ExtResource( 11 )
 spell1_portrait_texture = ExtResource( 8 )
 spell2_portrait_texture = ExtResource( 9 )
 spell3_portrait_texture = ExtResource( 10 )
