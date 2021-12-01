@@ -2,7 +2,7 @@ extends Control
 
 onready var hp_bar   : TextureProgress = $ProgressBars/HpBar
 onready var fly_bar : TextureProgress = $ProgressBars/FlyBar
-onready var character_portrait : TextureRect = $PotraitHolder/Background/Mask/Portrait
+onready var character_portrait : TextureRect = $PotraitHolder/Background/Portrait
 onready var spells : Array = $SpellsHolder/SpellsContainer.get_children()
 
 export var hp : int

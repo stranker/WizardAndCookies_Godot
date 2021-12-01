@@ -5,7 +5,7 @@
 [ext_resource path="res://Objects/UI/Gameplay/PlayerInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=4]
 
-[node name="Control" type="Control"]
+[node name="Gameplay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -111, -102 )
@@ -29,10 +29,11 @@ text = "POST GAME"
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
+anchor_bottom = 1.0
 margin_left = -377.0
-margin_top = -174.0
-margin_right = -100.0
-margin_bottom = -52.0
+margin_top = -190.0
+margin_right = -64.0
+margin_bottom = 0.0
 hp = 50
 mana = 70
 character_portrait_texture = ExtResource( 4 )
@@ -41,11 +42,24 @@ character_portrait_texture = ExtResource( 4 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-margin_left = 122.0
-margin_top = -174.0
-margin_right = 399.0
-margin_bottom = -52.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = -190.0
+margin_right = 451.0
+margin_bottom = 0.0
 hp = 30
 mana = 90
+
+[node name="UIArea" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -416.0
+margin_top = -248.0
+margin_right = 464.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="PostGameBtn" to="." method="_on_PostGameBtn_pressed"]
