@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Fonts/font_30.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Objects/UI/CharacterSelection/PortraitButton.gd" type="Script" id=2]
-[ext_resource path="res://Assets/UI/CharacterSelection/Asset_ZakFace.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Wizards/Meg/MegHead.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/SpellSelection/Asset_Frame.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/CharacterSelection/WizardPanelSelection.png" type="Texture" id=5]
 
@@ -18,14 +18,14 @@ __meta__ = {
 
 [node name="Portrait" type="TextureRect" parent="."]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -73.5
-margin_top = -93.0
-margin_right = 73.5
-margin_bottom = 57.0
+margin_left = -92.0
+margin_top = 8.0
+margin_right = 92.0
+margin_bottom = 164.0
 texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }

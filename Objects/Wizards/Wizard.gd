@@ -383,10 +383,9 @@ func pick_effect(effect : Resource):
 	emit_signal("on_pickup_effect", effect)
 	pass
 
-
 func _on_VisibilityNotifier2D_screen_exited():
 	if !restart_position_on_exit: return
-	global_position = initial_pos
+	restart_position()
 	pass # Replace with function body.
 
 func restart_position():
