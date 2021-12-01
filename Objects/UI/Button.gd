@@ -1,7 +1,6 @@
 extends TextureButton
 
 onready var label : Label = $Label
-onready var anim : AnimationPlayer = $AnimationPlayer
 
 export var text : String
 
