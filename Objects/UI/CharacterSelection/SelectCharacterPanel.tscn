@@ -48,7 +48,6 @@ __meta__ = {
 }
 
 [node name="WaitingForPlayerPanel" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -98,6 +97,7 @@ __meta__ = {
 }
 
 [node name="SelectCharacterPanel" type="Control" parent="."]
+visible = false
 margin_right = 500.0
 margin_bottom = 350.0
 __meta__ = {
