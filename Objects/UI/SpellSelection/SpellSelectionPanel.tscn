@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionInfo.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/UI/SpellSelection/PowerSelection_BASE.jpg" type="Texture" id=2]
+[ext_resource path="res://Assets/Fonts/font_72.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionPanel.gd" type="Script" id=4]
+[ext_resource path="res://Assets/UI/Spells/BaseballBat.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/Spells/Hammerfall.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Spells/Shuriken.png" type="Texture" id=7]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+player_name_string = "MEG"
+player_id_value = "1"
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 2 )
+
+[node name="SpellSelectionInfo1" parent="." instance=ExtResource( 1 )]
+margin_left = 108.0
+margin_top = 278.0
+margin_right = -1262.0
+margin_bottom = -198.0
+name_string = "BAT"
+portrait_texture = ExtResource( 5 )
+stat_1_value = 7
+stat_2_value = 1
+stat_3_value = 2
+
+[node name="SpellSelectionInfo2" parent="." instance=ExtResource( 1 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -268.0
+margin_top = -262.0
+margin_right = 282.0
+margin_bottom = 342.0
+name_string = "HAMMER"
+portrait_texture = ExtResource( 6 )
+stat_1_value = 8
+stat_2_value = 2
+stat_3_value = 2
+
+[node name="SpellSelectionInfo3" parent="." instance=ExtResource( 1 )]
+margin_left = 1275.0
+margin_top = 278.0
+margin_right = -95.0
+margin_bottom = -198.0
+name_string = "SHURIKEN"
+portrait_texture = ExtResource( 7 )
+stat_1_value = 3
+stat_2_value = 8
+stat_3_value = 7
+
+[node name="Name" type="Label" parent="."]
+margin_left = 104.0
+margin_top = 84.0
+margin_right = 243.0
+margin_bottom = 152.0
+custom_fonts/font = ExtResource( 3 )
+text = "MEG"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerId" type="Label" parent="."]
+margin_left = 1372.0
+margin_top = 84.0
+margin_right = 1810.0
+margin_bottom = 152.0
+custom_fonts/font = ExtResource( 3 )
+text = "PLAYER 1"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
