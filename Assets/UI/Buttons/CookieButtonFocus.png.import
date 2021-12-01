@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CookieButtonPressed.png-8eb05db9a0261b157a18b87b0b7c2388.stex"
+path="res://.import/CookieButtonFocus.png-ff094955aae79bd3329583ed5699cda7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Misc/CookieButtonPressed.png"
-dest_files=[ "res://.import/CookieButtonPressed.png-8eb05db9a0261b157a18b87b0b7c2388.stex" ]
+source_file="res://Assets/UI/Buttons/CookieButtonFocus.png"
+dest_files=[ "res://.import/CookieButtonFocus.png-ff094955aae79bd3329583ed5699cda7.stex" ]
 
 [params]
 
