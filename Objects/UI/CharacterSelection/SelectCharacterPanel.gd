@@ -17,6 +17,7 @@ onready var player_id_label : Label  = $PlayerId
 onready var name_label : Label = $SelectCharacterPanel/Name
 onready var portrait : TextureRect   = $SelectCharacterPanel/Portrait
 onready var input_type : TextureRect = $SelectCharacterPanel/InputType
+onready var animation_player : AnimationPlayer = $AnimationPlayer
 
 onready var select : String
 onready var back : String
@@ -61,10 +62,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		move_trough_wizards_array(true)
 	elif (event.is_action_pressed(select)):
 		wizard_selected = true
-		emit_signal("on_wizard_selected", wizard_selected)
+		animation_player.play("OnAccept")
 	elif (event.is_action_pressed(back)):
 		wizard_selected = false
-		emit_signal("on_wizard_selected", wizard_selected)
+		on_wizard_selected()
+	pass
+
+func on_wizard_selected() -> void:
+	emit_signal("on_wizard_selected", wizard_selected)
 	pass
 
 func set_panel_status(value:bool, new_player_id:int) -> void:
