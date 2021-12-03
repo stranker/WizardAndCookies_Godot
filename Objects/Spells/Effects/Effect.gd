@@ -6,7 +6,7 @@ var effect_name : String
 var effect_duration : float
 var effect_damage : float
 var effect_repeat_count : int
-var effect_type = SpellManager.EffectType.LAST
+var effect_type = GameManager.EffectType.ICE
 var target : Wizard = null
 
 onready var timer : Timer = $Duration
@@ -49,11 +49,11 @@ func _on_Duration_timeout():
 
 func _apply_effect():
 	match effect_type:
-		SpellManager.EffectType.FIRE:
-			_apply_fire()
-		SpellManager.EffectType.ICE:
+		GameManager.EffectType.ICE:
 			_apply_ice()
-		SpellManager.EffectType.STUN:
+		GameManager.EffectType.FIRE:
+			_apply_fire()
+		GameManager.EffectType.STUN:
 			_apply_stun()
 	pass
 

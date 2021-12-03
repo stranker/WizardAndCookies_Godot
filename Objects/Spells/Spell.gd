@@ -4,22 +4,28 @@ class_name Spell
 
 export (Resource) var spell_data
 export var destroy_on_hit : bool = true
-export (SpellManager.SpellType) var spell_type = SpellManager.SpellType.LAST
+export (GameManager.SpellType) var spell_type = GameManager.SpellType.MELEE
+export var spell_icon : Texture = null
 var spell_info : Node2D = null
+var wizard_id : int = -1
 var spell_owner : Wizard = null
 var spell_effect : Resource = null
 var direction : Vector2
 
-func _initialize():
+func set_wizard_id(id : int):
+	wizard_id = id
+	pass
+
+func initialize(id : int):
+	wizard_id = id
 	spell_info = $SpellInfo
 	spell_info.initialize(spell_data)
 	connect("body_entered", self, "_on_spell_hit")
 	pass
 
-func cast(_spell_owner : Wizard, spell_position : Position2D, spell_direction : Vector2, effect : Resource):
-	_initialize()
+func cast(spell_position : Position2D, spell_direction : Vector2, effect : Resource):
+	spell_owner = GameManager.get_wizard_by_id(wizard_id)
 	global_position = spell_position.global_position
-	spell_owner = _spell_owner
 	direction = spell_direction
 	spell_effect = effect
 	pass
@@ -42,5 +48,14 @@ func _destroy(body : Node2D):
 func _get_knockback_force():
 	return direction.normalized() * spell_info.get_knockback_force()
 
+func get_name():
+	return spell_info.get_name()
+
 func get_type():
 	return spell_type
+
+func get_icon():
+	return spell_icon
+
+func get_cooldown():
+	return spell_info.get_cooldown()

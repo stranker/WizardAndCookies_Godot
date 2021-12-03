@@ -46,11 +46,11 @@ func set_effect_active(effect_type : int, is_visible : bool):
 	else:
 		visual_effects[effect_type].stop()
 		match effect_type:
-			SpellManager.EffectType.FIRE:
+			GameManager.EffectType.FIRE:
 				pass
-			SpellManager.EffectType.ICE:
+			GameManager.EffectType.ICE:
 				wizard.init_speed()
-			SpellManager.EffectType.STUN:
+			GameManager.EffectType.STUN:
 				wizard.set_can_move(true)
 	pass
 

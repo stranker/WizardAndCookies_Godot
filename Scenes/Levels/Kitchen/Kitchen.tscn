@@ -121,7 +121,7 @@ tracks/1/keys = {
 [node name="Kitchen" type="Node2D"]
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 956, 469 )
+position = Vector2( 956, 571 )
 scale = Vector2( 1.8, 1.8 )
 z_index = -10
 texture = ExtResource( 2 )
@@ -144,7 +144,7 @@ z_index = 20
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="PanBody"]
 position = Vector2( 4, 75 )
-polygon = PoolVector2Array( 534, 690, 530, 706, 586, 773, 1297, 774, 1359, 704, 1347, 685, 1383, 695, 1426, 698, 1445, 746, 1420, 780, 1371, 780, 1318, 851, 1047, 867, 684, 858, 564, 846, 525, 779, 469, 774, 446, 736, 478, 692, 514, 691 )
+polygon = PoolVector2Array( 534, 690, 530, 706, 586, 773, 1297, 774, 1359, 704, 1347, 685, 1383, 695, 1450, 697, 1445, 746, 1420, 780, 1371, 780, 1318, 851, 1047, 867, 684, 858, 564, 846, 525, 779, 469, 774, 439, 731, 454, 691, 507, 691 )
 
 [node name="FireParticles1" type="Particles2D" parent="."]
 position = Vector2( 944, 922 )

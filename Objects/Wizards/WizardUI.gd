@@ -49,8 +49,8 @@ func _on_casting_spell():
 	attacking_state.text = "Attack: Casting"
 	pass
 
-func _on_invoke_spell():
-	attacking_state.text = "Attack: Invoke"
+func _on_invoke_spell(spell, spell_id):
+	attacking_state.text = "Attack: Invoke " + spell.get_name()
 	pass
 
 func _on_end_cast_spell():

@@ -25,8 +25,12 @@ export var get_input_available : bool = true
 export var restart_position_on_exit : bool = true
 export var shake_curve : Curve = null
 export var knockback_time : float = 0.15
+export var max_coyote_time : float = 0.13
+export var min_falling_vel : float = 100.0
+onready var coyote_time : float = max_coyote_time
 
 var velocity : Vector2 = Vector2.ZERO
+var movement_speed : float = 0
 var is_falling : bool = false
 var is_jumping : bool = false
 var is_idle : bool = false
@@ -54,6 +58,7 @@ onready var fly : String = "fly_" + str(player_id)
 onready var visual : Node2D = $Visual
 onready var effects_controller : Node2D = $EffectsController
 onready var wizard_particles : Node2D = $Visual/WizardParticles
+onready var spell_cast : Node2D = $SpellCast
 
 onready var initial_pos : Vector2 = global_position
 
@@ -66,7 +71,7 @@ signal on_fly_energy_depleted()
 signal on_flying(is_flying)
 signal on_dashing()
 signal on_casting_spell()
-signal on_invoke_spell()
+signal on_invoke_spell(spell, spell_id)
 signal on_end_cast_spell()
 signal on_can_move_update(can_move)
 signal on_effects_update(effects)
@@ -74,25 +79,27 @@ signal on_emit_jump_particles(emitting)
 signal on_knockback(is_knockback)
 signal on_knockback_recover()
 signal on_pickup_effect(effect)
+signal on_cooldown_end(spell_idx)
 
 func _ready():
 	_set_new_state(MovementState.IDLE, MovementState.IDLE)
 	emit_signal("on_health_update", health)
 	set_can_move(can_move)
 	add_to_group("Wizard")
+	GameManager.add_wizard(self)
 	emit_signal("on_initialize")
 	pass
 
 func _physics_process(delta):
 	_process_flying(delta)
 	_process_movement(delta)
-	_process_state_machine()
+	_process_state_machine(delta)
 	move_and_slide(velocity, UP_DIRECTION)
 	pass
 
-func _process_state_machine():
-	is_falling = velocity.y > 0 and not is_on_floor()
-	is_jumping = Input.is_action_just_pressed(jump) and is_on_floor() and get_input_available
+func _process_state_machine(delta):
+	is_falling = velocity.y > min_falling_vel and not is_on_floor()
+	is_jumping = Input.is_action_just_pressed(jump) and (is_on_floor() or coyote_time > 0) and get_input_available
 	is_idle = is_on_floor() and abs(velocity.x) <= min_running_velocity
 	is_running = is_on_floor() and abs(velocity.x) > min_running_velocity
 	is_flying = Input.is_action_pressed(fly) and fly_energy > 0 and get_input_available
@@ -133,6 +140,8 @@ func _process_state_machine():
 			elif is_damaged:
 				_set_new_state(MovementState.JUMPING, MovementState.HIT)
 		MovementState.FALLING:
+			if coyote_time > 0:
+				coyote_time -= delta
 			if is_idle:
 				emit_signal("on_emit_jump_particles", true)
 				_set_new_state(MovementState.FALLING, MovementState.IDLE)
@@ -227,19 +236,23 @@ func _process_movement(delta):
 	update_visual_direction(horizontal_direction)
 	if can_move:
 		movement_direction = Vector2(horizontal_direction, vertical_direction).normalized()
+		coyote_time = max_coyote_time if is_on_floor() else coyote_time
 		if !false_movement:
 			if is_flying:
 				velocity = movement_direction * fly_speed
 			else:
 				if movement_direction.length() > 0:
-					velocity.x = movement_direction.x * speed
+					movement_speed = lerp(movement_speed, speed, delta * min_running_velocity)
+					velocity.x = movement_direction.x * movement_speed
 				else:
+					movement_speed = lerp(movement_speed, 0, delta * min_running_velocity)
 					velocity.x = lerp(velocity.x, 0, delta * min_running_velocity)
 				if !is_on_floor():
 					_apply_gravity(gravity, delta)
 				else:
 					velocity.y = 0
-		if is_jumping and not is_flying:
+		if is_jumping and not is_flying and coyote_time > 0:
+			coyote_time = 0
 			velocity.y = -jump_strength
 		if is_dashing:
 			_dash(movement_direction)
@@ -263,7 +276,7 @@ func _dash(dir : Vector2):
 	pass
 
 func update_visual_direction(horizontal):
-	if visual and !false_movement:
+	if visual and !false_movement and !is_invoking:
 		if horizontal > 0.1:
 			visual.scale.x = 1
 		elif horizontal < -0.1:
@@ -357,10 +370,10 @@ func _on_casting_spell():
 	emit_signal("on_casting_spell")
 	pass
 
-func _on_invoke_spell():
+func _on_invoke_spell(spell, spell_id):
 	is_invoking = true
 	is_casting = !is_invoking
-	emit_signal("on_invoke_spell")
+	emit_signal("on_invoke_spell", spell, spell_id)
 	pass
 
 func _on_can_cast_spell():
@@ -391,3 +404,9 @@ func _on_VisibilityNotifier2D_screen_exited():
 func restart_position():
 	global_position = initial_pos
 	pass
+
+func get_spells():
+	return spell_cast.spell_list
+
+func _on_cooldown_end(spell_idx):
+	emit_signal("on_cooldown_end", spell_idx)
