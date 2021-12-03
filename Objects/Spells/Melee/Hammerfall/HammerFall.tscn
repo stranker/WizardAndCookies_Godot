@@ -1,16 +1,17 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/HammerFall.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Spells/Melee/Hammerfall/RollingPin.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Spells/SpellData.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Spells/SpellInfo.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Spells/Melee/Hammerfall/Hammerfall.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Particles/JumpParticle.png" type="Texture" id=6]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 3 )
 s_name = "Hammerfall"
 s_damage = 4.0
-s_cooldown = 0.0
+s_cooldown = 2.0
 s_range = 0.0
 s_knockback_force = 1999.5
 s_difficulty = 0.0
@@ -309,7 +310,7 @@ z_index = 18
 script = ExtResource( 1 )
 spell_data = SubResource( 4 )
 destroy_on_hit = false
-spell_type = 1
+spell_icon = ExtResource( 5 )
 translate_force = Vector2( 0, 800 )
 translate_duration = 0.4
 
