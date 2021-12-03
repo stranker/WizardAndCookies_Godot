@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Hammerfall.png-209af0ea4f6df0644249ce49ca09e463.stex"
+path="res://.import/Hammerfall.png-196bef4678176f21c6df217c98ed47ce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Spells/Melee/Hammerfall/Hammerfall.png"
-dest_files=[ "res://.import/Hammerfall.png-209af0ea4f6df0644249ce49ca09e463.stex" ]
+source_file="res://Objects/Spells/Melee/RollingPin/Hammerfall.png"
+dest_files=[ "res://.import/Hammerfall.png-196bef4678176f21c6df217c98ed47ce.stex" ]
 
 [params]
 

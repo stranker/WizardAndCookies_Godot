@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 class_name Spell
 
@@ -11,6 +11,8 @@ var wizard_id : int = -1
 var spell_owner : Wizard = null
 var spell_effect : Resource = null
 var direction : Vector2
+export var hit_area_path : NodePath
+var hit_area : Area2D
 
 func set_wizard_id(id : int):
 	wizard_id = id
@@ -20,7 +22,8 @@ func initialize(id : int):
 	wizard_id = id
 	spell_info = $SpellInfo
 	spell_info.initialize(spell_data)
-	connect("body_entered", self, "_on_spell_hit")
+	hit_area = get_node(hit_area_path)
+	hit_area.connect("body_entered", self, "_on_spell_hit")
 	pass
 
 func cast(spell_position : Position2D, spell_direction : Vector2, effect : Resource):

@@ -66,5 +66,5 @@ func _apply_ice():
 	pass
 
 func _apply_stun():
-	target.set_can_move(false)
+	target.stun()
 	pass

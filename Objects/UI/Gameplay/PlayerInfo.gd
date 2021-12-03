@@ -12,7 +12,6 @@ onready var anim_fly_bar : AnimationPlayer = $ProgressBars/FlyBar/Anim
 onready var tween : Tween = $Tween
 
 var wizard : Wizard = null
-var spell_idx = -1
 
 signal on_cooldown_end(spell_idx)
 

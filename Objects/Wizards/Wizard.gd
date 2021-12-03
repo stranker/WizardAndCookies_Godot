@@ -41,6 +41,7 @@ var is_casting : bool = false
 var is_invoking : bool = false
 var is_damaged : bool = false
 var is_dashing : bool = false
+var is_stunned : bool = false
 var can_recover_fly : bool = true
 var false_movement : bool = false
 
@@ -235,7 +236,7 @@ func _process_movement(delta):
 	var horizontal_direction = get_horizontal_input()
 	var vertical_direction = get_vertical_input()
 	update_visual_direction(horizontal_direction)
-	if can_move:
+	if can_move and !is_stunned:
 		movement_direction = Vector2(horizontal_direction, vertical_direction).normalized()
 		coyote_time = max_coyote_time if is_on_floor() else coyote_time
 		if !false_movement:
@@ -419,3 +420,12 @@ func get_spells():
 
 func _on_cooldown_end(spell_idx):
 	emit_signal("on_cooldown_end", spell_idx)
+
+func stun():
+	set_can_move(false)
+	is_stunned = true
+	pass
+
+func end_stun():
+	set_can_move(true)
+	is_stunned = false
