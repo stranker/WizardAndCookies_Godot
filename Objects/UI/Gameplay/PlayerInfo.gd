@@ -20,6 +20,7 @@ func _ready() -> void:
 
 func set_wizard(_wizard : Wizard):
 	wizard = _wizard
+	if !wizard: return
 	fly_bar.max_value = wizard.max_fly_energy
 	fly_bar.value = fly_bar.max_value
 	hp_bar.max_value = wizard.max_health
