@@ -1,7 +1,7 @@
 extends Node
 
 var ice_stake = preload("res://Objects/Spells/Range/IceStake/IceStake.tscn")
-var rolling_pin = preload("res://Objects/Spells/Melee/Hammerfall/HammerFall.tscn")
+var rolling_pin = preload("res://Objects/Spells/Melee/RollingPin/RollingPin.tscn")
 
 var wizards_spells : Dictionary = {1:[], 2:[]}
 

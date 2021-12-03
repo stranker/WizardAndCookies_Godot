@@ -51,7 +51,7 @@ func set_effect_active(effect_type : int, is_visible : bool):
 			GameManager.EffectType.ICE:
 				wizard.init_speed()
 			GameManager.EffectType.STUN:
-				wizard.set_can_move(true)
+				wizard.end_stun()
 	pass
 
 func on_effect_end(effect : Effect):

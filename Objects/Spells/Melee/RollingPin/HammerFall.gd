@@ -13,4 +13,8 @@ func cast(spell_position : Position2D, spell_direction : Vector2, effect : Resou
 	pass
 
 func _destroy(body : Node2D):
+	if is_inside_tree():
+		anim.stop()
+		yield(get_tree().create_timer(0.5),"timeout")
+		queue_free()
 	pass
