@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.811765, 0.811765, 0.811765, 1 )
+bg_color = Color( 0.168627, 0.168627, 0.168627, 1 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -60,21 +60,8 @@ margin_right = 476.0
 margin_bottom = 197.0
 text = "BACK"
 
-[node name="SelectCharacterPanel1" parent="." instance=ExtResource( 7 )]
-margin_left = 405.0
-margin_top = 394.0
-margin_right = 905.0
-margin_bottom = 744.0
-waiting_for_player = true
-
-[node name="SelectCharacterPanel2" parent="." instance=ExtResource( 7 )]
-margin_left = 1048.0
-margin_top = 394.0
-margin_right = 1548.0
-margin_bottom = 744.0
-waiting_for_player = true
-
 [node name="Label" type="Label" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -307.0
@@ -84,7 +71,58 @@ margin_bottom = 142.0
 custom_fonts/font = ExtResource( 8 )
 text = "SELECT YOUR WIZARD"
 
+[node name="MC" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 104.0
+margin_top = 55.0
+margin_right = -95.0
+margin_bottom = -142.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterPanels" type="HBoxContainer" parent="MC"]
+margin_right = 1721.0
+margin_bottom = 883.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectCharacterPanel1" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
+margin_right = 427.0
+margin_bottom = 883.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+waiting_for_player = true
+
+[node name="SelectCharacterPanel2" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
+margin_left = 431.0
+margin_right = 858.0
+margin_bottom = 883.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+waiting_for_player = true
+
+[node name="SelectCharacterPanel3" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
+margin_left = 862.0
+margin_right = 1289.0
+margin_bottom = 883.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+waiting_for_player = true
+
+[node name="SelectCharacterPanel4" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
+margin_left = 1293.0
+margin_right = 1721.0
+margin_bottom = 883.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+waiting_for_player = true
+
 [connection signal="pressed" from="GameplayBtn" to="." method="_on_GameplayBtn_pressed"]
 [connection signal="pressed" from="BackBtn" to="." method="_on_BackBtn_pressed"]
-[connection signal="on_wizard_selected" from="SelectCharacterPanel1" to="." method="_on_SelectCharacterPanel1_on_wizard_selected"]
-[connection signal="on_wizard_selected" from="SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
+[connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel1" to="." method="_on_SelectCharacterPanel1_on_wizard_selected"]
+[connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
+[connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel3" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
+[connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel4" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]

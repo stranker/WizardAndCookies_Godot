@@ -2,7 +2,7 @@ extends Control
 
 onready var scene_manager : SceneManager = get_node("/root/SceneManager")
 onready var back_button : TextureButton  = $BackBtn
-onready var character_panels = [$SelectCharacterPanel1, $SelectCharacterPanel2]
+onready var character_panels = [$MC/CharacterPanels/SelectCharacterPanel1, $MC/CharacterPanels/SelectCharacterPanel2]
 
 onready var ui_select_1 : String  = "ui_select_1"
 onready var ui_select_2 : String  = "ui_select_2"

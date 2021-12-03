@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ZakFull.png-798e3dcb88eb2c25084824ab512447c7.stex"
+path="res://.import/ZakAvatar.png-d46f1437c496cfa21bc38655796bdb2c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Wizards/Zak/ZakFull.png"
-dest_files=[ "res://.import/ZakFull.png-798e3dcb88eb2c25084824ab512447c7.stex" ]
+source_file="res://Objects/Wizards/Zak/ZakAvatar.png"
+dest_files=[ "res://.import/ZakAvatar.png-d46f1437c496cfa21bc38655796bdb2c.stex" ]
 
 [params]
 

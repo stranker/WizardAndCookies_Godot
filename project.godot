@@ -63,6 +63,11 @@ _global_script_classes=[ {
 "class": "Wizard",
 "language": "GDScript",
 "path": "res://Objects/Wizards/Wizard.gd"
+}, {
+"base": "Resource",
+"class": "WizardData",
+"language": "GDScript",
+"path": "res://Objects/UI/CharacterSelection/WizardData.gd"
 } ]
 _global_script_class_icons={
 "CookieLeaderboard": "",
@@ -75,7 +80,8 @@ _global_script_class_icons={
 "SpellData": "",
 "SpellEffect": "",
 "VisualEffectWizard": "",
-"Wizard": ""
+"Wizard": "",
+"WizardData": ""
 }
 
 [application]
