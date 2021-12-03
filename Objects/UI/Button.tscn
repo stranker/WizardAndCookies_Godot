@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/UI/Buttons/CookieButton.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=2]
@@ -7,10 +7,60 @@
 [ext_resource path="res://Assets/UI/Buttons/CookieButtonHover.png" type="Texture" id=6]
 [ext_resource path="res://Assets/UI/Buttons/CookieButtonFocus.png" type="Texture" id=7]
 
+[sub_resource type="Animation" id=1]
+resource_name = "FocusEnter"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1, 0.5 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Pressed"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
 [node name="TextureButton" type="TextureButton"]
 margin_right = 376.0
 margin_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 376, 144 )
+rect_pivot_offset = Vector2( 187.5, 72 )
 keep_pressed_outside = true
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 4 )
@@ -48,5 +98,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/FocusEnter = SubResource( 1 )
+anims/Pressed = SubResource( 3 )
+anims/RESET = SubResource( 2 )
+
 [connection signal="button_down" from="." to="." method="_on_TextureButton_button_down"]
 [connection signal="button_up" from="." to="." method="_on_TextureButton_button_up"]
+[connection signal="focus_entered" from="." to="." method="_on_TextureButton_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_TextureButton_mouse_entered"]

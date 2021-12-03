@@ -42,7 +42,7 @@ z_index = 10
 cast_position_path = NodePath("../CastPosition")
 
 [node name="CastPosition" type="Position2D" parent="Visual"]
-position = Vector2( 16, 0 )
+position = Vector2( 32, -8 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( -5, -18 )
