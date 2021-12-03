@@ -7,6 +7,9 @@ onready var hp_bar : TextureProgress = $ProgressBars/HpBar
 onready var fly_bar : TextureProgress = $ProgressBars/FlyBar
 onready var character_portrait : TextureRect = $PotraitHolder/Background/Portrait
 onready var spells : Array = $SpellsHolder/SpellsContainer.get_children()
+onready var anim_hp_bar : AnimationPlayer = $ProgressBars/HpBar/Anim
+onready var anim_fly_bar : AnimationPlayer = $ProgressBars/FlyBar/Anim
+onready var tween : Tween = $Tween
 
 var wizard : Wizard = null
 var spell_idx = -1
@@ -34,14 +37,36 @@ func set_wizard(_wizard : Wizard):
 	wizard.connect("on_health_update", self, "_on_health_update")
 	wizard.connect("on_invoke_spell", self, "_on_invoke_spell")
 	connect("on_cooldown_end", wizard, "_on_cooldown_end")
+	character_portrait.texture = wizard.head_icon
 	pass
 
 func _on_fly_update(fly_energy):
-	fly_bar.value = fly_energy
+	var do_fullfly = fly_bar.value < ceil(fly_energy)
+	fly_bar.value = ceil(fly_energy)
+	if fly_energy / float(fly_bar.max_value) <= 0.3:
+		anim_fly_bar.play("LowFly")
+	elif fly_energy / float(fly_bar.max_value) > 0.3 and ceil(fly_energy) < fly_bar.max_value:
+		anim_fly_bar.play("RESET")
+	elif ceil(fly_energy) >= fly_bar.max_value and do_fullfly:
+		anim_fly_bar.play("FullFly")
+	pass
+
+func tween_health(init, end):
+	tween.stop_all()
+	tween.remove_all()
+	tween.interpolate_property(hp_bar, "value", init, end, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.start()
 	pass
 
 func _on_health_update(health):
-	hp_bar.value = health
+	var damage = hp_bar.value - health
+	tween_health(hp_bar.value, health)
+	if health / float(hp_bar.max_value) <= 0.3:
+		anim_hp_bar.play("LowHp")
+	elif health < hp_bar.max_value:
+		anim_hp_bar.play("Hit")
+	elif health == hp_bar.max_value:
+		anim_hp_bar.play("RESET")
 	pass
 
 func _on_invoke_spell(spell : Spell, _spell_idx : int):

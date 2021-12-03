@@ -28,6 +28,7 @@ export var knockback_time : float = 0.15
 export var max_coyote_time : float = 0.13
 export var min_falling_vel : float = 100.0
 onready var coyote_time : float = max_coyote_time
+export var head_icon : Texture
 
 var velocity : Vector2 = Vector2.ZERO
 var movement_speed : float = 0
@@ -222,7 +223,7 @@ func _process_flying(delta):
 				emit_signal("on_fly_energy_depleted")
 				can_recover_fly = false
 	else:
-		if can_recover_fly and is_on_floor():
+		if can_recover_fly and is_on_floor() and fly_energy < max_fly_energy:
 			fly_energy += fly_energy_consume * delta
 			fly_energy = min(fly_energy, max_fly_energy)
 	if fly_energy != max_fly_energy:
@@ -400,6 +401,14 @@ func _on_VisibilityNotifier2D_screen_exited():
 	if !restart_position_on_exit: return
 	restart_position()
 	pass # Replace with function body.
+
+func restart():
+	restart_position()
+	health = max_health
+	fly_energy = max_fly_energy
+	emit_signal("on_fly_energy_update", fly_energy)
+	emit_signal("on_health_update", health)
+	pass
 
 func restart_position():
 	global_position = initial_pos

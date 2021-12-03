@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Objects/UI/Gameplay/PlayerFrame.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/Gameplay/FlyBar.png" type="Texture" id=2]
@@ -6,6 +6,198 @@
 [ext_resource path="res://Assets/UI/Gameplay/HealthBar.png" type="Texture" id=4]
 [ext_resource path="res://Objects/UI/Gameplay/UISpell.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/UI/Gameplay/PlayerInfo.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=4]
+resource_name = "FullFly"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 0.5, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:tint_progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.882353, 1, 1 ), Color( 0, 0.552941, 1, 1 ), Color( 0, 0.882353, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "LowFly"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ), Vector2( 1.1, 1.1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:tint_progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.882353, 1, 1 ), Color( 0, 0.882353, 1, 0.0784314 ), Color( 0, 0.882353, 1, 1 ), Color( 0, 0.882353, 1, 0.0784314 ), Color( 0, 0.882353, 1, 1 ), Color( 0, 0.882353, 1, 0.0784314 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:tint_progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0.882353, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 0.5, 2, 0.5 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 38, 5 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "LowHp"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:tint_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.588235, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.588235, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.588235, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ), Vector2( 1.1, 1.1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 38, 5 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:tint_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 38, 5 ) ]
+}
 
 [node name="PlayerInfo" type="Control"]
 margin_right = 352.0
@@ -21,11 +213,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -111.0
-margin_top = -22.0
-margin_right = 121.0
-margin_bottom = 54.0
+margin_left = -88.0
+margin_top = -20.0
+margin_right = 144.0
+margin_bottom = 56.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -34,18 +227,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -57.0
-margin_top = 13.0
-margin_right = 139.0
-margin_bottom = 32.0
+margin_left = -67.0
+margin_top = 12.0
+margin_right = 129.0
+margin_bottom = 31.0
+rect_pivot_offset = Vector2( 96, 9.5 )
 value = 50.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
 tint_progress = Color( 0, 0.882353, 1, 1 )
 nine_patch_stretch = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="Anim" type="AnimationPlayer" parent="ProgressBars/FlyBar"]
+anims/FullFly = SubResource( 4 )
+anims/LowFly = SubResource( 5 )
+anims/RESET = SubResource( 6 )
 
 [node name="HpBar" type="TextureProgress" parent="ProgressBars"]
 anchor_left = 0.5
@@ -56,14 +256,24 @@ margin_left = -78.0
 margin_top = -33.0
 margin_right = 160.0
 margin_bottom = 16.0
-value = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 119, 24.5 )
+step = 0.1
+value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 4 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="Anim" type="AnimationPlayer" parent="ProgressBars/HpBar"]
+anims/Hit = SubResource( 1 )
+anims/LowHp = SubResource( 2 )
+anims/RESET = SubResource( 3 )
 
 [node name="PotraitHolder" type="Control" parent="."]
 anchor_left = 0.5
@@ -75,6 +285,7 @@ margin_top = -64.0
 margin_right = -34.0
 margin_bottom = 54.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -118,6 +329,7 @@ margin_top = -64.0
 margin_right = 136.0
 margin_bottom = -8.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -143,3 +355,5 @@ margin_bottom = 72.0
 margin_left = 138.0
 margin_right = 203.0
 margin_bottom = 72.0
+
+[node name="Tween" type="Tween" parent="."]
