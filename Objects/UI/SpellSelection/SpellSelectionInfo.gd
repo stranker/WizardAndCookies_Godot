@@ -5,6 +5,8 @@ onready var portrait: TextureRect = $Portrait
 
 onready var stats_names = [$Stat1/Name, $Stat2/Name, $Stat3/Name]
 onready var stats_bars = [$Stat1/Bar, $Stat2/Bar, $Stat3/Bar]
+onready var highlight = $Highlight
+
 
 export var name_string: String
 export var portrait_texture: Texture
@@ -13,6 +15,7 @@ export var stat_2_value: int
 export var stat_3_value: int
 
 func _ready() -> void:
+	show_highlight(false)
 	name_label.text = name_string
 	portrait.texture = portrait_texture
 	set_bar_data(0, "DAMAGE", stat_1_value)
@@ -37,4 +40,16 @@ func get_color_treshold(value:int) -> Color:
 	else:
 		new_color = Color.yellow
 	return new_color
+	pass
+
+func focus_entered () -> void:
+	show_highlight(true)
+	pass
+
+func focus_exited () -> void:
+	show_highlight(false)
+	pass
+
+func show_highlight(value)  -> void:
+	highlight.visible = value
 	pass
