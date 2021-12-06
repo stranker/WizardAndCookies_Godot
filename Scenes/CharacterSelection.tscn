@@ -9,7 +9,7 @@
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.309804, 0.309804, 0.309804, 1 )
 
-[node name="Control" type="Control"]
+[node name="CharacterSelection" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -90,21 +90,22 @@ __meta__ = {
 }
 
 [node name="SelectCharacterPanel1" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
-margin_right = 427.0
-margin_bottom = 883.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-waiting_for_player = true
-
-[node name="SelectCharacterPanel2" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
-margin_left = 431.0
 margin_right = 858.0
 margin_bottom = 883.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 waiting_for_player = true
 
+[node name="SelectCharacterPanel2" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
+margin_left = 862.0
+margin_right = 1721.0
+margin_bottom = 883.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+waiting_for_player = true
+
 [node name="SelectCharacterPanel3" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
+visible = false
 margin_left = 862.0
 margin_right = 1289.0
 margin_bottom = 883.0
@@ -113,7 +114,8 @@ size_flags_vertical = 3
 waiting_for_player = true
 
 [node name="SelectCharacterPanel4" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
-margin_left = 1293.0
+visible = false
+margin_left = 1150.0
 margin_right = 1721.0
 margin_bottom = 883.0
 size_flags_horizontal = 3

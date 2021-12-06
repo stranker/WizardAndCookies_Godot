@@ -11,4 +11,3 @@ head_avatar = ExtResource( 3 )
 name_string = "Meg"
 player_color = Color( 0.180392, 0.141176, 0.913725, 1 )
 device_id = 0
-available_colors = [ Color( 0.211765, 0.203922, 1, 1 ), Color( 1, 0.278431, 0.203922, 1 ), Color( 0.203922, 1, 0.345098, 1 ), Color( 0.976471, 1, 0.203922, 1 ) ]

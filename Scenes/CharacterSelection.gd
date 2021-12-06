@@ -21,21 +21,21 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed(ui_select_1)):
-		add_player(1)
+		add_player(1, event)
 	elif (event.is_action_pressed(ui_select_2)):
-		add_player(2)
+		add_player(2, event)
 	elif (event.is_action_pressed(ui_back_1)):
 		remove_player(1)
 	elif (event.is_action_pressed(ui_back_2)):
 		remove_player(2)
 	pass
 
-func add_player(player_id:int) -> void:
+func add_player(player_id:int, event : InputEvent) -> void:
 	if (current_players < 2 and player_selecting_panels[player_id - 1] == -1):
 		for i in range(character_panels.size()):
 			var character_panel = character_panels[i] as SelectCharacterPanel
 			if character_panel.waiting_for_player:
-				character_panel.set_panel_status(false, player_id)
+				character_panel.set_panel_status(false, player_id, event is InputEventJoypadButton)
 				current_players += 1
 				player_selecting_panels[player_id - 1] = i
 				return
