@@ -1,13 +1,203 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://Assets/UI/SpellSelection/Asset_Frame.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/UI/CharacterSelection/CharacterPanel1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Fonts/cartoonist_kooky.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/UI/CharacterSelection/WizardPanelSelection.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/CharacterSelection/Asset_Joystick.png" type="Texture" id=4]
-[ext_resource path="res://Assets/UI/CharacterSelection/Asset_Keyboard.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Fonts/font_86.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Assets/Fonts/font_40.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Assets/UI/CharacterSelection/Asset_ZakFace.png" type="Texture" id=7]
+[ext_resource path="res://Objects/Wizards/Zak/ZakAvatar.png" type="Texture" id=7]
 [ext_resource path="res://Objects/UI/CharacterSelection/SelectCharacterPanel.gd" type="Script" id=8]
+[ext_resource path="res://Assets/UI/CharacterSelection/CharacterPanel2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Fonts/font_72.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Assets/UI/Misc/CookieCircle.png" type="Texture" id=11]
+[ext_resource path="res://Objects/UI/CharacterSelection/ZakData.tres" type="Resource" id=12]
+[ext_resource path="res://Objects/UI/CharacterSelection/MegData.tres" type="Resource" id=13]
+[ext_resource path="res://Objects/Spells/ArrowIcon.png" type="Texture" id=14]
+[ext_resource path="res://Assets/UI/CharacterSelection/Asset_Keyboard.png" type="Texture" id=15]
+
+[sub_resource type="DynamicFont" id=3]
+size = 72
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "Pressed"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.552941, 0.156863, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.8, 0.8 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Join:custom_colors/font_color_shadow")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.605682, 0.144531, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Wait"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.552941, 0.156863, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Join:custom_colors/font_color_shadow")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.552941, 0.156863, 1 ), Color( 1, 0.85098, 0.717647, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "LeftClick"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBC/LeftArrow/Arrow:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBC/RightArrow/Arrow:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBC/LeftArrow/Arrow:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBC/RightArrow/Arrow:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "RightClick"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBC/RightArrow/Arrow:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBC/LeftArrow/Arrow:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "OnAccept"
@@ -52,6 +242,98 @@ tracks/2/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=8]
+resource_name = "OnSelectingWizard"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("WaitingForPlayerPanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SelectCharacterPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SelectCharacterPanel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SelectCharacterPanel/Portrait:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 0.5, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 424, 0 ), Vector2( -8, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SelectCharacterPanel/PlayerSelectArrow:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 0.5, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 432, 48 ), Vector2( 16, 48 ), Vector2( 32, 48 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "OnWaitingStart"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WaitingForPlayerPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
@@ -78,28 +360,118 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("WaitingForPlayerPanel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WaitingForPlayerPanel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SelectCharacterPanel:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SelectCharacterPanel:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SelectCharacterPanel/PlayerSelectArrow/HBC/Name:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 16, 64 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SelectCharacterPanel/Portrait:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("SelectCharacterPanel/PlayerSelectArrow:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 32, 48 ) ]
+}
 
 [node name="SelectCharacterPanel" type="Control"]
-margin_right = 500.0
-margin_bottom = 350.0
+margin_right = 420.0
+margin_bottom = 880.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_pivot_offset = Vector2( 250, 175 )
+rect_pivot_offset = Vector2( 210, 440 )
 script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+wizards_data = [ ExtResource( 12 ), ExtResource( 13 ) ]
+panel_textures = [ ExtResource( 1 ), ExtResource( 9 ) ]
+gamepad_texture = ExtResource( 4 )
+keyboard_texture = ExtResource( 15 )
 
 [node name="Background" type="TextureRect" parent="."]
-margin_right = 500.0
-margin_bottom = 350.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 1 )
 expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Highlight" type="TextureRect" parent="."]
+visible = false
 margin_right = 495.0
 margin_bottom = 348.0
 texture = ExtResource( 3 )
@@ -108,71 +480,81 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerId" type="Label" parent="."]
-margin_left = 45.0
-margin_top = 31.0
-margin_right = 85.0
-margin_bottom = 69.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 6 )
-text = "P1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="WaitingForPlayerPanel" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PressStartText" type="Label" parent="WaitingForPlayerPanel"]
+[node name="Join" type="Label" parent="WaitingForPlayerPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 128.0
-margin_top = 94.5
-margin_right = 332.0
-margin_bottom = 215.5
+margin_left = -170.0
+margin_top = -152.0
+margin_right = 171.0
+margin_bottom = -11.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "PRESS
-SELECT"
+custom_colors/font_color_shadow = Color( 1, 0.605682, 0.144531, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 5 )
+text = "Join"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GamepadIcon" type="TextureRect" parent="WaitingForPlayerPanel"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 148.0
-margin_top = 263.0
-margin_right = 210.0
-margin_bottom = 305.0
-texture = ExtResource( 4 )
+[node name="PressJoin" type="TextureRect" parent="WaitingForPlayerPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -58.0
+margin_top = -8.0
+margin_right = 58.0
+margin_bottom = 108.0
+rect_pivot_offset = Vector2( 58, 58 )
+texture = ExtResource( 11 )
 expand = true
+stretch_mode = 5
+
+[node name="Button" type="Label" parent="WaitingForPlayerPanel/PressJoin"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.460938, 0.460938, 0.460938, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = SubResource( 3 )
+text = "A"
+align = 1
+valign = 1
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="KeyboardIcon" type="TextureRect" parent="WaitingForPlayerPanel"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 288.0
-margin_top = 263.0
-margin_right = 350.0
-margin_bottom = 305.0
-texture = ExtResource( 5 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Anim" type="AnimationPlayer" parent="WaitingForPlayerPanel/PressJoin"]
+autoplay = "Wait"
+anims/Pressed = SubResource( 7 )
+anims/RESET = SubResource( 4 )
+anims/Wait = SubResource( 5 )
 
 [node name="SelectCharacterPanel" type="Control" parent="."]
 visible = false
-margin_right = 500.0
-margin_bottom = 350.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -210.0
+margin_top = -440.0
+margin_right = 210.0
+margin_bottom = 440.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -182,40 +564,133 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -73.5
-margin_top = -94.0
-margin_right = 73.5
-margin_bottom = 56.0
+margin_right = 420.0
+margin_bottom = 880.0
 texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="SelectCharacterPanel"]
+[node name="PlayerSelectArrow" type="Control" parent="SelectCharacterPanel"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -56.0
-margin_top = 72.0
-margin_right = 56.0
-margin_bottom = 131.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "ZAK"
+margin_left = 32.0
+margin_top = 48.0
+margin_right = 392.0
+margin_bottom = 136.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HBC" type="HBoxContainer" parent="SelectCharacterPanel/PlayerSelectArrow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftArrow" type="Control" parent="SelectCharacterPanel/PlayerSelectArrow/HBC"]
+margin_right = 76.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Arrow" type="TextureRect" parent="SelectCharacterPanel/PlayerSelectArrow/HBC/LeftArrow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 26, 34 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+flip_h = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="SelectCharacterPanel/PlayerSelectArrow/HBC"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 216.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 200, 68 )
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "ZAK"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightArrow" type="Control" parent="SelectCharacterPanel/PlayerSelectArrow/HBC"]
+margin_left = 284.0
+margin_right = 360.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Arrow" type="TextureRect" parent="SelectCharacterPanel/PlayerSelectArrow/HBC/RightArrow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 26, 34 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Anim" type="AnimationPlayer" parent="SelectCharacterPanel/PlayerSelectArrow"]
+anims/LeftClick = SubResource( 9 )
+anims/RESET = SubResource( 10 )
+anims/RightClick = SubResource( 11 )
 
 [node name="InputType" type="TextureRect" parent="SelectCharacterPanel"]
 self_modulate = Color( 0, 0, 0, 1 )
-margin_left = 392.0
-margin_top = 40.0
-margin_right = 454.0
-margin_bottom = 82.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = -112.0
+margin_right = 126.0
+margin_bottom = -70.0
 texture = ExtResource( 4 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerId" type="Label" parent="SelectCharacterPanel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -92.0
+margin_top = -104.0
+margin_right = -52.0
+margin_bottom = -66.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "P1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/OnAccept = SubResource( 1 )
+anims/OnSelectingWizard = SubResource( 8 )
+anims/OnWaitingStart = SubResource( 6 )
 anims/RESET = SubResource( 2 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

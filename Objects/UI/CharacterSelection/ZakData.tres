@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://Objects/UI/CharacterSelection/WizardData.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Wizards/Zak/ZakAvatar.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Wizards/Zak/Zak.tscn" type="PackedScene" id=4]
+
+[resource]
+script = ExtResource( 1 )
+avatar = ExtResource( 2 )
+head_avatar = ExtResource( 3 )
+name_string = "Zak"
+player_color = Color( 0.180392, 0.141176, 0.913725, 1 )
+device_id = 0
+wizard_scene = ExtResource( 4 )
