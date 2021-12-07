@@ -10,8 +10,6 @@ var joypads_connected : Array = []
 func _ready():
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	joypads_connected = Input.get_connected_joypads()
-	print(joypads_connected)
-	#print(Input.get_joy_name(joypads_connected[0]))
 	pass
 
 func has_xinput_controller():

@@ -1,13 +1,70 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/CharacterSelection.gd" type="Script" id=1]
-[ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/UI/CharacterSelection/BackgroundTray.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/font_152.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Assets/Fonts/font_86.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Assets/UI/Misc/CookieCircle.png" type="Texture" id=6]
 [ext_resource path="res://Objects/UI/CharacterSelection/SelectCharacterPanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/UI/CharacterSelection/CookiePanel.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.309804, 0.309804, 0.309804, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Enter"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( -2180, 696 ), Vector2( -88, 688 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BG:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2180, 688 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BG:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
 [node name="CharacterSelection" type="Control"]
 anchor_right = 1.0
@@ -42,35 +99,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GameplayBtn" parent="." instance=ExtResource( 2 )]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -470.0
-margin_top = 49.0
-margin_right = -94.0
-margin_bottom = 193.0
-text = "GAMEPLAY"
-
-[node name="BackBtn" parent="." instance=ExtResource( 2 )]
-visible = false
-margin_left = 100.0
-margin_top = 53.0
-margin_right = 476.0
-margin_bottom = 197.0
-text = "BACK"
-
-[node name="Label" type="Label" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -307.0
-margin_top = 83.0
-margin_right = 310.0
-margin_bottom = 142.0
-custom_fonts/font = ExtResource( 8 )
-text = "SELECT YOUR WIZARD"
-
 [node name="MC" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,7 +122,7 @@ margin_right = 858.0
 margin_bottom = 883.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-waiting_for_player = true
+player_id = 1
 
 [node name="SelectCharacterPanel2" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
 margin_left = 862.0
@@ -102,7 +130,7 @@ margin_right = 1721.0
 margin_bottom = 883.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-waiting_for_player = true
+player_id = 2
 
 [node name="SelectCharacterPanel3" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
 visible = false
@@ -111,7 +139,6 @@ margin_right = 1289.0
 margin_bottom = 883.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-waiting_for_player = true
 
 [node name="SelectCharacterPanel4" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
 visible = false
@@ -120,11 +147,89 @@ margin_right = 1721.0
 margin_bottom = 883.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-waiting_for_player = true
 
-[connection signal="pressed" from="GameplayBtn" to="." method="_on_GameplayBtn_pressed"]
-[connection signal="pressed" from="BackBtn" to="." method="_on_BackBtn_pressed"]
+[node name="PressStart" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -3140.0
+margin_top = -392.0
+margin_right = -1044.0
+margin_bottom = -80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="PressStart"]
+modulate = Color( 1, 1, 1, 0.921569 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 1048, 156 )
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 1
+flip_h = true
+flip_v = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartBg" type="TextureRect" parent="PressStart"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 448.0
+margin_top = -92.0
+margin_right = 608.0
+margin_bottom = 76.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartIcon" type="Label" parent="PressStart/StartBg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.615686, 0.615686, 0.615686, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = ExtResource( 5 )
+text = "X"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartLabel" type="Label" parent="PressStart"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 4 )
+text = "START GAME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartAnimation" type="AnimationPlayer" parent="PressStart"]
+anims/Enter = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[connection signal="on_remove_player" from="MC/CharacterPanels/SelectCharacterPanel1" to="." method="_on_SelectCharacterPanel1_on_remove_player"]
+[connection signal="on_wizard_deselected" from="MC/CharacterPanels/SelectCharacterPanel1" to="." method="_on_SelectCharacterPanel1_on_wizard_deselected"]
 [connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel1" to="." method="_on_SelectCharacterPanel1_on_wizard_selected"]
+[connection signal="on_remove_player" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_remove_player"]
+[connection signal="on_wizard_deselected" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_wizard_deselected"]
 [connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
 [connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel3" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
 [connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel4" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
+[connection signal="animation_finished" from="PressStart/StartAnimation" to="." method="_on_StartAnimation_animation_finished"]
