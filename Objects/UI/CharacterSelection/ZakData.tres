@@ -11,5 +11,5 @@ avatar = ExtResource( 2 )
 head_avatar = ExtResource( 3 )
 name_string = "Zak"
 player_color = Color( 0.180392, 0.141176, 0.913725, 1 )
-device_id = 0
+player_id = -1
 wizard_scene = ExtResource( 4 )

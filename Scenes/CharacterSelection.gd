@@ -1,80 +1,115 @@
 extends Control
 
-onready var scene_manager : SceneManager = get_node("/root/SceneManager")
-onready var back_button : TextureButton  = $BackBtn
 onready var character_panels = [$MC/CharacterPanels/SelectCharacterPanel1, $MC/CharacterPanels/SelectCharacterPanel2]
-
-onready var ui_select_1 : String  = "ui_select_1"
-onready var ui_select_2 : String  = "ui_select_2"
-onready var ui_back_1 : String  = "ui_back_1"
-onready var ui_back_2 : String  = "ui_back_2"
-
-var player_1_panel : int = -1
-var player_2_panel : int = -1
-var player_selecting_panels = [player_1_panel, player_2_panel]
+onready var press_start_anim = $PressStart/StartAnimation
+onready var can_take_input : bool = true
 
 var current_players : int = 0
-var players_accepted : int = 0
+var ready_players : int = 0
+var wizards_selected_data : Array = []
 
 func _ready() -> void:
 	pass
 
-func _unhandled_input(event: InputEvent) -> void:
-	if (event.is_action_pressed(ui_select_1)):
-		add_player(1, event)
-	elif (event.is_action_pressed(ui_select_2)):
-		add_player(2, event)
-	elif (event.is_action_pressed(ui_back_1)):
-		remove_player(1)
-	elif (event.is_action_pressed(ui_back_2)):
-		remove_player(2)
+func _input(event):
+	if not event is InputEventJoypadButton and not event is InputEventKey: return
+	if !can_take_input: return
+	if event.is_action_pressed("ui_select") and !event.is_echo():
+		add_player(event)
+	if event.is_action_pressed("ui_accept_1") and ready_players >= 2:
+		start_game()
+	if event.is_action_pressed("ui_cancel") and !event.is_echo() and current_players <= 0:
+		go_back()
 	pass
 
-func add_player(player_id:int, event : InputEvent) -> void:
-	if (current_players < 2 and player_selecting_panels[player_id - 1] == -1):
-		for i in range(character_panels.size()):
-			var character_panel = character_panels[i] as SelectCharacterPanel
-			if character_panel.waiting_for_player:
-				character_panel.set_panel_status(false, player_id, event is InputEventJoypadButton)
-				current_players += 1
-				player_selecting_panels[player_id - 1] = i
-				return
+func start_game():
+	SceneManager.change_scene(SceneManager.Scenes.LOADING_PLAYER_PRESENTATION)
+	pass
+
+func go_back():
+	InputManager.clear_player_input()
+	SceneManager.change_scene(SceneManager.Scenes.MAIN_MENU)
+	pass
+
+func _get_first_empty_panel():
+	for character_panel in character_panels:
+		if character_panel.is_waiting_for_player():
+			return character_panel
+	pass
+
+func _has_player(event):
+	for character_panel in character_panels:
+		if InputManager.has_player(character_panel.player_id, event):
+			return true
+	return false
+
+func add_player(event : InputEvent) -> void:
+	if current_players >= character_panels.size(): return
+	var character_panel = _get_first_empty_panel() as SelectCharacterPanel
+	if character_panel and !InputManager.can_add_player(character_panel.player_id, event): return
+	current_players += 1
+	character_panel.set_panel_data(event)
 	pass
 
 func remove_player(player_id:int) -> void:
-	if current_players > 0:
-		if player_selecting_panels[player_id - 1] != -1:
-			for i in range(character_panels.size()):
-				var character_panel = character_panels[i] as SelectCharacterPanel
-				if !character_panel.waiting_for_player and character_panel.player_id == player_id:
-					current_players -= 1
-					character_panel.set_panel_status(true, player_id)
-					player_selecting_panels[player_id - 1] = -1
-					return
-	else:
-		_on_BackBtn_pressed()
+	var character_panel = character_panels[player_id - 1] as SelectCharacterPanel
+	character_panel.reset_data()
+	yield(get_tree().create_timer(0.5),"timeout")
+	current_players -= 1
 	pass
 
-func _on_GameplayBtn_pressed() -> void:
-	scene_manager.change_scene(scene_manager.Scenes.LOADING_PLAYER_PRESENTATION)
-	pass
-
-func _on_BackBtn_pressed() -> void:
-	scene_manager.change_scene(scene_manager.Scenes.MAIN_MENU)
-	pass
-
-func _on_SelectCharacterPanel1_on_wizard_selected(selected):
-	add_players_accepted(selected)
+func _on_SelectCharacterPanel1_on_wizard_selected(wizard_data):
+	add_players_accepted(wizard_data)
 	pass
 
 
-func _on_SelectCharacterPanel2_on_wizard_selected(selected):
-	add_players_accepted(selected)
+func _on_SelectCharacterPanel2_on_wizard_selected(wizard_data):
+	add_players_accepted(wizard_data)
 	pass
 
-func add_players_accepted(add) -> void:
-	players_accepted = players_accepted + 1 if add else players_accepted - 1
-	if (players_accepted == 2):
-		_on_GameplayBtn_pressed()
+func add_players_accepted(wizard_data) -> void:
+	wizards_selected_data.append(wizard_data)
+	ready_players += 1
+	if ready_players >= 2:
+		can_take_input = false
+	update_start_animation(true)
 	pass
-	
+
+func remove_wizard(player_id):
+	for wizard_data in wizards_selected_data:
+		var data = wizard_data as WizardData
+		if data.player_id == player_id:
+			wizards_selected_data.erase(wizard_data)
+	ready_players -= 1
+	update_start_animation(false)
+	pass
+
+func update_start_animation(player_added):
+	if player_added and ready_players >= 2:
+		press_start_anim.play("Enter")
+	elif !player_added and ready_players == 1:
+		press_start_anim.play_backwards("Enter")
+	pass
+
+func _on_SelectCharacterPanel1_on_wizard_deselected(player_id):
+	remove_wizard(player_id)
+	pass # Replace with function body.
+
+func _on_SelectCharacterPanel2_on_wizard_deselected(player_id):
+	remove_wizard(player_id)
+	pass # Replace with function body.
+
+func _on_SelectCharacterPanel1_on_remove_player(player_id):
+	remove_player(player_id)
+	pass # Replace with function body.
+
+
+func _on_SelectCharacterPanel2_on_remove_player(player_id):
+	remove_player(player_id)
+	pass # Replace with function body.
+
+
+func _on_StartAnimation_animation_finished(anim_name):
+	if anim_name == "Enter":
+		can_take_input = true
+	pass # Replace with function body.

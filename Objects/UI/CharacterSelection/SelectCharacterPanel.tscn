@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/UI/CharacterSelection/CharacterPanel1.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/cartoonist_kooky.ttf" type="DynamicFontData" id=2]
@@ -144,6 +144,34 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=12]
+resource_name = "OnSelect"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBC/LeftArrow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBC/RightArrow:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [sub_resource type="Animation" id=10]
 length = 0.001
 tracks/0/type = "value"
@@ -169,6 +197,30 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HBC/LeftArrow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HBC/RightArrow:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -226,20 +278,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, -2.5, 2.5, -2.5, 2.5, -2.5, 0.0 ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "on_wizard_selected"
-} ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -522,6 +560,9 @@ rect_pivot_offset = Vector2( 58, 58 )
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button" type="Label" parent="WaitingForPlayerPanel/PressJoin"]
 anchor_right = 1.0
@@ -652,8 +693,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Anim" type="AnimationPlayer" parent="SelectCharacterPanel/PlayerSelectArrow"]
+[node name="ArrowAnim" type="AnimationPlayer" parent="SelectCharacterPanel/PlayerSelectArrow"]
 anims/LeftClick = SubResource( 9 )
+anims/OnSelect = SubResource( 12 )
 anims/RESET = SubResource( 10 )
 anims/RightClick = SubResource( 11 )
 
@@ -676,13 +718,34 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -92.0
-margin_top = -104.0
-margin_right = -52.0
-margin_bottom = -66.0
+margin_left = -101.0
+margin_top = -110.0
+margin_right = -61.0
+margin_bottom = -72.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 6 )
 text = "P1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReadyLabel" type="Label" parent="SelectCharacterPanel"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -186.0
+margin_top = 192.0
+margin_right = 190.0
+margin_bottom = 274.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0.639216, 0.172549, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = ExtResource( 5 )
+text = "READY!"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -693,4 +756,5 @@ anims/OnSelectingWizard = SubResource( 8 )
 anims/OnWaitingStart = SubResource( 6 )
 anims/RESET = SubResource( 2 )
 
+[connection signal="animation_finished" from="WaitingForPlayerPanel/PressJoin/Anim" to="." method="_on_Anim_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

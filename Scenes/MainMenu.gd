@@ -8,6 +8,7 @@ onready var play_button 	 : TextureButton   = $MainMenuPanel/VBoxContainer/PlayB
 onready var back_button 	 : TextureButton   = $SettingsPanel/VBoxContainer/HBoxContainer/SettingsBackBtn
 
 func _ready() -> void:
+	InputManager.clear_player_input()
 	animation_player.play("MainMenu_Show")
 	play_button.grab_focus()
 	pass
