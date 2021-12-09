@@ -5,7 +5,7 @@
 [ext_resource path="res://Objects/UI/Gameplay/PlayerInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=4]
 
-[node name="Gameplay" type="Control"]
+[node name="GameplayUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -25,7 +25,7 @@ margin_right = 950.0
 margin_bottom = -391.0
 text = "POST GAME"
 
-[node name="MC" type="MarginContainer" parent="."]
+[node name="HUDMC" type="MarginContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -38,11 +38,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayersInfo" type="HBoxContainer" parent="MC"]
+[node name="PlayersInfo" type="HBoxContainer" parent="HUDMC"]
 margin_right = 1246.0
 margin_bottom = 180.0
 
-[node name="PlayerInfo1" parent="MC/PlayersInfo" instance=ExtResource( 3 )]
+[node name="PlayerInfo1" parent="HUDMC/PlayersInfo" instance=ExtResource( 3 )]
 margin_right = 621.0
 margin_bottom = 180.0
 size_flags_horizontal = 3
@@ -50,7 +50,7 @@ size_flags_vertical = 3
 player_id = 1
 character_portrait_texture = ExtResource( 4 )
 
-[node name="PlayerInfo2" parent="MC/PlayersInfo" instance=ExtResource( 3 )]
+[node name="PlayerInfo2" parent="HUDMC/PlayersInfo" instance=ExtResource( 3 )]
 margin_left = 625.0
 margin_right = 1246.0
 margin_bottom = 180.0
@@ -58,4 +58,44 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 player_id = 2
 
+[node name="PauseMC" type="Control" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="PauseMC"]
+modulate = Color( 1, 1, 1, 0.168627 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeBtn" parent="PauseMC" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -185.0
+margin_top = -158.0
+margin_right = 191.0
+margin_bottom = -14.0
+text = "RESUME"
+
+[node name="MainMenuBtn" parent="PauseMC" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -182.0
+margin_top = 28.0
+margin_right = 194.0
+margin_bottom = 172.0
+
 [connection signal="pressed" from="PostGameBtn" to="." method="_on_PostGameBtn_pressed"]
+[connection signal="pressed" from="PauseMC/ResumeBtn" to="." method="_on_ResumeBtn_pressed"]
+[connection signal="pressed" from="PauseMC/MainMenuBtn" to="." method="_on_MainMenuBtn_pressed"]
