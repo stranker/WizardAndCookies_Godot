@@ -208,7 +208,7 @@ __meta__ = {
 }
 
 [node name="VolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
-margin_right = 371.0
+margin_right = 376.0
 margin_bottom = 16.0
 focus_neighbour_bottom = NodePath("../HBoxContainer/SettingsBackBtn")
 max_value = 1.0
@@ -232,14 +232,11 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
 margin_top = 82.0
-margin_right = 371.0
-margin_bottom = 222.0
+margin_right = 376.0
+margin_bottom = 226.0
 alignment = 1
 
 [node name="SettingsBackBtn" parent="SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_left = 5.0
-margin_right = 365.0
-margin_bottom = 140.0
 focus_neighbour_top = NodePath("../../VolumeSlider")
 group = SubResource( 6 )
 text = "BACK"

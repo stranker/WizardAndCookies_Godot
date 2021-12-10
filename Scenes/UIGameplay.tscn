@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scenes/Gameplay.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/UIGameplay.gd" type="Script" id=1]
 [ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/UI/Gameplay/PlayerInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=4]
 
-[node name="Gameplay" type="Control"]
+[node name="UIGameplay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )

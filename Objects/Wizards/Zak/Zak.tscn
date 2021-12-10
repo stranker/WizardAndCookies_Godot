@@ -21,8 +21,13 @@ height = 60.7831
 [node name="Zak" type="KinematicBody2D"]
 collision_mask = 15
 script = ExtResource( 2 )
-jump_strength = 800.0
+jump_strength = 1300.0
+fly_energy_consume = 20.0
+player_id = -1
+decrease_fly = true
+restart_position_on_exit = false
 shake_curve = SubResource( 2 )
+max_coyote_time = 0.17
 head_icon = ExtResource( 9 )
 
 [node name="WizardTimers" parent="." instance=ExtResource( 5 )]

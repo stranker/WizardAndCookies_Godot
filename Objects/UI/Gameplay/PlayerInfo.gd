@@ -15,7 +15,7 @@ var wizard : Wizard = null
 
 signal on_cooldown_end(spell_idx)
 
-func _ready() -> void:
+func init():
 	if player_id <= 0 and player_id > GameManager.wizards.size(): return
 	set_wizard(GameManager.get_wizard_by_id(player_id))
 	pass

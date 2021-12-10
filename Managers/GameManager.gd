@@ -6,6 +6,7 @@ enum EffectType { FIRE, ICE, STUN }
 var main_camera : MainCamera = null
 var wizards : Dictionary = {1:null, 2:null}
 var joypads_connected : Array = []
+var wizards_gameplay_data : Array = []
 
 func _ready():
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
@@ -31,4 +32,8 @@ func get_wizard_by_id(id):
 
 func add_wizard(wizard):
 	wizards[wizard.player_id] = wizard
+	pass
+
+func set_wizards_data_for_gameplay(wizards_data : Array):
+	wizards_gameplay_data = wizards_data
 	pass

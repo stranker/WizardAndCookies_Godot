@@ -7,7 +7,6 @@ enum PanelStates { WAITING_PLAYER, SELECTING_WIZARD, READY_UP }
 onready var background : TextureRect = $Background
 onready var waiting_for_player_panel : Control = $WaitingForPlayerPanel
 onready var selected_character_panel : Control = $SelectCharacterPanel
-onready var highlight : TextureRect  = $Highlight
 onready var player_id_label : Label  = $SelectCharacterPanel/PlayerId
 onready var name_label : Label = $SelectCharacterPanel/PlayerSelectArrow/HBC/Name
 onready var portrait : TextureRect   = $SelectCharacterPanel/Portrait
@@ -87,7 +86,8 @@ func on_wizard_selected() -> void:
 func on_wizard_deselected():
 	current_state = PanelStates.SELECTING_WIZARD
 	ready_label.visible = current_state == PanelStates.READY_UP
-	animation_player.play("OnSelectingWizard")
+	animation_player.play("RESET")
+	animation_player.queue("OnSelectingWizard")
 	player_select_arrow_anim.play_backwards("OnSelect")
 	emit_signal("on_wizard_deselected", player_id)
 	pass

@@ -1,8 +1,7 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/UI/CharacterSelection/CharacterPanel1.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/cartoonist_kooky.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Assets/UI/CharacterSelection/WizardPanelSelection.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/CharacterSelection/Asset_Joystick.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Fonts/font_86.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Assets/Fonts/font_40.tres" type="DynamicFont" id=6]
@@ -482,6 +481,54 @@ tracks/8/keys = {
 "update": 0,
 "values": [ Vector2( 32, 48 ) ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("SelectCharacterPanel/Portrait:anchor_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("SelectCharacterPanel/Portrait:anchor_top")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("SelectCharacterPanel/Portrait:anchor_right")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("SelectCharacterPanel/Portrait:anchor_bottom")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
 
 [node name="SelectCharacterPanel" type="Control"]
 margin_right = 420.0
@@ -504,16 +551,6 @@ anchor_bottom = 1.0
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Highlight" type="TextureRect" parent="."]
-visible = false
-margin_right = 495.0
-margin_bottom = 348.0
-texture = ExtResource( 3 )
-expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -601,12 +638,8 @@ __meta__ = {
 }
 
 [node name="Portrait" type="TextureRect" parent="SelectCharacterPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_right = 420.0
-margin_bottom = 880.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
@@ -617,9 +650,9 @@ __meta__ = {
 [node name="PlayerSelectArrow" type="Control" parent="SelectCharacterPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 32.0
+margin_left = -178.0
 margin_top = 48.0
-margin_right = 392.0
+margin_right = 182.0
 margin_bottom = 136.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -654,10 +687,10 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="SelectCharacterPanel/PlayerSelectArrow/HBC"]
-margin_left = 16.0
-margin_top = 64.0
-margin_right = 216.0
-margin_bottom = 132.0
+margin_left = 80.0
+margin_top = 10.0
+margin_right = 280.0
+margin_bottom = 78.0
 rect_min_size = Vector2( 200, 68 )
 size_flags_horizontal = 3
 size_flags_vertical = 6

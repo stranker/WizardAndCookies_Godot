@@ -8,8 +8,7 @@ onready var players_info : Array = $MC/PlayersInfo.get_children()
 var wizards : Array = []
 
 func _ready() -> void:
-	post_game_button.grab_focus()
-	wizards = get_tree().get_nodes_in_group("Wizard")
+	set_process(false)
 	pass
 
 func _process(delta):
@@ -23,3 +22,11 @@ func _process(delta):
 func _on_PostGameBtn_pressed() -> void:
 	SceneManager.change_scene(SceneManager.Scenes.POST_GAME)
 	pass
+
+
+func _on_GameScene_on_wizards_created():
+	wizards = get_tree().get_nodes_in_group("Wizard")
+	for player_info in players_info:
+		player_info.init()
+	set_process(true)
+	pass # Replace with function body.

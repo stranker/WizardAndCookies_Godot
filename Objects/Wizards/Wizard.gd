@@ -92,6 +92,20 @@ func _ready():
 	emit_signal("on_initialize")
 	pass
 
+func set_player_id(_id):
+	player_id = _id
+	_update_controls()
+	pass
+
+func _update_controls():
+	move_left = "move_left_" + str(player_id) 
+	move_right = "move_right_" + str(player_id) 
+	move_up = "move_up_" + str(player_id) 
+	move_down = "move_down_" + str(player_id) 
+	jump = "jump_" + str(player_id) 
+	fly = "fly_" + str(player_id)
+	pass
+
 func _physics_process(delta):
 	_process_flying(delta)
 	_process_movement(delta)

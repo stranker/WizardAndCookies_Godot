@@ -88,6 +88,7 @@ _global_script_class_icons={
 
 config/name="Wizard&Cookies"
 run/main_scene="res://Scenes/MainMenu.tscn"
+boot_splash/bg_color=Color( 0.12549, 0.145098, 0.192157, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -96,6 +97,11 @@ InputManager="*res://Managers/InputManager.gd"
 GameManager="*res://Managers/GameManager.gd"
 SceneManager="*res://Managers/SceneManager.gd"
 SpellManager="*res://Managers/SpellManager.gd"
+
+[debug]
+
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

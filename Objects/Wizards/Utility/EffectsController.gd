@@ -22,7 +22,7 @@ func apply_effects(spell_effects : Array):
 func apply_effect(spell_effect : Resource):
 	if !spell_effect: return
 	_add_effect(spell_effect)
-	call_deferred("emit_signal","on_effects_update", active_effects)
+	emit_signal("on_effects_update", active_effects)
 	pass
 
 func _has_effect(new_effect : SpellEffect):

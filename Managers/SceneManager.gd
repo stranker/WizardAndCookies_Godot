@@ -20,7 +20,7 @@ func change_scene(scene):
 		Scenes.CHARACTER_SELECTION:
 			scene_name = "res://Scenes/CharacterSelection.tscn"
 		Scenes.GAMEPLAY:
-			scene_name = "res://Scenes/Gameplay.tscn"
+			scene_name = "res://Scenes/GameScene.tscn"
 		Scenes.POST_GAME:
 			scene_name = "res://Scenes/PostGame.tscn"
 		Scenes.LOADING:

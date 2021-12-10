@@ -21,8 +21,8 @@ var shake_duration : float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	players = get_tree().get_nodes_in_group("Wizard")
 	GameManager.main_camera = self
+	set_physics_process(false)
 	pass # Replace with function body.
 
 func _physics_process(delta):
@@ -78,4 +78,10 @@ func _process_shake(delta):
 func _on_Timer_timeout():
 	is_shaking = false
 	offset = Vector2.ZERO
+	pass # Replace with function body.
+
+
+func _on_GameScene_on_wizards_created():
+	players = get_tree().get_nodes_in_group("Wizard")
+	set_physics_process(true)
 	pass # Replace with function body.
