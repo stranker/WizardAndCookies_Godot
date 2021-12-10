@@ -1,18 +1,20 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/UI/SpellSelection/Asset_Frame.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Fonts/font_72.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/UI/Misc/CookieButton.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/Spells/BaseballBat.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/font_50.tres" type="DynamicFont" id=4]
-[ext_resource path="res://Assets/UI/Gameplay/SpellInfoBar.png" type="Texture" id=5]
-[ext_resource path="res://Assets/UI/Gameplay/SpellInfoFillBar.png" type="Texture" id=6]
 [ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionInfo.gd" type="Script" id=7]
 [ext_resource path="res://Assets/UI/CharacterSelection/CookieCream.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Fonts/font_30.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Assets/UI/Buttons/CookieButton.png" type="Texture" id=10]
 
 [node name="SpellSelectionInfo" type="Control"]
-margin_right = 550.0
+margin_right = 448.0
 margin_bottom = 604.0
+rect_min_size = Vector2( 448, 604 )
 focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -20,9 +22,16 @@ __meta__ = {
 }
 
 [node name="Background" type="TextureRect" parent="."]
-margin_right = 550.0
-margin_bottom = 604.0
-texture = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -184.0
+margin_top = -302.0
+margin_right = 184.0
+margin_bottom = 302.0
+texture = ExtResource( 10 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,11 +47,14 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="."]
-margin_left = 7.0
-margin_top = 33.0
-margin_right = 538.0
-margin_bottom = 109.0
-custom_fonts/font = ExtResource( 2 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -264.0
+margin_top = 48.0
+margin_right = 267.0
+margin_bottom = 95.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "SPELL"
 align = 1
 valign = 1
@@ -51,110 +63,161 @@ __meta__ = {
 }
 
 [node name="Portrait" type="TextureRect" parent="."]
-margin_left = 177.0
-margin_top = 100.0
-margin_right = 367.0
-margin_bottom = 290.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = -207.0
+margin_right = 110.0
+margin_bottom = -1.0
 texture = ExtResource( 3 )
 expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stat1" type="Control" parent="."]
-margin_top = 274.0
-margin_right = 528.0
-margin_bottom = 361.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="Stat1"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -87.0
-margin_right = 102.0
-margin_bottom = 47.0
-custom_fonts/font = ExtResource( 4 )
-text = "DAMAGE"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Bar" type="TextureProgress" parent="Stat1"]
+[node name="Stats" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -153.0
-margin_top = -40.0
-margin_right = 167.0
-margin_bottom = -4.0
-max_value = 10.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 6 )
-nine_patch_stretch = true
+margin_left = -174.0
+margin_top = -300.0
+margin_right = 168.0
+margin_bottom = -76.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stat2" type="Control" parent="."]
-margin_left = 7.0
-margin_top = 375.0
-margin_right = 535.0
-margin_bottom = 462.0
+[node name="Stat1" type="Control" parent="Stats"]
+margin_right = 342.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Name" type="Label" parent="Stat2"]
-margin_left = 170.0
-margin_right = 359.0
-margin_bottom = 47.0
-custom_fonts/font = ExtResource( 4 )
+[node name="Name" type="Label" parent="Stats/Stat1"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -176.0
+margin_right = 176.0
+margin_bottom = 29.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
 text = "DAMAGE"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bar" type="TextureProgress" parent="Stat2"]
-margin_left = 104.0
-margin_top = 47.0
-margin_right = 424.0
-margin_bottom = 83.0
+[node name="Bar" type="TextureProgress" parent="Stats/Stat1"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -155.0
+margin_top = 32.0
+margin_right = 165.0
+margin_bottom = 68.0
 max_value = 10.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 6 )
+step = 0.1
+value = 5.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+tint_progress = Color( 1, 0.282353, 0, 1 )
 nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_right = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stat3" type="Control" parent="."]
-margin_left = 7.0
-margin_top = 482.0
-margin_right = 535.0
-margin_bottom = 569.0
+[node name="Stat2" type="Control" parent="Stats"]
+margin_top = 76.0
+margin_right = 342.0
+margin_bottom = 148.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Stat3"]
-margin_left = 170.0
-margin_right = 359.0
-margin_bottom = 47.0
-custom_fonts/font = ExtResource( 4 )
+[node name="Name" type="Label" parent="Stats/Stat2"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -176.0
+margin_right = 176.0
+margin_bottom = 29.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
 text = "DAMAGE"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bar" type="TextureProgress" parent="Stat3"]
-margin_left = 104.0
-margin_top = 47.0
-margin_right = 424.0
-margin_bottom = 83.0
+[node name="Bar" type="TextureProgress" parent="Stats/Stat2"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -155.0
+margin_top = 32.0
+margin_right = 165.0
+margin_bottom = 68.0
 max_value = 10.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 6 )
+step = 0.1
+value = 5.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+tint_progress = Color( 1, 0.282353, 0, 1 )
 nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_right = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stat3" type="Control" parent="Stats"]
+margin_top = 152.0
+margin_right = 342.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Stats/Stat3"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -176.0
+margin_right = 176.0
+margin_bottom = 29.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
+text = "DAMAGE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="TextureProgress" parent="Stats/Stat3"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -155.0
+margin_top = 32.0
+margin_right = 165.0
+margin_bottom = 68.0
+max_value = 10.0
+step = 0.1
+value = 5.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+tint_progress = Color( 1, 0.282353, 0, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_right = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }

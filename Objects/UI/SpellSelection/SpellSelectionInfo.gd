@@ -3,8 +3,9 @@ extends Control
 onready var name_label: Label = $Name
 onready var portrait: TextureRect = $Portrait
 
-onready var stats_names = [$Stat1/Name, $Stat2/Name, $Stat3/Name]
-onready var stats_bars = [$Stat1/Bar, $Stat2/Bar, $Stat3/Bar]
+onready var stats = $Stats
+onready var stats_names = [$Stats/Stat1/Name, $Stats/Stat2/Name, $Stats/Stat3/Name]
+onready var stats_bars = [$Stats/Stat1/Bar, $Stats/Stat2/Bar, $Stats/Stat3/Bar]
 onready var highlight = $Highlight
 
 

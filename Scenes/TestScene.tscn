@@ -21,6 +21,7 @@ func _ready():
 	InputManager.add_player(1, key_input)
 	InputManager.add_player(2, key_input)
 	_create_wizards()
+	wizards = get_tree().get_nodes_in_group(\"Wizard\")
 	emit_signal(\"on_wizards_created\")
 	pass
 

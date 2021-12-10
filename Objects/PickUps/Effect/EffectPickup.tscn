@@ -731,7 +731,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath("Ice:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -743,7 +743,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Ice:modulate")
+tracks/2/path = NodePath("Fire:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -755,7 +755,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Fire:modulate")
+tracks/3/path = NodePath("Stun:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -767,7 +767,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Stun:modulate")
+tracks/4/path = NodePath("Collision:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -776,22 +776,11 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Collision:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
 "values": [ true ]
 }
 
 [node name="EffectPickup" type="Area2D"]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
 collision_layer = 8
 script = ExtResource( 4 )
 effects_data = [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ) ]
