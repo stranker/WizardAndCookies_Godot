@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Objects/VolumeSlider.gd" type="Script" id=2]
 [ext_resource path="res://Objects/UI/Button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Fonts/font_62.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Assets/UI/Mockup_MainMenu.jpg" type="Texture" id=5]
+[ext_resource path="res://Assets/Fonts/font_72.tres" type="DynamicFont" id=6]
 
 [sub_resource type="ButtonGroup" id=6]
 
@@ -161,9 +162,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -185.0
-margin_top = 26.0
-margin_right = 175.0
-margin_bottom = 504.0
+margin_top = -9.42902
+margin_right = 191.0
+margin_bottom = 480.574
 custom_constants/separation = 29
 alignment = 1
 __meta__ = {
@@ -192,6 +193,10 @@ text = "EXIT"
 visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0
+input_pass_on_modal_close_click = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel"]
 anchor_left = 0.5
@@ -199,10 +204,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -185.0
-margin_top = 166.0
-margin_right = 186.0
-margin_bottom = 388.0
-custom_constants/separation = 66
+margin_top = 73.0
+margin_right = 191.0
+margin_bottom = 413.0
+custom_constants/separation = 52
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -210,7 +215,7 @@ __meta__ = {
 [node name="VolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 16.0
-focus_neighbour_bottom = NodePath("../HBoxContainer/SettingsBackBtn")
+focus_neighbour_bottom = NodePath("../CreditsBtn")
 max_value = 1.0
 step = 0.05
 script = ExtResource( 2 )
@@ -230,16 +235,55 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsPanel/VBoxContainer"]
-margin_top = 82.0
-margin_right = 376.0
-margin_bottom = 226.0
-alignment = 1
+[node name="CreditsBtn" parent="SettingsPanel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 68.0
+margin_bottom = 212.0
+focus_neighbour_top = NodePath("../VolumeSlider")
+focus_neighbour_right = NodePath("../SettingsBackBtn")
+group = SubResource( 6 )
+text = "Credits"
 
-[node name="SettingsBackBtn" parent="SettingsPanel/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-focus_neighbour_top = NodePath("../../VolumeSlider")
+[node name="SettingsBackBtn" parent="SettingsPanel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 264.0
+margin_bottom = 408.0
+focus_neighbour_top = NodePath("../CreditsBtn")
 group = SubResource( 6 )
 text = "BACK"
+
+[node name="CreditsPanel" type="Control" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreditsBackBtn" parent="CreditsPanel" instance=ExtResource( 3 )]
+margin_left = 749.0
+margin_top = 825.0
+margin_right = 1125.0
+margin_bottom = 969.0
+group = SubResource( 6 )
+text = "BACK"
+
+[node name="Label" type="Label" parent="CreditsPanel"]
+margin_left = 126.0
+margin_top = 581.0
+margin_right = 1756.0
+margin_bottom = 649.0
+custom_fonts/font = ExtResource( 6 )
+text = "Daniel Natarelli: Programming, design, Art"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CreditsPanel"]
+margin_left = 10.0
+margin_top = 715.0
+margin_right = 1908.0
+margin_bottom = 783.0
+custom_fonts/font = ExtResource( 6 )
+text = "Gaston Villalba: Programming, design, production"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/MainMenu_Show = SubResource( 1 )
@@ -250,4 +294,6 @@ anims/RESET = SubResource( 2 )
 [connection signal="pressed" from="MainMenuPanel/VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
 [connection signal="mouse_exited" from="SettingsPanel/VBoxContainer/VolumeSlider" to="SettingsPanel/VBoxContainer/VolumeSlider" method="release_focus"]
 [connection signal="value_changed" from="SettingsPanel/VBoxContainer/VolumeSlider" to="SettingsPanel/VBoxContainer/VolumeSlider" method="_on_VolumeSlider_value_changed"]
-[connection signal="pressed" from="SettingsPanel/VBoxContainer/HBoxContainer/SettingsBackBtn" to="." method="_on_SettingsExitBtn_pressed"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/CreditsBtn" to="." method="_on_CreditsBtn_pressed"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/SettingsBackBtn" to="." method="_on_SettingsBackBtn_pressed"]
+[connection signal="pressed" from="CreditsPanel/CreditsBackBtn" to="." method="_on_CreditsBackBtn_pressed"]
