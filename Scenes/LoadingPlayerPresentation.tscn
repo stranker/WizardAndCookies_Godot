@@ -9,11 +9,7 @@
 [ext_resource path="res://Assets/UI/Buttons/CookieButton.png" type="Texture" id=7]
 [ext_resource path="res://Objects/Wizards/Meg/MegAvatar.png" type="Texture" id=8]
 [ext_resource path="res://Objects/Particles/FadedCircle.png" type="Texture" id=9]
-
-[sub_resource type="Environment" id=10]
-background_mode = 4
-glow_enabled = true
-glow_hdr_threshold = 1.5
+[ext_resource path="res://default_env.tres" type="Environment" id=10]
 
 [sub_resource type="Animation" id=4]
 resource_name = "PlayerPresentationShow"
@@ -387,7 +383,7 @@ __meta__ = {
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 10 )
+environment = ExtResource( 10 )
 
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 1920.0

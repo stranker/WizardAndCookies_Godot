@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Objects/Wizards/WizardSkin.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Wizards/Meg/MegAtlas.png" type="Texture" id=2]
-[ext_resource path="res://Objects/Wizards/Meg/MegWhiteShader.tres" type="Material" id=3]
+[ext_resource path="res://Objects/Wizards/WhiteningShader.tres" type="Material" id=3]
 
 [sub_resource type="Animation" id=36]
 resource_name = "Cast"
@@ -1638,6 +1638,7 @@ region_rect = Rect2( 4.10263, 282.317, 329.919, 215.752 )
 
 [node name="Head" type="Sprite" parent="Body"]
 material = ExtResource( 3 )
+use_parent_material = true
 position = Vector2( -3, -100 )
 rotation = 0.00755682
 z_index = -1
@@ -1649,6 +1650,7 @@ region_rect = Rect2( 2.72299, 0, 203.229, 219.056 )
 [node name="Hair" type="Sprite" parent="Body/Head"]
 show_behind_parent = true
 material = ExtResource( 3 )
+use_parent_material = true
 position = Vector2( -54.5409, -159.592 )
 texture = ExtResource( 2 )
 offset = Vector2( -42.0878, 95.9875 )
@@ -1657,6 +1659,7 @@ region_rect = Rect2( 220.011, 4.18851, 119.733, 276.537 )
 
 [node name="LHand" type="Sprite" parent="Body"]
 material = ExtResource( 3 )
+use_parent_material = true
 position = Vector2( -66, -60 )
 rotation = -0.0211462
 z_index = 1
@@ -1667,6 +1670,7 @@ region_rect = Rect2( 384, 51, 104, 160 )
 
 [node name="RHand" type="Sprite" parent="Body"]
 material = ExtResource( 3 )
+use_parent_material = true
 position = Vector2( 40, -60 )
 rotation = 0.0404611
 z_index = -2
@@ -1677,6 +1681,7 @@ region_rect = Rect2( 384, 51, 104, 160 )
 
 [node name="LFoot" type="Sprite" parent="Body"]
 material = ExtResource( 3 )
+use_parent_material = true
 position = Vector2( -40, 56 )
 z_index = -1
 texture = ExtResource( 2 )
@@ -1686,6 +1691,7 @@ region_rect = Rect2( 372, 318, 125, 128 )
 
 [node name="RFoot" type="Sprite" parent="Body"]
 material = ExtResource( 3 )
+use_parent_material = true
 position = Vector2( 40, 56 )
 z_index = -2
 texture = ExtResource( 2 )

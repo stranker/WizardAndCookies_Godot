@@ -23,4 +23,5 @@ func add_wizard_spell(wizard_id : int, spell_scene : PackedScene):
 	pass
 
 func get_wizard_spells(player_id : int):
+	if player_id == -1: return
 	return wizards_spells[player_id]

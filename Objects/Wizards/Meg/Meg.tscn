@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Objects/Wizards/Zak/ZakWhiteShader.tres" type="Material" id=1]
+[ext_resource path="res://Objects/Wizards/WhiteningShader.tres" type="Material" id=1]
 [ext_resource path="res://Objects/Wizards/Wizard.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Wizards/Meg/MegSkin.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Wizards/Utility/WizardParticles.tscn" type="PackedScene" id=4]

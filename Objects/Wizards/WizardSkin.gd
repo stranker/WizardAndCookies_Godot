@@ -11,9 +11,17 @@ onready var timer : Timer = $Timer
 var is_damaged : bool = false
 
 func _ready():
+	_duplicate_sprites_material()
 	wizard.connect("on_state_change", self, "_on_wizard_state_change")
 	wizard.connect("on_knockback", self, "_on_wizard_damaged")
 	wizard.connect("on_knockback_recover", self, "_on_wizard_knockback_recover")
+	pass
+
+func _duplicate_sprites_material():
+	var new_mat : Material = body.material.duplicate()
+	body.material = new_mat
+	for sprite in sprites:
+		sprite.material = body.material
 	pass
 
 func _on_wizard_state_change(state : int, state_str : String):

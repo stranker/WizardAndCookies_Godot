@@ -1,6 +1,5 @@
 extends Control
 
-onready var scene_manager 	 	 : SceneManager    = get_node("/root/SceneManager")
 onready var main_menu_panel  	 : Control 	 	   = $MainMenuPanel
 onready var settings_panel 	 	 : Control  	   = $SettingsPanel
 onready var credits_panel	 	 : Control		   = $CreditsPanel
@@ -16,7 +15,7 @@ func _ready() -> void:
 	pass
 
 func _on_PlayBtn_pressed() -> void:
-	scene_manager.change_scene(scene_manager.Scenes.CHARACTER_SELECTION)
+	SceneManager.change_scene(SceneManager.Scenes.CHARACTER_SELECTION)
 	pass
 
 func _on_ExitBtn_pressed() -> void:

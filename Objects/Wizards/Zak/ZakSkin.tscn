@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Objects/Wizards/Zak/ZakAtlas.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Wizards/WizardSkin.gd" type="Script" id=2]
-[ext_resource path="res://Objects/Wizards/Zak/ZakWhiteShader.tres" type="Material" id=3]
+[ext_resource path="res://Objects/Wizards/WhiteningShader.tres" type="Material" id=4]
 
 [sub_resource type="Animation" id=36]
 resource_name = "Cast"
@@ -1521,7 +1521,7 @@ scale = Vector2( 0.3, 0.3 )
 script = ExtResource( 2 )
 
 [node name="Body" type="Sprite" parent="."]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 z_index = 10
 texture = ExtResource( 1 )
 offset = Vector2( -43.6141, -5.09292 )
@@ -1529,7 +1529,7 @@ region_enabled = true
 region_rect = Rect2( 50, 248, 300, 220 )
 
 [node name="Head" type="Sprite" parent="Body"]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 position = Vector2( -5, -100 )
 rotation = 0.00755682
 z_index = 1
@@ -1539,7 +1539,7 @@ region_enabled = true
 region_rect = Rect2( 36, 0, 300, 226 )
 
 [node name="LHand" type="Sprite" parent="Body"]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 position = Vector2( -80, -60 )
 rotation = -0.0211462
 z_index = 1
@@ -1549,7 +1549,7 @@ region_enabled = true
 region_rect = Rect2( 368, 180, 116, 156 )
 
 [node name="RHand" type="Sprite" parent="Body"]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 position = Vector2( 40, -60 )
 rotation = 0.0404611
 z_index = -2
@@ -1559,7 +1559,7 @@ region_enabled = true
 region_rect = Rect2( 368, 180, 116, 156 )
 
 [node name="LFoot" type="Sprite" parent="Body"]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 position = Vector2( -60, 35 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -1568,7 +1568,7 @@ region_enabled = true
 region_rect = Rect2( 368, 0, 116, 136 )
 
 [node name="RFoot" type="Sprite" parent="Body"]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 position = Vector2( 10, 35 )
 z_index = -2
 texture = ExtResource( 1 )

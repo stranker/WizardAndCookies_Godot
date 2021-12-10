@@ -156,7 +156,7 @@ collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="PanBody"]
 position = Vector2( 4, 75 )
-polygon = PoolVector2Array( 534, 690, 530, 706, 586, 773, 1297, 774, 1359, 704, 1347, 685, 1383, 695, 1450, 697, 1445, 746, 1420, 780, 1371, 780, 1318, 851, 1047, 867, 684, 858, 564, 846, 525, 779, 469, 774, 439, 731, 454, 691, 507, 691 )
+polygon = PoolVector2Array( 524, 689, 586, 773, 1297, 774, 1356, 689, 1436, 689, 1445, 746, 1420, 780, 1371, 780, 1318, 851, 1052, 865, 684, 858, 564, 846, 525, 779, 469, 774, 439, 731, 454, 691 )
 
 [node name="FireParticles1" type="Particles2D" parent="."]
 position = Vector2( 944, 922 )

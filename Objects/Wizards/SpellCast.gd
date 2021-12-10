@@ -26,6 +26,7 @@ signal on_invoke_spell(spell, spell_id)
 signal on_can_cast_spell()
 
 func _ready():
+	if wizard.player_id == -1: return
 	spell_list = SpellManager.get_wizard_spells(wizard.player_id)
 	connect("on_casting_spell", wizard, "_on_casting_spell")
 	connect("on_invoke_spell", wizard, "_on_invoke_spell")

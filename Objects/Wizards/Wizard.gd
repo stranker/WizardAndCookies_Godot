@@ -90,6 +90,7 @@ func _ready():
 	add_to_group("Wizard")
 	GameManager.add_wizard(self)
 	emit_signal("on_initialize")
+	_update_controls()
 	pass
 
 func set_player_id(_id):

@@ -482,7 +482,7 @@ tracks/8/keys = {
 "values": [ Vector2( 32, 48 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("SelectCharacterPanel/Portrait:anchor_left")
+tracks/9/path = NodePath("SelectCharacterPanel/Portrait:margin_left")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -490,11 +490,11 @@ tracks/9/enabled = true
 tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("SelectCharacterPanel/Portrait:anchor_top")
+tracks/10/path = NodePath("SelectCharacterPanel/Portrait:margin_top")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -502,11 +502,11 @@ tracks/10/enabled = true
 tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("SelectCharacterPanel/Portrait:anchor_right")
+tracks/11/path = NodePath("SelectCharacterPanel/Portrait:margin_right")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -514,11 +514,11 @@ tracks/11/enabled = true
 tracks/11/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
+"update": 1,
+"values": [ 0.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("SelectCharacterPanel/Portrait:anchor_bottom")
+tracks/12/path = NodePath("SelectCharacterPanel/Portrait:margin_bottom")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -526,8 +526,8 @@ tracks/12/enabled = true
 tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
+"update": 1,
+"values": [ 0.0 ]
 }
 
 [node name="SelectCharacterPanel" type="Control"]
@@ -687,10 +687,10 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="SelectCharacterPanel/PlayerSelectArrow/HBC"]
-margin_left = 80.0
-margin_top = 10.0
-margin_right = 280.0
-margin_bottom = 78.0
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 216.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 200, 68 )
 size_flags_horizontal = 3
 size_flags_vertical = 6

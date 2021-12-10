@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Objects/Wizards/Zak/ZakSkin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Wizards/Wizard.gd" type="Script" id=2]
@@ -7,12 +7,25 @@
 [ext_resource path="res://Objects/Wizards/Utility/WizardTimers.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Wizards/Utility/WizardParticles.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Wizards/Utility/EffectsController.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Objects/Wizards/Zak/ZakWhiteShader.tres" type="Material" id=8]
 [ext_resource path="res://Objects/Wizards/Zak/ZakHead.png" type="Texture" id=9]
 
 [sub_resource type="Curve" id=2]
 max_value = 5.0
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 5 ), -0.282085, 0.0, 0, 0 ]
+
+[sub_resource type="Shader" id=55]
+code = "shader_type canvas_item;
+
+uniform float whitening;
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    COLOR = vec4(mix(texture_color.rgb, vec3(1,1,1), whitening), texture_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=56]
+shader = SubResource( 55 )
+shader_param/whitening = 0.0
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 29.378
@@ -38,7 +51,7 @@ z_index = 12
 cast_position_path = NodePath("../Visual/CastPosition")
 
 [node name="Visual" type="Node2D" parent="."]
-material = ExtResource( 8 )
+material = SubResource( 56 )
 
 [node name="WizardSkin" parent="Visual" instance=ExtResource( 1 )]
 
