@@ -132,22 +132,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 player_id = 2
 
-[node name="SelectCharacterPanel3" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
-visible = false
-margin_left = 862.0
-margin_right = 1289.0
-margin_bottom = 883.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="SelectCharacterPanel4" parent="MC/CharacterPanels" instance=ExtResource( 7 )]
-visible = false
-margin_left = 1150.0
-margin_right = 1721.0
-margin_bottom = 883.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="PressStart" type="Control" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -230,6 +214,4 @@ anims/RESET = SubResource( 3 )
 [connection signal="on_remove_player" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_remove_player"]
 [connection signal="on_wizard_deselected" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_wizard_deselected"]
 [connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel2" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
-[connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel3" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
-[connection signal="on_wizard_selected" from="MC/CharacterPanels/SelectCharacterPanel4" to="." method="_on_SelectCharacterPanel2_on_wizard_selected"]
 [connection signal="animation_finished" from="PressStart/StartAnimation" to="." method="_on_StartAnimation_animation_finished"]

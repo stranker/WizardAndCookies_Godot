@@ -13,4 +13,5 @@ name_string = "Zak"
 player_color = Color( 0.0352941, 0.0352941, 0.913725, 1 )
 wizard_base_color = Color( 0.0352941, 0.0352941, 0.913725, 1 )
 player_id = -1
+win_count = 0
 wizard_scene = ExtResource( 4 )

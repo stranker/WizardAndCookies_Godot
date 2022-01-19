@@ -74,7 +74,7 @@ func _cast_skill(id : int):
 func _check_skill_release():
 	is_casting = false
 	if current_spell:
-		if current_spell.get_type() == GameManager.SpellType.MELEE:
+		if current_spell.get_type() == UtilityManager.SpellType.MELEE:
 			cast_position.add_child(current_spell)
 		else:
 			get_tree().root.add_child(current_spell)

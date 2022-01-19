@@ -4,7 +4,7 @@ class_name Spell
 
 export (Resource) var spell_data
 export var destroy_on_hit : bool = true
-export (GameManager.SpellType) var spell_type = GameManager.SpellType.MELEE
+export (UtilityManager.SpellType) var spell_type = UtilityManager.SpellType.MELEE
 export var spell_icon : Texture = null
 var spell_info : Node2D = null
 var wizard_id : int = -1

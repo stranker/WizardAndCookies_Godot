@@ -1,17 +1,110 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/UI/Misc/CookieButton.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Spells/Melee/RollingPin/RollingPin.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/Spells/BaseballBat.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/font_50.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionInfo.gd" type="Script" id=7]
-[ext_resource path="res://Assets/UI/CharacterSelection/CookieCream.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Fonts/font_30.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Assets/UI/Buttons/CookieButton.png" type="Texture" id=10]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.489362, 1 )
+colors = PoolColorArray( 0.078125, 1, 0, 1, 1, 0.967651, 0.171875, 1, 1, 0, 0, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Focused"
+length = 1.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1.25, 1.25 ), Vector2( 1.2, 1.2 ), Vector2( 1.25, 1.25 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Normal"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Selected"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1, -2, 0.5 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1.2, 1.2 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="SpellSelectionInfo" type="Control"]
 margin_right = 448.0
 margin_bottom = 604.0
 rect_min_size = Vector2( 448, 604 )
+rect_pivot_offset = Vector2( 224, 302 )
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -20,6 +113,12 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [  ]
 }
+name_string = "Rolling Pin"
+portrait_texture = ExtResource( 2 )
+stat_1_value = 5
+stat_2_value = 5
+stat_3_value = 5
+color_tint = SubResource( 1 )
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_left = 0.5
@@ -31,16 +130,6 @@ margin_top = -302.0
 margin_right = 184.0
 margin_bottom = 302.0
 texture = ExtResource( 10 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Highlight" type="TextureRect" parent="."]
-visible = false
-margin_right = 550.0
-margin_bottom = 604.0
-texture = ExtResource( 8 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -126,7 +215,6 @@ step = 0.1
 value = 5.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
-tint_progress = Color( 1, 0.282353, 0, 1 )
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_right = 10
@@ -170,7 +258,6 @@ step = 0.1
 value = 5.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
-tint_progress = Color( 1, 0.282353, 0, 1 )
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_right = 10
@@ -214,10 +301,17 @@ step = 0.1
 value = 5.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
-tint_progress = Color( 1, 0.282353, 0, 1 )
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_right = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/Focused = SubResource( 2 )
+anims/Normal = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+anims/Selected = SubResource( 5 )
+
+[connection signal="animation_finished" from="Anim" to="." method="_on_Anim_animation_finished"]

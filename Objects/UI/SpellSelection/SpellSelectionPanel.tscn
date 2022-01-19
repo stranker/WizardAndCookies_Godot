@@ -1,22 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionInfo.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/UI/CharacterSelection/BackgroundTray.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Fonts/font_72.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionPanel.gd" type="Script" id=4]
-[ext_resource path="res://Objects/UI/CharacterSelection/MegData.tres" type="Resource" id=8]
-[ext_resource path="res://Objects/UI/CharacterSelection/ZakData.tres" type="Resource" id=9]
 
-[node name="Control" type="Control"]
+[node name="SpellSelectionPanel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-player_name_string = "MEG"
-player_id_value = "1"
-wizards_data = [ ExtResource( 9 ), ExtResource( 8 ) ]
 
 [node name="Background" type="TextureRect" parent="."]
 margin_right = 1920.0
@@ -51,27 +46,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Panels" type="HBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -896.0
+margin_left = -856.0
 margin_top = -302.0
-margin_right = 896.0
+margin_right = 864.0
 margin_bottom = 302.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpellSelectionInfo" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_right = 594.0
+[node name="SpellSelectionInfo" parent="Panels" instance=ExtResource( 1 )]
+margin_right = 570.0
 
-[node name="SpellSelectionInfo2" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 598.0
-margin_right = 1193.0
+[node name="SpellSelectionInfo2" parent="Panels" instance=ExtResource( 1 )]
+margin_left = 574.0
+margin_right = 1145.0
 
-[node name="SpellSelectionInfo3" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 1197.0
-margin_right = 1792.0
+[node name="SpellSelectionInfo3" parent="Panels" instance=ExtResource( 1 )]
+margin_left = 1149.0
+margin_right = 1720.0
+
+[node name="InputTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="InputTimer" to="." method="_on_InputTimer_timeout"]

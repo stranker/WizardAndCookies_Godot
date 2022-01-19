@@ -13,4 +13,5 @@ name_string = "Meg"
 player_color = Color( 0.45098, 0, 0.941176, 1 )
 wizard_base_color = Color( 0.45098, 0, 0.941176, 1 )
 player_id = -1
+win_count = 0
 wizard_scene = ExtResource( 4 )

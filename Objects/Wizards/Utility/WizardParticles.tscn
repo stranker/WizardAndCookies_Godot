@@ -21,6 +21,7 @@ onready var wizard : Wizard = get_parent().get_parent()
 onready var cast_position : Position2D = get_node(cast_position_path)
 onready var wizard_particles : Particles2D
 onready var fly_particles : Particles2D
+onready var wizard_name : String = GameManager.get_wizard_by_id(wizard.player_id).name_string
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,10 +31,10 @@ func _ready():
 
 func _init_wizard_particles():
 	for particles in spell_particles_parent.get_children():
-		if !wizard_particles and particles.name.find(wizard.name) >= 0:
+		if !wizard_particles and particles.name.find(wizard_name) >= 0:
 			wizard_particles = particles
 	for particles in fly_particles_parent.get_children():
-		if !fly_particles and particles.name.find(wizard.name) >= 0:
+		if !fly_particles and particles.name.find(wizard_name) >= 0:
 			fly_particles = particles
 	pass
 
@@ -235,7 +236,6 @@ curve = SubResource( 22 )
 
 [sub_resource type="ParticlesMaterial" id=6]
 lifetime_randomness = 0.5
-emission_ring_axis = Vector3( 0, 0, 0 )
 flag_disable_z = true
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
@@ -271,7 +271,6 @@ _data = [ Vector2( 0, 2 ), 0.0, -4.89109, 0, 0, Vector2( 0.459016, 0 ), -0.09452
 curve = SubResource( 4 )
 
 [sub_resource type="ParticlesMaterial" id=21]
-emission_ring_axis = Vector3( 1, 1, 1 )
 flag_disable_z = true
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
@@ -295,7 +294,6 @@ gradient = SubResource( 30 )
 
 [sub_resource type="ParticlesMaterial" id=32]
 lifetime_randomness = 0.5
-emission_ring_axis = Vector3( 0, 0, 0 )
 flag_disable_z = true
 direction = Vector3( 0, 0, 0 )
 spread = 180.0

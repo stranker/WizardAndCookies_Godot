@@ -1,11 +1,13 @@
 extends Node
 
-enum SpellType { RANGE, MELEE }
-enum EffectType { FIRE, ICE, STUN }
-
 var main_camera : MainCamera = null
 var wizards : Dictionary = {1:null, 2:null}
 var joypads_connected : Array = []
+
+var zak_wizard_data : Resource = load("res://Objects/UI/CharacterSelection/ZakData.tres")
+var meg_wizard_data : Resource = load("res://Objects/UI/CharacterSelection/MegData.tres")
+var wizards_initial_data = [zak_wizard_data, meg_wizard_data]
+
 var wizards_gameplay_data : Array = []
 
 func _ready():
@@ -14,11 +16,10 @@ func _ready():
 	pass
 
 func has_xinput_controller():
-	var x_input : bool = false
 	for joy_pad_id in joypads_connected:
 		if Input.get_joy_name(joy_pad_id).find("XInput") >= 0:
-			x_input = true
-	return x_input
+			return true
+	return false
 
 func _on_joy_connection_changed(device_id : int, connected : bool):
 	if connected:
@@ -34,6 +35,35 @@ func add_wizard(wizard):
 	wizards[wizard.player_id] = wizard
 	pass
 
-func set_wizards_data_for_gameplay(wizards_data : Array):
+func set_gameplay_wizards_data(wizards_data : Array):
 	wizards_gameplay_data = wizards_data
+	for wizard in wizards_gameplay_data:
+		add_wizard(wizard)
 	pass
+
+func create_placeholder_wizards():
+	var id = 1
+	for wizard in wizards_initial_data:
+		wizard.player_id = id
+		id += 1
+	set_gameplay_wizards_data(wizards_initial_data)
+	pass
+
+func get_loser_wizard():
+	if wizards_gameplay_data.empty(): return null
+	var win_count : int = wizards_gameplay_data[0].win_count
+	var ret_wizard : WizardData = wizards_gameplay_data[0]
+	for wizard in wizards_gameplay_data:
+		if wizard.win_count < win_count:
+			ret_wizard = wizard
+			win_count = wizard.win_count
+	return ret_wizard
+
+func get_players_by_win_rate():
+	if wizards_gameplay_data.empty(): return []
+	var wizards_sorted : Array = wizards_gameplay_data
+	wizards_sorted.sort_custom(self, "sort_by_win_rate")
+	return wizards_sorted
+
+func sort_by_win_rate(w1 : WizardData , w2 : WizardData):
+	return w1.win_count < w2.win_count

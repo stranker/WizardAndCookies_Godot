@@ -46,11 +46,11 @@ func set_effect_active(effect_type : int, is_visible : bool):
 	else:
 		visual_effects[effect_type].stop()
 		match effect_type:
-			GameManager.EffectType.FIRE:
+			UtilityManager.EffectType.FIRE:
 				pass
-			GameManager.EffectType.ICE:
+			UtilityManager.EffectType.ICE:
 				wizard.init_speed()
-			GameManager.EffectType.STUN:
+			UtilityManager.EffectType.STUN:
 				wizard.end_stun()
 	pass
 

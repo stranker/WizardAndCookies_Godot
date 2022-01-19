@@ -23,7 +23,7 @@ func _input(event):
 	pass
 
 func start_game():
-	GameManager.set_wizards_data_for_gameplay(wizards_selected_data)
+	GameManager.set_gameplay_wizards_data(wizards_selected_data)
 	SceneManager.change_scene(SceneManager.Scenes.LOADING_PLAYER_PRESENTATION)
 	pass
 

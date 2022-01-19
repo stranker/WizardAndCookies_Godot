@@ -1,7 +1,7 @@
 extends Area2D
 
 export (Array, Resource) var effects_data
-export (GameManager.EffectType) var debug_effect_type = GameManager.EffectType.ICE
+export (UtilityManager.EffectType) var debug_effect_type = UtilityManager.EffectType.ICE
 export var is_random : bool = true
 var init_anim : AnimationPlayer
 var pick_anim : AnimationPlayer
@@ -26,7 +26,7 @@ func init(pos : Vector2):
 	pass
 
 func _set_effect():
-	effect = effects_data[randi() % GameManager.EffectType.size()] if is_random else effects_data[debug_effect_type]
+	effect = effects_data[randi() % UtilityManager.EffectType.size()] if is_random else effects_data[debug_effect_type]
 	init_anim.play("Enter")
 	pass
 

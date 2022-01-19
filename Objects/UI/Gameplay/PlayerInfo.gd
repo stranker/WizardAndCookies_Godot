@@ -58,7 +58,6 @@ func tween_health(init, end):
 	pass
 
 func _on_health_update(health):
-	var damage = hp_bar.value - health
 	tween_health(hp_bar.value, health)
 	if health / float(hp_bar.max_value) <= 0.3:
 		anim_hp_bar.play("LowHp")

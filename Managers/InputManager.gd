@@ -106,3 +106,10 @@ func has_input_device(input_type : int, device : int):
 		if players_input[id]["device"] == device and players_input[id]["input_type"] == input_type:
 			return true
 	return false
+
+func create_placeholder_inputs():
+	var key_input = InputEventKey.new()
+	var gamepad_input = InputEventJoypadButton.new()
+	add_player(1, key_input)
+	add_player(2, gamepad_input)
+	pass
