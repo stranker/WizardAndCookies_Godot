@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/UI/Misc/CookieButton.png" type="Texture" id=1]
-[ext_resource path="res://Objects/Spells/Melee/RollingPin/RollingPin.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/Spells/BaseballBat.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/font_50.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Objects/UI/SpellSelection/SpellSelectionInfo.gd" type="Script" id=7]
@@ -113,11 +112,6 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [  ]
 }
-name_string = "Rolling Pin"
-portrait_texture = ExtResource( 2 )
-stat_1_value = 5
-stat_2_value = 5
-stat_3_value = 5
 color_tint = SubResource( 1 )
 
 [node name="Background" type="TextureRect" parent="."]

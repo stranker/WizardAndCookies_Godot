@@ -24,6 +24,8 @@ func start_cooldown(_spell_idx : int):
 	pass
 
 func _on_use(duration : float):
+	if duration <= 0.1:
+		duration = 0.5
 	anim.play("Cooldown", -1, 1.0 / duration)
 	pass
 

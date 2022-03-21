@@ -607,9 +607,6 @@ margin_right = -74.0
 margin_bottom = 57.5
 custom_fonts/font = ExtResource( 2 )
 text = "V"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="S" type="Label" parent="VSBar/Control"]
 modulate = Color( 1, 1, 1, 0 )

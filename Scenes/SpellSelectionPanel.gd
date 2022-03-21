@@ -1,19 +1,22 @@
 extends Control
 
+var spell_panel_scene = preload("res://Objects/UI/SpellSelection/SpellSelectionInfo.tscn")
+
 onready var player_name: Label = $Name
 onready var player_id: Label = $PlayerId
-
 onready var input_timer : Timer = $InputTimer
+onready var panels : HBoxContainer = $Panels
 
-onready var spell_panels = [$Panels/SpellSelectionInfo, $Panels/SpellSelectionInfo2, $Panels/SpellSelectionInfo3]
+var spell_panels : Array = []
 
 var current_panel_index : int = 0
-onready var current_selected_panel : Control = spell_panels[0]
-onready var last_selected_panel : Control = spell_panels[0]
+var current_selected_panel : Control
+var last_selected_panel : Control
 
 var players_selected : int = 0
 
 var players_pool : Array = []
+var spells_pool : Array = []
 var current_player : WizardData = null
 var current_player_id : int = -1
 
@@ -29,13 +32,24 @@ func _ready() -> void:
 	pass
 
 func initialize():
-	for spell_panel in spell_panels:
-		spell_panel.connect("on_end_selected", self, "_on_end_panel_select")
 	if GameManager.wizards_gameplay_data.empty():
 		GameManager.create_placeholder_wizards()
 		InputManager.create_placeholder_inputs()
 	players_pool = GameManager.get_players_by_win_rate()
+	_initialize_spell_panels()
 	select_next_player()
+	pass
+
+func _initialize_spell_panels():
+	spells_pool = SpellManager.get_selection_spells()
+	for spell in spells_pool:
+		var new_panel = spell_panel_scene.instance()
+		panels.add_child(new_panel)
+		new_panel.connect("on_end_selected", self, "_on_end_panel_select")
+		new_panel.set_spell_data(spell)
+		spell_panels.append(new_panel)
+	current_selected_panel = spell_panels[0]
+	last_selected_panel = current_selected_panel
 	pass
 
 func _input(event) -> void:
@@ -76,7 +90,6 @@ func _move_right():
 	current_panel_index = current_panel_index % spell_panels.size()
 	if spell_panels[current_panel_index].is_selected():
 		_move_right()
-	set_selected_panel(spell_panels[current_panel_index])
 	pass
 
 func on_select() -> void:
@@ -119,11 +132,13 @@ func select_next_player() -> void:
 	set_selected_panel(spell_panels[current_panel_index])
 	pass
 
-func _on_end_panel_select():
+func _on_end_panel_select(spell):
+	SpellManager.add_wizard_spell(current_player_id, spell)
 	if players_selected < players_pool.size():
 		select_next_player()
 	else:
 		player_input_valid = false
+		SceneManager.change_scene(SceneManager.Scenes.GAMEPLAY)
 	pass
 
 func reset() -> void:

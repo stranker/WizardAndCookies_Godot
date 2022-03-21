@@ -8,6 +8,7 @@ onready var pivot : Node2D = $Pivot
 onready var wizard : Wizard = get_parent()
 onready var first_skill : String = "first_skill_" + str(wizard.player_id)
 onready var second_skill : String = "second_skill_" + str(wizard.player_id)
+onready var third_skill : String = "third_skill_" + str(wizard.player_id)
 onready var cast_anim : AnimationPlayer = $Pivot/CastAnimation
 onready var effect_orb : Sprite = $EffectOrbPosition/EffectOrb
 onready var effect_anim : AnimationPlayer = $EffectOrbPosition/EffectOrb/EffectOrbAnim
@@ -16,9 +17,9 @@ onready var orb_colors : Array = [Color.red, Color.cyan, Color.yellow]
 
 var spell_list : Array = []
 var current_spell : Spell = null
-var current_spell_id : int = -1
+var current_spell_idx : int = -1
 var cast_direction : Vector2 = Vector2.RIGHT
-var can_cast_spell : Array = [true, true, true]
+var can_cast_spell : Array = [false, false, false]
 var current_effect : Resource = null
 
 signal on_casting_spell()
@@ -28,6 +29,8 @@ signal on_can_cast_spell()
 func _ready():
 	if wizard.player_id == -1: return
 	spell_list = SpellManager.get_wizard_spells(wizard.player_id)
+	for i in range(spell_list.size()):
+		can_cast_spell[i] = true
 	connect("on_casting_spell", wizard, "_on_casting_spell")
 	connect("on_invoke_spell", wizard, "_on_invoke_spell")
 	connect("on_can_cast_spell", wizard, "_on_can_cast_spell")
@@ -44,6 +47,8 @@ func _input(event):
 			_cast_skill(0)
 		elif event.is_action_pressed(second_skill):
 			_cast_skill(1)
+		elif event.is_action_pressed(third_skill):
+			_cast_skill(2)
 		elif event.is_action_released(first_skill) or event.is_action_released(second_skill):
 			_check_skill_release()
 	pass
@@ -61,11 +66,11 @@ func _check_skill_direction():
 	pivot.rotation = atan2(cast_direction.y, cast_direction.x)
 	pass
 
-func _cast_skill(id : int):
-	if is_casting or !can_cast_spell[id]: return
-	current_spell_id = id
+func _cast_skill(idx : int):
+	if is_casting or !can_cast_spell[idx] or !_has_spell(idx): return
+	current_spell_idx = idx
 	is_casting = true
-	current_spell = spell_list[id].duplicate()
+	current_spell = spell_list[idx].duplicate()
 	current_spell.initialize(wizard.player_id)
 	emit_signal("on_casting_spell")
 	cast_anim.play("Casting")
@@ -82,8 +87,8 @@ func _check_skill_release():
 		if current_effect:
 			effect_anim.play("Cast")
 		cast_anim.play_backwards("Casting")
-		emit_signal("on_invoke_spell", current_spell, current_spell_id)
-		can_cast_spell[current_spell_id] = false
+		emit_signal("on_invoke_spell", current_spell, current_spell_idx)
+		can_cast_spell[current_spell_idx] = false
 		$Timer.start()
 	current_spell = null
 	current_effect = null
@@ -103,7 +108,9 @@ func _on_cooldown_end(spell_idx):
 	can_cast_spell[spell_idx] = true
 	pass
 
+func _has_spell(spell_idx : int):
+	return spell_idx < spell_list.size()
 
 func _on_Timer_timeout():
-	emit_signal("on_can_cast_spell")	
+	emit_signal("on_can_cast_spell")
 	pass # Replace with function body.

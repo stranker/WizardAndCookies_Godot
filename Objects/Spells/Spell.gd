@@ -3,10 +3,10 @@ extends Node2D
 class_name Spell
 
 export (Resource) var spell_data
+var spell_id : int = -1
 export var destroy_on_hit : bool = true
 export (UtilityManager.SpellType) var spell_type = UtilityManager.SpellType.MELEE
 export var spell_icon : Texture = null
-var spell_info : Node2D = null
 var wizard_id : int = -1
 var spell_owner : Wizard = null
 var spell_effect : Resource = null
@@ -20,8 +20,6 @@ func set_wizard_id(id : int):
 
 func initialize(id : int):
 	wizard_id = id
-	spell_info = $SpellInfo
-	spell_info.initialize(spell_data)
 	hit_area = get_node(hit_area_path)
 	hit_area.connect("body_entered", self, "_on_spell_hit")
 	pass
@@ -35,13 +33,12 @@ func cast(spell_position : Position2D, spell_direction : Vector2, effect : Resou
 
 func add_effect(effect : Resource):
 	spell_data.add_effect(effect)
-	spell_info.initialize(spell_data)
 	pass
 
 func _on_spell_hit(body):
 	if body == spell_owner: return
 	if body.has_method("take_damage"):
-		body.take_damage(spell_info.get_damage(), spell_effect, _get_knockback_force(), spell_owner.global_position)
+		body.take_damage(spell_data.get_damage(), spell_effect, _get_knockback_force(), spell_owner.global_position)
 	_destroy(body)
 	pass # Replace with function body.
 
@@ -49,10 +46,10 @@ func _destroy(body : Node2D):
 	pass
 
 func _get_knockback_force():
-	return direction.normalized() * spell_info.get_knockback_force()
+	return direction.normalized() * spell_data.get_knockback_force()
 
 func get_name():
-	return spell_info.get_name()
+	return spell_data.get_name()
 
 func get_type():
 	return spell_type
@@ -61,4 +58,14 @@ func get_icon():
 	return spell_icon
 
 func get_cooldown():
-	return spell_info.get_cooldown()
+	return spell_data.get_cooldown()
+
+func get_damage():
+	return spell_data.get_damage()
+
+func get_spell_id():
+	return spell_id
+
+func set_spell_id(_id : int):
+	spell_id = _id
+	pass

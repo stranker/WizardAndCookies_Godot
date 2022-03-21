@@ -361,6 +361,7 @@ color_ramp = SubResource( 7 )
 z_index = 18
 script = ExtResource( 2 )
 spell_data = SubResource( 4 )
+spell_id = 1
 destroy_on_hit = false
 spell_icon = ExtResource( 5 )
 hit_area_path = NodePath("Sprite/Area2D")

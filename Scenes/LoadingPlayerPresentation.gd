@@ -31,7 +31,7 @@ func _initialize():
 
 func _process(delta: float) -> void:
 	if timer >= max_time:
-		SceneManager.change_scene(SceneManager.Scenes.GAMEPLAY)
+		SceneManager.change_scene(SceneManager.Scenes.SPELL_SELECTION)
 	timer = lerp(timer, timer + rand_range(1, 20), delta)
 	loading_bar.value = timer
 	pass

@@ -13,3 +13,24 @@ export (Array, Resource) var s_effects = []
 func add_effect(effect : Resource):
 	s_effects.append(effect)
 	pass
+
+func get_name():
+	return s_name
+
+func get_damage():
+	return s_damage
+
+func get_cooldown():
+	return s_cooldown
+
+func get_range():
+	return s_range
+
+func get_knockback_force():
+	return s_knockback_force
+
+func get_difficulty():
+	return s_difficulty
+
+func get_effects():
+	return s_effects
