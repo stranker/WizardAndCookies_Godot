@@ -9,19 +9,19 @@ var players_input : Dictionary = {}
 
 # Procedural mapping for players with default keys for Player1(key:1) or Player2(key:2)
 var player_actions : Dictionary = {
-		"ui_accept_":{"type":"button", "key":{1:KEY_SPACE,2:KEY_KP_1}, "button":JOY_BUTTON_0},
-		"ui_select_":{"type":"button", "key":{1:KEY_SPACE,2:KEY_KP_1}, "button":JOY_BUTTON_0},
-		"ui_back_":{"type":"button", "key":{1:KEY_L,2:KEY_KP_9}, "button":JOY_BUTTON_1},
-		"move_left_":{"type":"mix", "key":{1:KEY_A,2:KEY_LEFT}, "button":JOY_BUTTON_14, "axis":JOY_AXIS_0},
-		"move_right_":{"type":"mix", "key":{1:KEY_D,2:KEY_RIGHT}, "button":JOY_BUTTON_15, "axis":JOY_AXIS_1},
-		"move_up_":{"type":"button", "key":{1:KEY_W,2:KEY_UP}, "button":JOY_BUTTON_12},
-		"move_down_":{"type":"button", "key":{1:KEY_S,2:KEY_DOWN}, "button":JOY_BUTTON_13},
-		"fly_":{"type":"button", "key":{1:KEY_SHIFT,2:KEY_KP_2}, "button":JOY_BUTTON_4},
-		"jump_":{"type":"button", "key":{1:KEY_SPACE,2:KEY_KP_1}, "button":JOY_BUTTON_0},
-		"first_skill_":{"type":"button", "key":{1:KEY_J,2:KEY_KP_4}, "button":JOY_BUTTON_2},
-		"second_skill_":{"type":"button", "key":{1:KEY_K,2:KEY_KP_5}, "button":JOY_BUTTON_3},
-		"third_skill_":{"type":"button", "key":{1:KEY_L,2:KEY_KP_6}, "button":JOY_BUTTON_1}
-	}
+	"ui_accept_":{"key":[KEY_SPACE,KEY_KP_1], "button":JOY_BUTTON_0},
+	"ui_select_":{"key":[KEY_SPACE,KEY_KP_1], "button":JOY_BUTTON_0},
+	"ui_back_":{"key":[KEY_L,KEY_KP_9], "button":JOY_BUTTON_1},
+	"move_left_":{"key":[KEY_A,KEY_LEFT], "button":JOY_BUTTON_14, "axis":[JOY_AXIS_0,-1]},
+	"move_right_":{"key":[KEY_D,KEY_RIGHT], "button":JOY_BUTTON_15, "axis":[JOY_AXIS_0,1]},
+	"move_up_":{"key":[KEY_W,KEY_UP], "button":JOY_BUTTON_12, "axis":[JOY_AXIS_1,-1]},
+	"move_down_":{"key":[KEY_S,KEY_DOWN], "button":JOY_BUTTON_13, "axis":[JOY_AXIS_1,1]},
+	"fly_":{"key":[KEY_SHIFT,KEY_KP_2], "button":JOY_BUTTON_4},
+	"jump_":{"key":[KEY_SPACE,KEY_KP_1], "button":JOY_BUTTON_0},
+	"first_skill_":{"key":[KEY_J,KEY_KP_4], "button":JOY_BUTTON_2},
+	"second_skill_":{"key":[KEY_K,KEY_KP_5], "button":JOY_BUTTON_3},
+	"third_skill_":{"key":[KEY_L,KEY_KP_6], "button":JOY_BUTTON_1}
+}
 
 func get_input_type(event : InputEvent):
 	return InputType.KEYBOARD if event is InputEventKey else InputType.GAMEPAD
@@ -47,15 +47,19 @@ func _add_player_actions(player_id : int, input_type : int, device : int):
 		InputMap.add_action(action_name)
 		if input_type == InputType.KEYBOARD:
 			var key_input_event = InputEventKey.new()
-			key_input_event.scancode = player_actions[action]["key"][player_id]
-			InputMap.action_add_event(action_name, key_input_event)
+			if player_actions[action].has("key") and !player_actions[action]["key"].empty():
+				key_input_event.scancode = player_actions[action]["key"][0]
+				InputMap.action_add_event(action_name, key_input_event)
+				player_actions[action]["key"].remove(0)
 		else:
-			var joy_input_event = InputEventJoypadButton.new()
-			joy_input_event.button_index = player_actions[action]["button"]
-			InputMap.action_add_event(action_name, joy_input_event)
-			if player_actions[action]["type"] == "mix":
+			if player_actions[action].has("button"):
+				var joy_input_event = InputEventJoypadButton.new()
+				joy_input_event.button_index = player_actions[action]["button"]
+				InputMap.action_add_event(action_name, joy_input_event)
+			if player_actions[action].has("axis"):
 				var joy_motion_input_event = InputEventJoypadMotion.new()
-				joy_motion_input_event.axis = player_actions[action]["axis"]
+				joy_motion_input_event.axis = player_actions[action]["axis"][0]
+				joy_motion_input_event.axis_value = player_actions[action]["axis"][1]
 				InputMap.action_add_event(action_name, joy_motion_input_event)
 	pass
 

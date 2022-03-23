@@ -53,7 +53,7 @@ var movement_state_string = ["Falling", "Jumping", "Idle", "Running", "Flying", 
 onready var move_left : String = "move_left_" + str(player_id) 
 onready var move_right : String = "move_right_" + str(player_id) 
 onready var move_up : String = "move_up_" + str(player_id) 
-onready var move_down : String = "move_down_" + str(player_id) 
+onready var move_down : String = "move_down_" + str(player_id)
 onready var jump : String = "jump_" + str(player_id) 
 onready var fly : String = "fly_" + str(player_id)
 
@@ -302,7 +302,7 @@ func update_visual_direction(horizontal):
 
 func get_horizontal_input():
 	if get_input_available:
-		return Input.get_action_strength(move_right) - Input.get_action_strength(move_left)
+		return Input.get_axis(move_left, move_right)
 	else:
 		return 0
 

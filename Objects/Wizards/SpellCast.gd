@@ -42,7 +42,7 @@ func _ready():
 	pass
 
 func _input(event):
-	if event is InputEventKey:
+	if event is InputEventKey or event is InputEventJoypadButton:
 		if event.is_action_pressed(first_skill):
 			_cast_skill(0)
 		elif event.is_action_pressed(second_skill):

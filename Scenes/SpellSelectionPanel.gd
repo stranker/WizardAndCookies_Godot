@@ -90,6 +90,7 @@ func _move_right():
 	current_panel_index = current_panel_index % spell_panels.size()
 	if spell_panels[current_panel_index].is_selected():
 		_move_right()
+	set_selected_panel(spell_panels[current_panel_index])
 	pass
 
 func on_select() -> void:
@@ -143,7 +144,6 @@ func _on_end_panel_select(spell):
 
 func reset() -> void:
 	pass
-
 
 func _on_InputTimer_timeout():
 	player_input_valid = players_selected < players_pool.size()
